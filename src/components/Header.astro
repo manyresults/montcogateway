@@ -1,0 +1,33 @@
+---
+/** Logo, title and the "blanks filled" progress bar (shown on the plan tab only). */
+---
+
+<header class="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b-[3px] border-accent pt-7 pb-5">
+  <div>
+    <picture class="mb-3.5 block">
+      <source srcset="/assets/logo-light-text.webp" media="(prefers-color-scheme: dark)" />
+      <img
+        src="/assets/logo-dark-text.webp"
+        alt="Montco Gateway Chamber of Commerce"
+        width="800"
+        height="232"
+        class="block h-[clamp(44px,7vw,64px)] w-auto"
+      />
+    </picture>
+    <div class="text-xs font-semibold tracking-[.12em] text-brand uppercase">
+      Montco Gateway Chamber × MANY · October 20, 2026
+    </div>
+    <h1 class="mt-1 font-display text-[clamp(26px,4vw,38px)] leading-[1.15] font-bold text-balance">
+      Growing the Gateway
+    </h1>
+    <p class="mt-1.5 max-w-[60ch] text-muted">
+      What we found, what we would do about it, and a plan that fills in as we learn your numbers.
+    </p>
+  </div>
+  <div class="min-w-[200px] flex-[0_1_260px]" aria-live="polite" id="progWrap" hidden>
+    <small class="text-xs text-muted" id="progLabel">0 of 0 blanks filled</small>
+    <div class="mt-1.5 h-2 overflow-hidden rounded bg-line">
+      <span class="block h-full w-0 bg-accent transition-[width] duration-300" id="progBar"></span>
+    </div>
+  </div>
+</header>

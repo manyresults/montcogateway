@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Tabs from "../components/Tabs.astro";
+import FindingsPanel from "../components/FindingsPanel.astro";
+import ApproachPanel from "../components/ApproachPanel.astro";
+import PlanPanel from "../components/PlanPanel.astro";
+---
+
+<BaseLayout
+  title="Montco Gateway Growth Plan"
+  description="Montco Gateway Chamber of Commerce and MANY: findings, recommendations and a 90-day plan."
+>
+  <div class="mx-auto max-w-[1240px]">
+    <Header />
+    <Tabs />
+    <FindingsPanel />
+    <ApproachPanel />
+    <PlanPanel />
+  </div>
+  <div
+    id="toast"
+    class="fixed bottom-[calc(env(safe-area-inset-bottom)+18px)] left-1/2 -translate-x-1/2 rounded-md bg-ink px-3.5 py-2 text-[13px] text-bg"
+    hidden
+  >
+  </div>
+
+  <script>
+    import "../scripts/plan";
+  </script>
+</BaseLayout>

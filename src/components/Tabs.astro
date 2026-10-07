@@ -1,0 +1,24 @@
+---
+const tabs = [
+  { id: "findings", panel: "findings", n: 1, label: "What we found" },
+  { id: "approach", panel: "approach", n: 2, label: "What we would do" },
+  { id: "plan", panel: "planTab", n: 3, label: "Your plan" },
+];
+---
+
+<nav class="mb-[22px] flex flex-wrap gap-1.5 border-b border-line" role="tablist" aria-label="Sections">
+  {
+    tabs.map((t) => (
+      <button
+        role="tab"
+        id={`t-${t.id}`}
+        aria-controls={t.panel}
+        data-tab={t.panel}
+        class="-mb-px flex items-center gap-2 border-0 border-b-[3px] border-transparent bg-transparent px-3.5 py-2.5 font-display text-[15px] font-medium text-muted hover:text-ink aria-selected:border-brand aria-selected:font-bold aria-selected:text-brand"
+      >
+        <span class="rounded bg-chip px-1.5 py-px font-mono text-[11px] font-normal text-brand">{t.n}</span>
+        {t.label}
+      </button>
+    ))
+  }
+</nav>

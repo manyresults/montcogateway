@@ -1,0 +1,69 @@
+---
+import Card from "./Card.astro";
+import { ui } from "../lib/ui";
+import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS } from "../data/content";
+---
+
+<div id="findings" role="tabpanel" aria-labelledby="t-findings" class="grid gap-[22px]">
+  <Card
+    tag="The short version"
+    title="Strong foundation. The next step is a system."
+    lede="Montco Gateway has momentum most chambers would envy: a fresh identity, a new market, a full calendar and a bench of marketing talent. What's missing is the machinery that turns that activity into members and partners who renew every year."
+  >
+    <div class={ui.opps}>
+      {STATS.map((s) => (
+        <div class={ui.opp}>
+          <h3 class={ui.h3}>{s.t}</h3>
+          <p class={ui.oppText}>{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </Card>
+
+  <Card tag="What's working" title="Strengths to build on">
+    <ul class={ui.list}>
+      {STRENGTHS.map((s) => <li><b>{s.b}</b> {s.t}</li>)}
+    </ul>
+  </Card>
+
+  <Card
+    tag="Where the rollout can go further"
+    title="Finishing what the rebrand started"
+    lede="These are visible from the outside. Some may be intentional; we'd confirm before changing anything."
+  >
+    <div class={ui.tableWrap}>
+      <table class={ui.table}>
+        <thead><tr><th class={ui.th}>What we saw</th><th class={ui.th}>Why it matters</th></tr></thead>
+        <tbody>
+          {FINDINGS_ROWS.map(([a, b]) => <tr><td class={ui.td}>{a}</td><td class={ui.td}>{b}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  </Card>
+
+  <Card
+    tag="Industry context"
+    title="What the data says about chambers"
+    lede="These benchmarks come from larger chambers and associations. They're context for the conversation, not a grade."
+  >
+    <div class={ui.tableWrap}>
+      <table class={ui.table}>
+        <thead><tr><th class={ui.th}>Finding</th><th class={ui.th}>Figure</th><th class={ui.th}>Source</th></tr></thead>
+        <tbody>
+          {BENCHMARKS.map(([f, fig, src, isNum]) => (
+            <tr><td class={ui.td}>{f}</td><td class={isNum ? ui.tdNum : ui.td}>{fig}</td><td class={ui.tdSrc}>{src}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class={ui.note}>
+      <b>The pattern:</b> staff lack time, and members leave from lack of engagement. Same root cause. That's a systems problem more than a creative one.
+    </div>
+  </Card>
+
+  <Card tag="The question underneath" title="Is the challenge marketing, or capacity?">
+    <p class={ui.p}>The median chamber runs on six and a half people. Montco Gateway runs 50+ events, a partner program, a Conshohocken chapter, committees, a newsletter and social channels. Every new idea competes for the same hours.</p>
+    <p class={ui.p}>A designer adds output. A system gives time back. That's the difference between what we found and what we'd recommend.</p>
+    <div class={`${ui.btns} mt-2`}><button class={ui.btnPrimary} type="button" data-go="approach">See what we would do</button></div>
+  </Card>
+</div>

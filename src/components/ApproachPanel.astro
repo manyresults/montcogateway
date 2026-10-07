@@ -1,0 +1,33 @@
+---
+import Card from "./Card.astro";
+import { ui } from "../lib/ui";
+import { SERVICES } from "../data/content";
+---
+
+<div id="approach" role="tabpanel" aria-labelledby="t-approach" class="grid gap-[22px]" hidden>
+  <Card
+    tag="Our recommendation"
+    title="Solve the problems. Membership follows."
+    lede="Five moves, in priority order. Each one names what we'd do, how we'd do it, and what you'd see. The MANY services that support each move are listed underneath; the work comes first."
+  />
+
+  <!-- Filled in by src/scripts/plan.ts from MOVES in src/data/content.ts -->
+  <div class="grid gap-4" id="moves"></div>
+
+  <Card
+    tag="How MANY works"
+    title="The services behind the moves"
+    lede="Scope and pricing come after the diagnostic, once we know what you need. These are the building blocks."
+  >
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3">
+      {SERVICES.map((s) => (
+        <div class="min-w-0 rounded-lg border border-line p-3.5">
+          <h3 class={`${ui.h3} mb-1`}>{s.t}</h3>
+          <p class={ui.oppText}>{s.p}</p>
+        </div>
+      ))}
+    </div>
+    <p class={ui.foot}>Already using Constant Contact and CC-Assist? We work inside the tools you have before recommending anything new.</p>
+    <div class={`${ui.btns} mt-3`}><button class={ui.btnPrimary} type="button" data-go="planTab">Build your plan</button></div>
+  </Card>
+</div>
