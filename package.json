@@ -1,9 +1,9 @@
 {
-  "name": "earlsdetailing",
+  "name": "montco-gateway-plan",
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Static marketing site for Earl's Proper Detailing (Langhorne, PA), built with Astro + Tailwind CSS.",
+  "description": "Growth plan app for the Montco Gateway Chamber of Commerce, built with Astro + Tailwind CSS.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -12,10 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.1",
-    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   }
 }

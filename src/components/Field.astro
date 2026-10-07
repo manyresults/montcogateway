@@ -1,0 +1,44 @@
+---
+import { ui } from "../lib/ui";
+
+interface Props {
+  id: string;
+  label: string;
+  kind?: "input" | "textarea" | "select";
+  type?: string;
+  placeholder?: string;
+  hint?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  options?: [string, string][];
+}
+const { id, label, kind = "input", type, placeholder, hint, min, max, step, options } = Astro.props;
+const numeric = type === "number";
+---
+
+<div class="mb-2.5 grid gap-[3px]">
+  <label for={id} class="text-[13px] font-semibold">{label}</label>
+  {
+    kind === "textarea" ? (
+      <textarea id={id} placeholder={placeholder} class={`${ui.input} min-h-14 resize-y`} />
+    ) : kind === "select" ? (
+      <select id={id} class={ui.input}>
+        <option value="">Choose…</option>
+        {options?.map(([v, t]) => <option value={v}>{t}</option>)}
+      </select>
+    ) : (
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        min={min}
+        max={max}
+        step={step}
+        inputmode={numeric ? "numeric" : undefined}
+        class={ui.input}
+      />
+    )
+  }
+  {hint && <span class="text-xs text-muted">{hint}</span>}
+</div>

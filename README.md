@@ -1,146 +1,89 @@
-# Earl's Proper Detailing — website
+# Montco Gateway Growth Plan
 
-A fast, static marketing site for **Earl's Proper Detailing** (Langhorne, PA),
-built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com)
-and deployed to SiteGround via GitHub Actions (SFTP).
+A single-page app for the October 20, 2026 meeting with Jude Martin-Cianfano (Montco Gateway Chamber of Commerce). Built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com) v4 and deployed to Vercel as a static site. No database, no server.
 
-This project replaces the previous WordPress site.
-
----
-
-## Quick start
+Three tabs: **What we found**, **What we would do**, **Your plan** (a fill-in worksheet that drives a live plan).
 
 ```bash
-npm install        # install dependencies
-npm run dev        # local dev server at http://localhost:4321
-npm run build      # production build → dist/
-npm run preview    # preview the production build locally
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview   # serve the production build
 ```
 
-Requires Node 22.12+ (Astro's minimum).
+Requires Node 22.12+.
 
 ---
 
-## Where to edit content
+## Where to edit
 
-**Almost everything a non-developer would change lives in one file:**
+| To change | Open |
+|---|---|
+| Benchmark targets in the math (86%, 82%, …) | `src/data/content.ts` → `BENCH` |
+| The five moves on "What we would do" | `src/data/content.ts` → `MOVES` |
+| Council lanes and default firms | `src/data/content.ts` → `LANES`, `FIRMS` |
+| Demo values for "Try sample numbers" | `src/data/content.ts` → `SAMPLE` |
+| Findings, benchmarks table, services copy | `src/data/content.ts` → `STATS`, `STRENGTHS`, `FINDINGS_ROWS`, `BENCHMARKS`, `SERVICES` |
+| Worksheet fields | `src/components/PlanPanel.astro` (and `FIELDS`/`LABELS` in `content.ts`) |
+| Plan math and the live plan's wording | `src/scripts/plan.ts` |
+| Brand colors, fonts, dark mode | `src/styles/global.css` (`:root` variables and `@theme`) |
+| Shared Tailwind class strings | `src/lib/ui.ts` |
+| Logos / favicon | `public/assets/`, `public/favicon.png` |
 
-### `src/consts.ts`
-Business name, phone, email, address, hours, service areas, the full **services**
-list (with descriptions and prices), **testimonials**, **specials**, navigation,
-and SEO defaults. Edit this file and the pages, footer, and JSON-LD schema all
-update automatically.
-
-> ⚠️ **Content status.** The current copy is a first-draft reconstruction
-> assembled from public listings — the live `earlsdetailing.com` site was not
-> reachable from the build environment. Items marked `VERIFY` in `consts.ts`
-> (especially **hours of operation** and the **map coordinates**) should be
-> confirmed before go-live. See "Pulling the real content" below.
-
-### Pages (`src/pages/`)
-- `index.astro` — Home
-- `services.astro` — Services
-- `specials.astro` — Specials
-- `about.astro` — About
-- `contact.astro` — Contact (details, hours, map, contact form)
-- `404.astro` — Not-found page
-
-### Components (`src/components/`)
-`SEO.astro`, `Header.astro`, `Footer.astro`, `Hero.astro`, `ServicesGrid.astro`,
-`ServiceCard.astro`, `ServiceIcon.astro`, `Testimonials.astro`, `CTA.astro`,
-`Logo.astro`.
-
----
-
-## Images, logo & branding
-
-The design currently uses a **gradient hero + inline SVG icons** (no external
-photos needed), so the site is fast and looks complete without stock imagery.
-
-Swap points when real assets are available:
-
-| What | Where |
-| --- | --- |
-| **Logo** | `src/components/Logo.astro` (placeholder emblem) and `public/favicon.svg` |
-| **Social share image** | `public/og-image.png` (regenerate via `node scripts/generate-og.mjs`, or replace with a real 1200×630 graphic) |
-| **Brand colors** | `src/styles/global.css` → the `@theme` block (`--color-ink`, `--color-accent`, `--color-gold`) |
-| **Real photos** | Add to `src/assets/`, then use Astro's `<Image />` from `astro:assets` for automatic compression, sizing, and lazy loading |
-
----
-
-## SEO
-
-- **`src/components/SEO.astro`** — imported by every page via `BaseLayout`. Handles
-  unique `<title>` + meta description, Open Graph + Twitter tags, canonical URL,
-  and **JSON-LD `LocalBusiness` (`AutoWash`) schema** (name, address, phone, geo,
-  hours, area served).
-- **Sitemap** — `@astrojs/sitemap` auto-generates `sitemap-index.xml` on every
-  build.
-- **`public/robots.txt`** — allows crawling and points to the sitemap.
-
----
-
-## Contact form
-
-The contact form (`src/pages/contact.astro`) needs a form-handling endpoint
-because this is a static site. Set `FORM_ENDPOINT` near the top of that file to a
-free service such as [Formspree](https://formspree.io) or
-[Web3Forms](https://web3forms.com). Until then, the phone and email links work as
-a fallback.
-
----
-
-## Deployment (GitHub Actions → SiteGround)
-
-`.github/workflows/deploy.yml` runs on every push to **`main`**:
-checkout → install → `npm run build` → upload `dist/` to SiteGround over **SFTP**.
-
-### Required repository secrets
-
-Add these under **GitHub → Settings → Secrets and variables → Actions → New
-repository secret**:
-
-| Secret name | Value |
-| --- | --- |
-| `SFTP_HOST` | Your SiteGround SFTP hostname or server IP (from Site Tools → Devs → FTP/SFTP, e.g. `giga123.siteground.biz`) |
-| `SFTP_USERNAME` | The SFTP account username |
-| `SFTP_PASSWORD` | That SFTP account's password |
-| `SFTP_REMOTE_PATH` | Absolute path to the web root to publish into (e.g. `/home/customer/www/earlsdetailing.com/public_html`) |
-| `SFTP_PORT` | *(optional)* Only add this if port `22` doesn't work — some SiteGround accounts use `18765` |
-
-Nothing sensitive is committed — the workflow reads only from these secrets.
-
-### First deploy & the WordPress transition
-
-Because the current web root still contains WordPress files, note:
-
-1. WordPress's `index.php` can take priority over `index.html`. The included
-   `public/.htaccess` sets `DirectoryIndex index.html` to prefer the new static
-   homepage, but the cleanest result is to **remove the old WordPress files**
-   from the web root (back them up first) or deploy into a clean directory.
-2. To have the deploy mirror `dist/` exactly (deleting stale files on the
-   server), set `delete_remote_files: true` in the workflow — do this only after
-   you've confirmed `SFTP_REMOTE_PATH` points at the right folder, as it is
-   destructive.
-
----
-
-## Project structure
+Brand orange is `#F24F02` (`--accent`). Text and buttons use a slightly darker orange (`--brand`) so they stay readable on white. The header swaps between the black-text and white-text logo automatically in dark mode.
 
 ```
-├─ .github/workflows/deploy.yml   # CI/CD: build + SFTP deploy to SiteGround
-├─ public/                        # copied as-is to the site root
-│  ├─ robots.txt
-│  ├─ favicon.svg
-│  ├─ og-image.png
-│  └─ .htaccess
-├─ scripts/generate-og.mjs        # regenerates the social share image
-├─ src/
-│  ├─ consts.ts                   # ← all business content lives here
-│  ├─ styles/global.css           # Tailwind theme + base styles
-│  ├─ layouts/BaseLayout.astro
-│  ├─ components/
-│  └─ pages/
-├─ astro.config.mjs
-└─ package.json
+public/            logos, favicon, robots.txt
+src/
+  data/content.ts  all editable copy and numbers
+  lib/ui.ts        shared Tailwind classes
+  scripts/plan.ts  worksheet → live plan, tabs, copy summary
+  components/      Header, Tabs, Card, Field, and the three panels
+  layouts/         BaseLayout (head, fonts, noindex)
+  pages/index.astro
+  styles/global.css
+vercel.json        clean URLs + noindex headers
 ```
+
+---
+
+## Before you share the link: public-facing checklist
+
+The page is reachable by anyone with the link. Read it once as if you were Jude, a board member, or a council firm.
+
+- [ ] **No financials.** Nothing from the 990 or payroll appears. Keep it that way.
+- [ ] **Rebrand language.** Findings say "where the rollout can go further," never "broken." Leza Raffel's firm led the rebrand.
+- [ ] **Council firms.** All seven are named in the "Your plan" lane dropdowns with suggested lanes. Confirm each firm's specialty first, or change the defaults to "Open: recruit a member" (`LANES` in `content.ts`).
+- [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Remove the button in `PlanPanel.astro` if you'd rather not.
+- [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
+- [ ] **No prices.** MANY services appear by name and description only.
+- [ ] **Hide from search.** `noindex` is set in three places (meta tag, `X-Robots-Tag` header, `robots.txt`). The link is still public, so share it only with people you mean to.
+
+---
+
+## Deploy on Vercel
+
+1. Sign in at [vercel.com](https://vercel.com) with GitHub.
+2. **Add New → Project**, import this repo. If it isn't listed, use **Adjust GitHub App Permissions**.
+3. Framework Preset: **Astro** (auto-detected). Leave build settings at their defaults (`npm run build`, output `dist`).
+4. Set the **Production Branch** (Settings → Git) to the branch you merge to.
+5. **Deploy.** Every push to the production branch redeploys; every other branch gets its own preview URL, which is the safe way to try edits without touching the link Jude has.
+
+### Custom domain
+
+A MANY-branded link reads better than `*.vercel.app`. Vercel → project → **Settings → Domains** → add `montco.manyresults.com`, then add the CNAME Vercel shows (usually `montco` → `cname.vercel-dns.com`) at your DNS provider. HTTPS is automatic.
+
+### Optional: restrict access
+
+- **Simplest:** keep the URL unlisted and share it only with Jude.
+- **Vercel Password Protection** is a paid add-on (Settings → Deployment Protection).
+- Avoid **Vercel Authentication**: it makes viewers log into Vercel.
+
+---
+
+## Day-of checklist
+
+- [ ] Click **Clear** on the plan tab on the device you'll present from, so you start with blanks
+- [ ] Open the link on your phone as a backup
+- [ ] Bookmark `/#findings`, `/#approach` and `/#planTab` to jump straight to a tab
+- [ ] After the meeting, use **Copy plan summary** and paste it into your follow-up email

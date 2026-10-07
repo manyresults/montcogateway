@@ -1,0 +1,18 @@
+---
+import { ui } from "../lib/ui";
+
+interface Props {
+  tag: string;
+  title: string;
+  lede?: string;
+  class?: string;
+}
+const { tag, title, lede, class: extra } = Astro.props;
+---
+
+<section class:list={[ui.card, extra]}>
+  <span class={ui.tag}>{tag}</span>
+  <h2 class={ui.h2}>{title}</h2>
+  {lede && <p class={ui.lede}>{lede}</p>}
+  <slot />
+</section>

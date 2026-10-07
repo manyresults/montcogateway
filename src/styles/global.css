@@ -1,44 +1,101 @@
 @import "tailwindcss";
 
 /*
-  Brand theme tokens (Tailwind v4 `@theme`).
-  These generate utilities like `bg-ink`, `text-accent`, `border-line`, etc.
-  Tweak the hex values here to re-skin the whole site.
+  Brand tokens. Semantic colors are plain CSS variables so dark mode is a
+  single override below; `@theme inline` turns them into Tailwind utilities
+  (bg-panel, text-muted, border-line, text-brand, ...).
+  Montco orange is #f24f02. --brand is a darker orange so text and buttons
+  keep readable contrast on white; --accent is the pure brand orange for
+  decorative uses (rules, progress bar).
 */
-@theme {
-  /* Core brand palette */
-  --color-ink: #0a0f1a;        /* near-black navy — dark sections, footer */
-  --color-ink-800: #111a2e;    /* slightly lifted dark */
-  --color-ink-700: #1b2740;    /* cards on dark */
-  --color-accent: #0ea5e9;     /* bright "shine" blue — primary accent */
-  --color-accent-600: #0284c7; /* accent hover */
-  --color-gold: #f5b301;       /* awards / highlights */
-  --color-line: #e2e8f0;       /* light hairline borders */
-
-  /* Typography */
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  --font-display: "Poppins", var(--font-sans);
+:root {
+  --bg: #f7f5f3;
+  --panel: #ffffff;
+  --ink: #1c1917;
+  --muted: #5f5650;
+  --line: #e2dcd7;
+  --brand: #c94000;
+  --brand-ink: #ffffff;
+  --accent: #f24f02;
+  --brass: #8a5a12;
+  --brass-soft: #fdeee4;
+  --good: #1f7a4a;
+  --warn: #a35b0a;
+  --bad: #a3322b;
+  --chip: #fbece3;
+  color-scheme: light;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14100e;
+    --panel: #1e1815;
+    --ink: #f1ebe7;
+    --muted: #b0a49c;
+    --line: #3a312c;
+    --brand: #ff7a3d;
+    --brand-ink: #1a0e08;
+    --brass: #e0b45a;
+    --brass-soft: #33210f;
+    --good: #5fcf93;
+    --warn: #f0a54a;
+    --bad: #f07f76;
+    --chip: #2c211b;
+    color-scheme: dark;
+  }
 }
 
-body {
-  font-family: var(--font-sans);
-  color: #0f172a;
-  background: #ffffff;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-accent: var(--accent);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-chip: var(--chip);
+
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  :focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
 }
 
-/* Respect users who prefer reduced motion */
+/* A blank briefly pulses when you jump to its field. */
+@keyframes flash {
+  0% { box-shadow: 0 0 0 4px var(--brass); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.flash {
+  animation: flash 1s ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  *, ::before, ::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
