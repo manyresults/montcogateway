@@ -175,4 +175,76 @@ export const COMMITMENTS = [
   { b: "Credit goes to whoever did the work.", t: "Every piece carries a \"Creative Partner\" credit, and lanes rotate on a published schedule." },
   { b: "A term with a review.", t: "One year, then the chamber decides. The operator role could pass to another firm." },
   { b: "Paid work runs through the chamber.", t: "No side deals among collective members." },
+  { b: "A fair process.", t: "Lanes are assigned on published criteria, open to any member agency, and no firm reviews work in its own lane." },
+];
+
+/** Approach tab: the same work bought two ways. [task list, system, how it's measured] */
+export const TASKS_VS_RESULTS: [string, string, string][] = [
+  ["Newsletter and email templates", "Welcome, renewal and guest follow-up sequences on one master template", "Renewal and first-year renewal rates, monthly"],
+  ["A set number of social posts", "A content calendar tied to events and member stories", "Event attendance and guests who join"],
+  ["Event flyers", "A follow-up path for every non-member guest", "Guest-to-member conversion"],
+  ["A sponsorship deck", "Published partner packages and quarterly ROI reports", "Annual Partner renewal rate"],
+  ["A website refresh", "Pages that answer \"why belong?\" and \"what do partners get?\", owned by the chamber", "Join and partner inquiries from the site"],
+];
+
+/** Approach tab: what success looks like. */
+export const SUCCESS = {
+  d90: [
+    "Baselines measured: renewal, first-year renewal, guest joins and email",
+    "Welcome, renewal and guest follow-up sequences live",
+    "First partner ROI reports delivered before renewal conversations",
+    "The chamber owns every template, list and report",
+  ],
+  m12: [
+    "Renewal and first-year renewal moving toward the 86% and 82% benchmarks",
+    "More guests joining after events",
+    "Partner renewal conversations that start from numbers",
+    "Recurring work off the executive director's desk",
+  ],
+  miss: "Targets are agreed after the diagnostic and reviewed monthly. If a measure isn't moving, we change the approach. At the one-year review, the chamber decides whether to continue.",
+};
+
+/** Approach tab: the diagnostic as a low-risk first step. */
+export const DIAGNOSTIC = {
+  gets: [
+    "Baseline renewal, first-year renewal, guest-join and email numbers",
+    "An inventory of every partner benefit, with a draft rate card",
+    "A one-page memo for the board",
+  ],
+  needs: [
+    "Baseline numbers: renewals, dues tiers, partner packages, email stats",
+    "One person to answer questions as the work goes",
+    "20 minutes on a board agenda to review the memo",
+  ],
+};
+
+/** /evaluate page: [common question, a question that shows more] */
+export const EVAL_QUESTIONS: [string, string][] = [
+  ["Can you design in Constant Contact?", "How will you improve renewal and first-year retention, and how will we know?"],
+  ["How many social posts per month?", "Which channels actually bring in new members, and what will you stop doing?"],
+  ["Can you design event flyers?", "How will you turn non-member guests into members?"],
+  ["What's your monthly rate?", "What does success look like at 90 days and 12 months, and what happens if we don't hit it?"],
+  ["Do you have chamber experience?", "How will you work with our council and member agencies without creating a conflict?"],
+  ["Show us samples.", "Show us a result you moved, with numbers."],
+  ["Can you redo our website?", "What do we own if we part ways?"],
+  ["How fast can you start?", "What do you need from us, and how much of our executive director's time will this take?"],
+];
+
+/** /evaluate page: questions about the process itself. */
+export const EVAL_PROCESS = [
+  "Does every candidate get the same questions, the same deadline and the same scoring?",
+  "Who is on the review committee, and how are conflicts of interest handled if member firms also submit?",
+  "Is the scope fixed, or are candidates invited to propose an approach?",
+  "What is the decision timeline relative to the 2027 budget?",
+  "What will candidates be asked to provide up front? Existing work and a short written approach cost every firm less than finished mockups or a full plan.",
+];
+
+/** /evaluate page: blank scorecard. [criterion, suggested weight, what to look for] */
+export const EVAL_SCORE: [string, number, string][] = [
+  ["Results and measurement", 30, "Names the numbers that will change and how they'll be tracked"],
+  ["Fit with the chamber, and fairness", 20, "Works with member agencies and the council without a conflict"],
+  ["What the chamber owns", 15, "Templates, lists, accounts and reports stay with the chamber"],
+  ["Time asked of staff", 15, "Clear about what it needs from the executive director"],
+  ["Price clarity", 10, "A price the committee can compare, with what is and isn't included"],
+  ["References", 10, "Chambers, associations or nonprofits, with results"],
 ];

@@ -24,6 +24,8 @@ Requires Node 22.12+.
 | Council lanes and default firms | `src/data/content.ts` → `LANES`, `FIRMS` |
 | Demo values for "Try sample numbers" | `src/data/content.ts` → `SAMPLE` |
 | Findings, benchmarks table, services copy | `src/data/content.ts` → `STATS`, `STRENGTHS`, `FINDINGS_ROWS`, `BENCHMARKS`, `SERVICES` |
+| Tasks-vs-results table, success markers, diagnostic card | `src/data/content.ts` → `TASKS_VS_RESULTS`, `SUCCESS`, `DIAGNOSTIC` |
+| The printable `/evaluate` checklist (questions, process, scorecard weights) | `src/data/content.ts` → `EVAL_QUESTIONS`, `EVAL_PROCESS`, `EVAL_SCORE`; page in `src/pages/evaluate.astro` |
 | Agency-churn data and the marketing collective (roles, commitments) | `src/data/content.ts` → `CHURN_ROWS`, `CHURN_STATS`, `COLLECTIVE_ROLES`, `COMMITMENTS` |
 | Worksheet fields | `src/components/PlanPanel.astro` (and `FIELDS`/`LABELS` in `content.ts`) |
 | Plan math and the live plan's wording | `src/scripts/plan.ts` |
@@ -56,6 +58,7 @@ The page is reachable by anyone with the link. Read it once as if you were Jude,
 - [ ] **Rebrand language.** Findings say "where the rollout can go further," never "broken." Leza Raffel's firm led the rebrand.
 - [ ] **Council firms.** All seven are named in the "Your plan" lane dropdowns with suggested lanes. Confirm each firm's specialty first, or change the defaults to "Open: recruit a member" (`LANES` in `content.ts`).
 - [ ] **Marketing collective.** The "member marketing collective" card names MANY as operator and promises founding partners. Confirm the founding partners and the commitments (one-year term, chamber owns everything) are what you intend before sharing. The churn figures are vendor data and labeled directional.
+- [ ] **/evaluate checklist.** It is intentionally unbranded so the chamber can hand it to any candidate. Share the link only if you mean to; it's noindex like the rest. The scorecard weights are suggestions.
 - [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Remove the button in `PlanPanel.astro` if you'd rather not.
 - [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
 - [ ] **No prices.** MANY services appear by name and description only.

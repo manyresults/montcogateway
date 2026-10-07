@@ -30,7 +30,7 @@ const { title, description } = Astro.props;
     />
     <title>{title}</title>
   </head>
-  <body class="px-4 pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+48px)]">
+  <body class="px-4 pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+48px)] print:p-0">
     <slot />
   </body>
 </html>

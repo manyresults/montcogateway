@@ -1,0 +1,73 @@
+---
+/**
+ * A neutral, printable checklist for comparing any marketing partner.
+ * Deliberately unbranded: the chamber can hand it to every candidate.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { ui } from "../lib/ui";
+import { EVAL_QUESTIONS, EVAL_PROCESS, EVAL_SCORE } from "../data/content";
+---
+
+<BaseLayout
+  title="How to evaluate a marketing partner"
+  description="A one-page checklist for comparing marketing partners on results, fairness and ownership."
+>
+  <div class="mx-auto max-w-[860px] py-8 print:py-0 print:[zoom:0.9] print:text-[11px] print:leading-tight print:[&_td]:py-[2px] print:[&_th]:py-[2px] print:[&_.mt-2]:mt-1 print:[&_h2]:mb-1 print:[&_h1]:text-[22px] print:[&_ul]:max-w-none print:[&_p]:max-w-none print:[&_.note]:mt-1.5 print:[&_.note]:py-1.5 print:[&_p]:mb-1 print:[&_h2]:text-[16px] print:[&_li]:m-0 print:[&_ul]:gap-1">
+    <p class="mb-4 text-[13px] print:hidden"><a class="text-brand underline underline-offset-2" href="/">← Back to the plan</a></p>
+
+    <header class="mb-6 border-b-[3px] border-accent pb-4 print:mb-3 print:pb-2">
+      <h1 class="font-display text-[clamp(26px,4vw,36px)] leading-[1.15] font-bold text-balance">How to evaluate a marketing partner</h1>
+      <p class="mt-2 max-w-[62ch] text-muted">
+        Questions that reward a plan for results, not a list of tasks. Use the same questions, the same deadline and the same
+        scoring with every candidate, including members.
+      </p>
+      <p class="mt-1.5 text-xs text-muted">Prepared as a courtesy for the Montco Gateway Chamber of Commerce. Edit freely.</p>
+      <button type="button" id="printBtn" class={`${ui.btn} mt-3 print:hidden`}>Print or save as PDF</button>
+    </header>
+
+    <section class="mb-7 break-inside-avoid print:mb-3">
+      <h2 class={ui.h2}>1. Ask what will change, not just what will be made</h2>
+      <div class={ui.tableWrap}>
+        <table class={ui.table}>
+          <thead><tr><th class={ui.th}>A common question</th><th class={ui.th}>A question that shows more</th></tr></thead>
+          <tbody>
+            {EVAL_QUESTIONS.map(([a, b]) => <tr><td class={`${ui.td} text-muted`}>{a}</td><td class={ui.td}>{b}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <div class={ui.note}>
+        <b>Tie it to the strategic plan.</b> The survey asks whether the chamber is "nice to belong to" or "need to belong to."
+        Ask every candidate how they would move that answer.
+      </div>
+    </section>
+
+    <section class="mb-7 break-inside-avoid print:mb-3">
+      <h2 class={ui.h2}>2. Keep the process fair</h2>
+      <ul class={`${ui.list} mt-2`}>
+        {EVAL_PROCESS.map((q) => <li>{q}</li>)}
+      </ul>
+    </section>
+
+    <section class="mb-7 print:mb-2">
+      <h2 class={ui.h2}>3. Score every candidate the same way</h2>
+      <p class={ui.lede}>Suggested weights. Adjust them to the board's priorities before looking at any submission.</p>
+      <div class={ui.tableWrap}>
+        <table class={ui.table}>
+          <thead>
+            <tr><th class={ui.th}>Criterion</th><th class={ui.th}>Weight</th><th class={ui.th}>What to look for</th><th class={`${ui.th} whitespace-nowrap`}>Score 1–5</th></tr>
+          </thead>
+          <tbody>
+            {EVAL_SCORE.map(([c, w, look]) => (
+              <tr class="break-inside-avoid"><td class={`${ui.td} font-semibold`}>{c}</td><td class={ui.tdNum}>{w}%</td><td class={ui.td}>{look}</td><td class={`${ui.td} min-w-[70px]`}></td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    document.getElementById("printBtn")?.addEventListener("click", () => window.print());
+  </script>
+</BaseLayout>

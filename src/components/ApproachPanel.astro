@@ -1,7 +1,7 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS } from "../data/content";
+import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS, TASKS_VS_RESULTS, SUCCESS, DIAGNOSTIC } from "../data/content";
 import { timeline, funnel } from "../lib/charts";
 ---
 
@@ -27,6 +27,25 @@ import { timeline, funnel } from "../lib/charts";
   <div class="grid gap-4" id="moves"></div>
 
   <Card
+    tag="Activity or results"
+    title="The same work, bought two ways"
+    lede="A task list buys output. A system buys the outcome the output was meant for. Either way, it helps to know up front how each piece will be measured."
+  >
+    <div class={ui.tableWrap}>
+      <table class={ui.table}>
+        <thead><tr><th class={ui.th}>A task list delivers</th><th class={ui.th}>A system delivers</th><th class={ui.th}>How it's measured</th></tr></thead>
+        <tbody>
+          {TASKS_VS_RESULTS.map(([task, sys, how]) => <tr><td class={`${ui.td} text-muted`}>{task}</td><td class={ui.td}>{sys}</td><td class={ui.td}>{how}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p class={ui.foot}>
+      Whoever the chamber works with, a one-page checklist helps compare every option the same way:{" "}
+      <a class="font-semibold text-brand underline underline-offset-2" href="/evaluate" target="_blank" rel="noopener">How to evaluate a marketing partner</a>.
+    </p>
+  </Card>
+
+  <Card
     tag="Keeping it neutral"
     title="A member marketing collective, not a house agency"
     lede="A chamber can't look like it handed its marketing to one firm. That's unfair to member agencies and bad for the chamber. So the work is shared, and one firm keeps it running."
@@ -43,6 +62,23 @@ import { timeline, funnel } from "../lib/charts";
     <ul class={`${ui.list} mt-2`}>
       {COMMITMENTS.map((c) => <li><b>{c.b}</b> {c.t}</li>)}
     </ul>
+  </Card>
+
+  <Card
+    tag="A low-risk first step"
+    title="Start with a two-week diagnostic"
+    lede="Before committing to a scope, the chamber gets the numbers and a clear picture of what is worth doing. Then the chamber decides what comes next."
+  >
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3">
+      <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <h3 class={`${ui.h3} mb-2 text-brand`}>What the chamber gets</h3>
+        <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{DIAGNOSTIC.gets.map((i) => <li>{i}</li>)}</ul>
+      </div>
+      <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <h3 class={`${ui.h3} mb-2 text-brand`}>What we need from the chamber</h3>
+        <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{DIAGNOSTIC.needs.map((i) => <li>{i}</li>)}</ul>
+      </div>
+    </div>
   </Card>
 
   <Card
@@ -79,6 +115,24 @@ import { timeline, funnel } from "../lib/charts";
       <span aria-hidden="true" class="text-lg leading-none text-brand">↻</span>
       <span><b>Repeat monthly.</b> Review renewals, first-year renewal, guest joins and partner reports, then adjust the next round.</span>
     </div>
+  </Card>
+
+  <Card
+    tag="What success looks like"
+    title="How you'll know it's working"
+    lede="Specific, visible measures at 90 days and at 12 months, and a plain answer to what happens if they aren't met."
+  >
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3">
+      <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <h3 class={`${ui.h3} mb-2 text-brand`}>At 90 days</h3>
+        <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{SUCCESS.d90.map((i) => <li>{i}</li>)}</ul>
+      </div>
+      <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <h3 class={`${ui.h3} mb-2 text-brand`}>At 12 months</h3>
+        <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{SUCCESS.m12.map((i) => <li>{i}</li>)}</ul>
+      </div>
+    </div>
+    <div class={ui.note}><b>If a target isn't met:</b> {SUCCESS.miss}</div>
   </Card>
 
   <Card

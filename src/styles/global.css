@@ -99,3 +99,24 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Printed pages are always the light theme, whatever the viewer's setting. */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --ink: #1c1917;
+    --muted: #5f5650;
+    --line: #d9d2cc;
+    --brand: #c94000;
+    --brand-ink: #ffffff;
+    --brass: #8a5a12;
+    --brass-soft: #fdeee4;
+    --chip: #fbece3;
+    color-scheme: light;
+  }
+}
+
+@page {
+  margin: 0.5in;
+}
