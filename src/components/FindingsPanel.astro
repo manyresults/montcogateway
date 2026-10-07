@@ -1,7 +1,7 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS, GLANCE, RENEWAL_BARS } from "../data/content";
+import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS, GLANCE, RENEWAL_BARS, CHURN_ROWS, CHURN_STATS } from "../data/content";
 import { barChart, splitBar, statTiles } from "../lib/charts";
 ---
 
@@ -67,6 +67,33 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
     </div>
     <div class={ui.note}>
       <b>The pattern:</b> staff lack time, and members leave from lack of engagement. Same root cause. That's a systems problem more than a creative one.
+    </div>
+  </Card>
+
+  <Card
+    tag="Activity vs. systems"
+    title="Why marketing engagements end"
+    lede="Agencies rarely lose clients over price. They lose them when the client can't see what they got."
+  >
+    <div class={ui.tableWrap}>
+      <table class={ui.table}>
+        <thead><tr><th class={ui.th}>Engagement model</th><th class={ui.th}>Average client lifespan</th><th class={ui.th}>Annual churn</th></tr></thead>
+        <tbody>
+          {CHURN_ROWS.map(([m, life, churn]) => <tr><td class={ui.td}>{m}</td><td class={ui.tdNum}>{life}</td><td class={ui.tdNum}>{churn}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p class={ui.foot}>Source: Focus Digital agency churn report 2026, via Agiled. Industry vendor data; directional.</p>
+    <div class={`${ui.opps} mt-3.5`}>
+      {CHURN_STATS.map((s) => (
+        <div class={ui.opp}>
+          <h3 class={ui.h3}>{s.t}</h3>
+          <p class={ui.oppText}>{s.p}</p>
+        </div>
+      ))}
+    </div>
+    <div class={ui.note}>
+      <b>What this means for the chamber:</b> when an agency leaves, the activity stops. When the chamber owns the system (templates, sequences, lists, reports), the work keeps running no matter who's doing it. The same logic applies to members and partners: they stay when they can see what they got.
     </div>
   </Card>
 

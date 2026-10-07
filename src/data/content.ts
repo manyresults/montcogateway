@@ -11,9 +11,9 @@
 export const BENCH = { retention: 86, firstYear: 82, perStaff: 113, open: 33.5, openSmall: 48 };
 
 export type FieldKey = (typeof FIELDS)[number];
-export const FIELDS = ["surveyThemes","planFocus","mustBelong","goal","urgent","members","dues","retention","newPerYear","firstYear","events","guests","guestConv","partners","partnerPrice","partnerRenew","staff","volunteers","listSize","openRate","council","budget","signoff","boardDate"] as const;
+export const FIELDS = ["surveyThemes","planFocus","mustBelong","goal","urgent","members","dues","retention","newPerYear","firstYear","events","guests","guestConv","partners","partnerPrice","partnerRenew","staff","volunteers","listSize","openRate","council","pastAgency","foundingPartners","budget","signoff","boardDate"] as const;
 
-export const SAMPLE: Partial<Record<FieldKey, string | number>> = {surveyThemes:"Sample: people value the relationships, but the chamber feels nice to have rather than essential",planFocus:"both",mustBelong:"Sample: it's where my next three clients come from",goal:"Grow to 450 members and add 3 Annual Partners",urgent:"Holiday luncheon invites and the 2027 sponsor deck",members:400,dues:500,retention:80,newPerYear:70,firstYear:65,events:50,guests:4,guestConv:5,partners:10,partnerPrice:3000,partnerRenew:70,staff:1,volunteers:25,listSize:1800,openRate:30,council:"advisory",budget:"trade",signoff:"Executive committee",boardDate:"Mid-November"};
+export const SAMPLE: Partial<Record<FieldKey, string | number>> = {surveyThemes:"Sample: people value the relationships, but the chamber feels nice to have rather than essential",planFocus:"both",mustBelong:"Sample: it's where my next three clients come from",goal:"Grow to 450 members and add 3 Annual Partners",urgent:"Holiday luncheon invites and the 2027 sponsor deck",members:400,dues:500,retention:80,newPerYear:70,firstYear:65,events:50,guests:4,guestConv:5,partners:10,partnerPrice:3000,partnerRenew:70,staff:1,volunteers:25,listSize:1800,openRate:30,council:"advisory",pastAgency:"Sample: a freelancer handled social for six months; nothing was left behind",foundingPartners:"Sample: two member agencies",budget:"trade",signoff:"Executive committee",boardDate:"Mid-November"};
 
 export const LANES = [
   {lane:"Event creative & flyers", def:"Three C Creative"},
@@ -25,7 +25,7 @@ export const LANES = [
   {lane:"Digital & web support", def:"PCDM, LLC"}
 ];
 export const FIRMS = ["Three C Creative","Red Pen Resources","be Marketing","PPL Promotions","PCDM, LLC","The Communication Solutions Group","Nine21 Productions","MANY","Open: recruit a member"];
-export const LABELS: Record<FieldKey, string> = {surveyThemes:"what the survey surfaced",planFocus:"grow or solve",mustBelong:"why they'd be crazy not to belong",goal:"your 2027 goal",urgent:"what's on your desk",members:"member count",dues:"average dues",retention:"renewal rate",newPerYear:"new members / year",firstYear:"first-year renewal",events:"events / year",guests:"guests / event",guestConv:"guest join rate",partners:"partner count",partnerPrice:"partner value",partnerRenew:"partner renewal",staff:"paid staff",volunteers:"volunteers",listSize:"list size",openRate:"open rate",council:"council status",budget:"funding path",signoff:"who signs off",boardDate:"budget date"};
+export const LABELS: Record<FieldKey, string> = {surveyThemes:"what the survey surfaced",planFocus:"grow or solve",mustBelong:"why they'd be crazy not to belong",goal:"your 2027 goal",urgent:"what's on your desk",members:"member count",dues:"average dues",retention:"renewal rate",newPerYear:"new members / year",firstYear:"first-year renewal",events:"events / year",guests:"guests / event",guestConv:"guest join rate",partners:"partner count",partnerPrice:"partner value",partnerRenew:"partner renewal",staff:"paid staff",volunteers:"volunteers",listSize:"list size",openRate:"open rate",council:"council status",pastAgency:"past agency experience",foundingPartners:"founding partner agencies",budget:"funding path",signoff:"who signs off",boardDate:"budget date"};
 
 export const MOVES = [
   {t:"Finish the rebrand rollout", why:"Make Montco Gateway easy to find and consistent everywhere, so the new name does its job.",
@@ -145,4 +145,34 @@ export const LOOP = [
   { when: "First weeks", t: "Content and campaigns", items: ["Launch the master email template and the event content calendar", "Share member and educational content across channels"] },
   { when: "First months", t: "Nurture and collaborate", items: ["Automate welcome, renewal and guest follow-up", "Put council firms and partners on credited lanes"] },
   { when: "Next year", t: "Sustain and grow", items: ["Retention and loyalty initiatives members notice", "Extend into the growth corridor: Conshohocken, Horsham and Plymouth Meeting"] },
+];
+
+/** Findings tab: why marketing engagements end. Vendor data, labelled directional. */
+export const CHURN_ROWS: [string, string, string][] = [
+  ["Ongoing retainer", "56 months", "18%"],
+  ["Hybrid", "36 months", "28%"],
+  ["Performance-based", "30 months", "33%"],
+  ["Project-based", "24 months", "42%"],
+];
+
+export const CHURN_STATS = [
+  { t: "48%", p: "of clients who leave an agency cite dissatisfaction with delivery, the top reason. Agencies rank it seventh. (Setup 2025 survey)" },
+  { t: "88%", p: "of marketing leaders expect data-driven results, not just creative ideas. (Setup 2025 survey)" },
+  { t: "First 90 days", p: "is when client relationships are most likely to end." },
+];
+
+/** Approach tab: the member marketing collective. */
+export const COLLECTIVE_ROLES: [string, string, string][] = [
+  ["Operator", "MANY", "Runs the system, calendar, email, renewal and partner reporting, and the 90-day roadmap. One point of contact for the chamber."],
+  ["Founding partners", "Member agencies, confirmed before launch", "Take lanes from day one, so the collective is real from the start."],
+  ["Council lanes", "Marketing Advisory Council firms", "Each owns a credited lane matched to what they do best."],
+  ["Open seats", "Marketing firms that join later", "A clear way in: join the chamber, take a lane, get credited exposure."],
+];
+
+export const COMMITMENTS = [
+  { b: "The chamber owns everything.", t: "Templates, lists, accounts, sequences and reports belong to the chamber. If MANY stepped away tomorrow, nothing would break." },
+  { b: "No selling through the role.", t: "MANY gets no promotion beyond what any Annual Partner receives, and never prospects from the member list." },
+  { b: "Credit goes to whoever did the work.", t: "Every piece carries a \"Creative Partner\" credit, and lanes rotate on a published schedule." },
+  { b: "A term with a review.", t: "One year, then the chamber decides. The operator role could pass to another firm." },
+  { b: "Paid work runs through the chamber.", t: "No side deals among collective members." },
 ];

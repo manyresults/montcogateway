@@ -272,7 +272,7 @@ function render(): void {
 
   $("plan").innerHTML =
     section("What we heard", "The goal for 2027",
-      `<p class="${ui.p}">${b(v, "goal")}</p><p class="${ui.p}">Right now, the most pressing item is ${b(v, "urgent")}. We'd handle that first, so you get time back before anything else starts.</p>`) +
+      `<p class="${ui.p}">${b(v, "goal")}</p><p class="${ui.p}">Right now, the most pressing item is ${b(v, "urgent")}. We'd handle that first, so you get time back before anything else starts.</p><p class="${ui.p}">Past agency experience: ${b(v, "pastAgency")}.${v.pastAgency !== undefined ? " Whatever we build stays with the chamber, so this time the work outlasts the engagement." : ""}</p>`) +
 
     section("Built on your strategic plan", "Answering the questions the board is already asking",
       `<p class="${ui.lede}">The chamber is in a three-year strategic planning process, measured against its mission: <em>"We are the gateway that unites people, places, and purposeful programming, creating a member-centered experience that is bolstered by meaningful connections and indispensable insights."</em> This plan is built to support that work, not run beside it.</p>
@@ -328,8 +328,9 @@ function render(): void {
     section("Who does the work", "Your council as a production team",
       `<p class="${ui.lede}">${council ? esc(council) : `Council status: ${b(v, "council")}. MANY runs the system and the calendar. Council firms take credited lanes.`}</p>` +
       table(["Lane", "Owner", "What they get"],
-        row([`Strategy, calendar, email system, renewal and welcome sequences, partner reports`, `${ui.td} font-semibold`], `<span class="${ui.fill}">MANY</span>`, "Accountability for the numbers above") + laneRows) +
-      `<div class="${ui.note}">Lanes are suggestions. We'd confirm each firm's specialty and interest before assigning anything. With ${b(v, "staff")} paid staff and ${b(v, "volunteers")} active volunteers, the goal is to take recurring work off your plate.</div>`) +
+        row([`Strategy, calendar, email system, renewal and welcome sequences, partner reports`, `${ui.td} font-semibold`], `<span class="${ui.fill}">MANY (operator)</span>`, "Accountability for the numbers above") +
+        row([`Founding partner lanes`, `${ui.td} font-semibold`], b(v, "foundingPartners"), "Lanes from day one, credited on every piece") + laneRows) +
+      `<div class="${ui.note}">The chamber owns every template, list, account and report. No firm sells through its role, and lanes rotate on a published schedule. Lanes are suggestions. We'd confirm each firm's specialty and interest before assigning anything. With ${b(v, "staff")} paid staff and ${b(v, "volunteers")} active volunteers, the goal is to take recurring work off your plate.</div>`) +
 
     section("How we'd start", budgetPath ? esc(budgetPath.o) : "Recommended starting point",
       `<p class="${ui.p}">${budgetPath ? esc(budgetPath.d) : `Funding path: ${b(v, "budget")}. The recommendation adjusts once this is set.`}</p>` +
@@ -359,6 +360,8 @@ function copySummary(v: Values, total: number): void {
     "",
     `Strategic plan survey themes: ${g("surveyThemes")}`,
     `"Crazy not to belong" because: ${g("mustBelong")}`,
+    `Past agency experience: ${g("pastAgency")}`,
+    `Collective: MANY as operator; founding partners: ${g("foundingPartners")}; council lanes; open seats for new member agencies`,
     `2027 goal: ${g("goal")}`,
     `Most pressing now: ${g("urgent")}`,
     `Members: ${g("members")} · Renewal: ${g("retention")}% · First-year renewal: ${g("firstYear")}%`,
