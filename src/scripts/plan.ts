@@ -3,7 +3,8 @@
  * live plan, handles tabs, sample data, clipboard summary and localStorage.
  * Copy and numbers live in src/data/content.ts; classes in src/lib/ui.ts.
  */
-import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, SAMPLE, type FieldKey } from "../data/content";
+import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, PHASES, SAMPLE, type FieldKey } from "../data/content";
+import { barChart, gaugeChart, groupedColumns, timeline } from "../lib/charts";
 import { ui } from "../lib/ui";
 
 type Values = Partial<Record<FieldKey, string | number>>;
@@ -65,6 +66,8 @@ interface Opp {
   big?: string;
   p?: string;
   empty?: string;
+  /** Yearly dollars, for the bar chart. */
+  val?: number;
 }
 
 function opportunities(v: Values): { opps: Opp[]; total: number } {
@@ -80,6 +83,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Renewals",
+      val,
       big: gain > 0 ? money(val) + "/yr" : money(perPoint) + "/pt",
       p:
         gain > 0
@@ -95,6 +99,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "First-year members",
+      val,
       big: gain > 0 ? money(val) + "/yr" : "On track",
       p:
         gain > 0
@@ -110,6 +115,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Guests who join",
+      val,
       big: money(val) + "/yr",
       p: `About ${num(n.events! * n.guests!)} guests a year. A follow-up path that lifts joins to ${target}% adds about ${num(gain)} members.`,
     });
@@ -122,6 +128,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Partners who renew",
+      val,
       big: gain > 0 ? money(val) + "/yr" : "On track",
       p:
         gain > 0
@@ -164,6 +171,46 @@ const row = (...cells: (string | [string, string])[]) =>
 const phase = (name: string, weeks: string, items: string[]) =>
   `<div class="${ui.phase}"><div class="${ui.phaseWhen}"><b class="${ui.phaseWhenB}">${name}</b>${weeks}</div><div><ul class="${ui.phaseUl}">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div></div>`;
 
+/**
+ * Four-year membership estimate from the worksheet. "Today's rates" keeps the
+ * current renewal rate and new-member pace. "With the plan" lifts renewal to at
+ * least the benchmark and adds the members kept or won by first-year onboarding
+ * and guest follow-up (the same targets as the opportunity math). An estimate,
+ * not a forecast.
+ */
+function projection(v: Values): string {
+  if (!has(v, "members", "retention", "newPerYear")) {
+    return section("Looking ahead", "Where membership could be in four years",
+      `<p class="${ui.lede}">Needs members, renewal rate and new members a year. ${b(v, "members")} ${b(v, "retention")} ${b(v, "newPerYear")}</p>`);
+  }
+  const n = v as Nums;
+  const keep = n.retention! / 100;
+  const planKeep = Math.max(n.retention!, BENCH.retention) / 100;
+  let extra = 0;
+  if (has(v, "firstYear")) extra += (n.newPerYear! * (Math.max(n.firstYear!, BENCH.firstYear) - n.firstYear!)) / 100;
+  if (has(v, "events", "guests", "guestConv")) extra += (n.events! * n.guests! * (Math.max(n.guestConv! + 5, 10) - n.guestConv!)) / 100;
+  const years = [0, 1, 2, 3, 4];
+  const now: number[] = [n.members!];
+  const plan: number[] = [n.members!];
+  for (let y = 1; y <= 4; y++) {
+    now.push(now[y - 1] * keep + n.newPerYear!);
+    plan.push(plan[y - 1] * planKeep + n.newPerYear! + extra);
+  }
+  const labels = years.map((y) => (y === 0 ? "Today" : `Year ${y}`));
+  const chart = groupedColumns(labels, [
+    { name: "At today's rates", values: now, emphasis: false },
+    { name: "With the plan", values: plan, emphasis: true },
+  ], "Estimated active members");
+  const tbl = table(["", ...labels],
+    row("At today's rates", ...now.map((x) => [num(x), ui.tdNum] as [string, string])) +
+    row("With the plan", ...plan.map((x) => [num(x), ui.tdNum] as [string, string])));
+  const gap = plan[4] - now[4];
+  return section("Looking ahead", "Where membership could be in four years",
+    `<p class="${ui.lede}">${gap >= 1 ? `By year four, about <b>${num(gap)}</b> more members than at today's rates. ` : "You're already at or above the benchmarks used here, so the plan doesn't change this projection. "}This is an estimate from the numbers you entered, not a promise.</p>
+    ${chart}<div class="mt-4">${tbl}</div>
+    <div class="${ui.note}"><b>How it's estimated:</b> each year, members who renew (${pct(n.retention!)} today, at least ${BENCH.retention}% with the plan) plus ${num(n.newPerYear!)} new members a year${extra >= 0.5 ? `, plus about ${num(extra)} a year from first-year onboarding and guest follow-up with the plan` : ""}.</div>`);
+}
+
 function render(): void {
   const v = read();
   const n = v as Nums;
@@ -190,6 +237,21 @@ function render(): void {
     ["Members per paid staff", perStaff !== undefined ? num(perStaff) : has(v, "members") ? b(v, "staff") : b(v, "members"), "~" + BENCH.perStaff, status(perStaff, BENCH.perStaff, false), "ACCE FY2024 (734 members ÷ 6.5 staff)"],
     ["Email open rate", has(v, "openRate") ? pct(n.openRate!) : b(v, "openRate"), openBench + "%", status(n.openRate, openBench), smallList ? "Higher Logic 2025–26, lists under 500" : "Higher Logic 2025–26, associations"],
   ];
+
+  const gauges = gaugeChart(
+    [
+      { label: "Member renewal", you: n.retention, bench: BENCH.retention, benchLabel: BENCH.retention + "%" },
+      { label: "First-year renewal", you: n.firstYear, bench: BENCH.firstYear, benchLabel: BENCH.firstYear + "%" },
+      { label: "Email open rate", you: n.openRate, bench: openBench, benchLabel: openBench + "%" },
+    ],
+    "You vs. the benchmark",
+  );
+  const oppBars = opps.filter((o) => (o.val ?? 0) > 0).length
+    ? `<div class="mb-4">${barChart(
+        opps.filter((o) => (o.val ?? 0) > 0).map((o) => ({ label: o.t, value: o.val!, display: money(o.val!) + "/yr" })),
+        { title: "Yearly revenue kept or added, by opportunity" },
+      )}</div>`
+    : "";
 
   const council = COUNCIL[String(v.council)];
   const budgetPath = BUDGET[String(v.budget)];
@@ -227,15 +289,19 @@ function render(): void {
     section("Where you stand", "Scorecard",
       `<p class="${ui.lede}">Benchmarks come from larger chambers and associations. They're context, not a grade.</p>` +
       table(["Measure", "Montco Gateway", "Benchmark", "Read", "Source"],
-        scoreRows.map((r) => row(r[0], [r[1], ui.tdNum], [r[2], ui.tdNum], r[3], [r[4], ui.tdSrc])).join(""))) +
+        scoreRows.map((r) => row(r[0], [r[1], ui.tdNum], [r[2], ui.tdNum], r[3], [r[4], ui.tdSrc])).join("")) +
+      `<div class="mt-5">${gauges}</div>`) +
 
     section("Where the money is", "Four places to grow revenue",
       `<p class="${ui.lede}">Each figure is yearly revenue kept or added, using your numbers and conservative targets.</p>
+      ${oppBars}
       <div class="${ui.opps}">${opps.map((o) => `<div class="${ui.opp}"><h3 class="${ui.h3}">${o.t}</h3>${o.empty ? `<div class="${ui.oppEmpty}">${o.empty}</div>` : `<div class="${ui.oppBig}">${o.big}</div><p class="${ui.oppText}">${o.p}</p>`}</div>`).join("")}</div>
       <div class="${ui.total}"><span>Combined opportunity</span><span class="${ui.totalBig}">${total > 0 ? money(total) + " / yr" : "Fill in the blanks"}</span><small class="opacity-85">Before raising prices or adding new partners</small></div>`) +
 
+    projection(v) +
+
     section("What we would do", "The first 90 days",
-      `<p class="${ui.lede}">One sequence, in priority order. Everything else waits.</p><div class="grid gap-3.5">` +
+      `<p class="${ui.lede}">One sequence, in priority order. Everything else waits.</p><div class="mb-5">${timeline(PHASES)}</div><div class="grid gap-3.5">` +
       phase("Diagnostic", "Weeks 1–2", [
         "Baseline renewal, first-year renewal and guest join rates from your member system",
         `Inventory every partner benefit you sell to ${b(v, "partners", num)} Annual Partners, and draft a rate card`,

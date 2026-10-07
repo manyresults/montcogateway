@@ -1,7 +1,8 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { SERVICES } from "../data/content";
+import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP } from "../data/content";
+import { timeline, funnel } from "../lib/charts";
 ---
 
 <div id="approach" role="tabpanel" aria-labelledby="t-approach" class="grid gap-[22px]" hidden>
@@ -11,8 +12,55 @@ import { SERVICES } from "../data/content";
     lede="Five moves, in priority order. Each one names what we'd do, how we'd do it, and what you'd see. The MANY services that support each move are listed underneath; the work comes first."
   />
 
+  <Card tag="Core objectives" title="Three things this work is for">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
+      {OBJECTIVES.map((o) => (
+        <div class="min-w-0 rounded-lg border border-line p-3.5">
+          <h3 class={`${ui.h3} mb-2 text-brand`}>{o.t}</h3>
+          <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{o.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </Card>
+
   <!-- Filled in by src/scripts/plan.ts from MOVES in src/data/content.ts -->
   <div class="grid gap-4" id="moves"></div>
+
+  <Card
+    tag="Sequencing"
+    title="How the first 90 days fit together"
+    lede="Phases overlap on purpose: the diagnostic informs the foundation, and member and partner work start before the foundation is finished."
+  >
+    <div set:html={timeline(PHASES)} />
+  </Card>
+
+  <Card
+    tag="The member journey"
+    title="A system from first hello to renewal"
+    lede="Most marketing promotes the next event or sends one-off emails. A journey guides a person from discovering the chamber to joining and staying."
+  >
+    <div set:html={funnel(JOURNEY, "What we'd put in place at each stage")} />
+  </Card>
+
+  <Card
+    tag="Ongoing progress"
+    title="The marketing loop"
+    lede="The first 90 days start the loop. After that it repeats, and a monthly look at the numbers decides what to change."
+  >
+    <ol class="grid list-none grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-3 p-0">
+      {LOOP.map((l, i) => (
+        <li class="min-w-0 rounded-lg border border-line p-3.5">
+          <div class="flex items-center gap-2"><span class="rounded bg-chip px-1.5 py-px font-mono text-[11px] text-brand">{i + 1}</span><span class="font-mono text-xs text-muted">{l.when}</span></div>
+          <h3 class={`${ui.h3} mt-1.5 mb-2`}>{l.t}</h3>
+          <ul class="grid list-disc gap-1.5 pl-[18px] text-[13px]">{l.items.map((x) => <li>{x}</li>)}</ul>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-3 flex items-center gap-2 rounded-lg bg-chip px-3.5 py-2.5 text-[13px]">
+      <span aria-hidden="true" class="text-lg leading-none text-brand">↻</span>
+      <span><b>Repeat monthly.</b> Review renewals, first-year renewal, guest joins and partner reports, then adjust the next round.</span>
+    </div>
+  </Card>
 
   <Card
     tag="How MANY works"
