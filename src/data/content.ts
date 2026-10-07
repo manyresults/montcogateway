@@ -99,3 +99,26 @@ export const SERVICES = [
   { t: "The Results Engine", p: "MANY's marketing operating system: strategy, systems, tools, training and support." },
   { t: "Custom plans", p: "Content, SEO, paid, social and web bundled around a specific goal." },
 ];
+
+/** Headline numbers on the findings tab (all from the sources cited in BENCHMARKS). */
+export const GLANCE = [
+  { value: "86%", label: "Median chamber member renewal", source: "ACCE FY2024" },
+  { value: "72%", label: "First-year renewal at associations", source: "MGI 2026" },
+  { value: "~62%", label: "Chamber revenue from non-dues sources", source: "ACCE 2025" },
+  { value: "64%", label: "Know their chamber and favor buying from a known member", source: "ACCE / Harris 2024" },
+];
+
+/** Renewal comparison chart. `emphasis` marks the one bar the story is about. */
+export const RENEWAL_BARS = [
+  { label: "Median chamber, all members", value: 86, display: "86%", note: "ACCE FY2024" },
+  { label: "Associations, all members", value: 82, display: "82%", note: "MGI 2026" },
+  { label: "Associations, first-year members", value: 72, display: "72%", note: "MGI 2026", emphasis: true },
+];
+
+/** The 90-day plan, in weeks. Names match the phases in src/scripts/plan.ts. */
+export const PHASES = [
+  { name: "Diagnostic", start: 1, end: 2 },
+  { name: "Foundation", start: 3, end: 6 },
+  { name: "Keep members", start: 5, end: 10 },
+  { name: "Keep partners", start: 8, end: 12 },
+];

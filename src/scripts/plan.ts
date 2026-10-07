@@ -3,7 +3,8 @@
  * live plan, handles tabs, sample data, clipboard summary and localStorage.
  * Copy and numbers live in src/data/content.ts; classes in src/lib/ui.ts.
  */
-import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, SAMPLE, type FieldKey } from "../data/content";
+import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, PHASES, SAMPLE, type FieldKey } from "../data/content";
+import { barChart, gaugeChart, timeline } from "../lib/charts";
 import { ui } from "../lib/ui";
 
 type Values = Partial<Record<FieldKey, string | number>>;
@@ -65,6 +66,8 @@ interface Opp {
   big?: string;
   p?: string;
   empty?: string;
+  /** Yearly dollars, for the bar chart. */
+  val?: number;
 }
 
 function opportunities(v: Values): { opps: Opp[]; total: number } {
@@ -80,6 +83,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Renewals",
+      val,
       big: gain > 0 ? money(val) + "/yr" : money(perPoint) + "/pt",
       p:
         gain > 0
@@ -95,6 +99,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "First-year members",
+      val,
       big: gain > 0 ? money(val) + "/yr" : "On track",
       p:
         gain > 0
@@ -110,6 +115,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Guests who join",
+      val,
       big: money(val) + "/yr",
       p: `About ${num(n.events! * n.guests!)} guests a year. A follow-up path that lifts joins to ${target}% adds about ${num(gain)} members.`,
     });
@@ -122,6 +128,7 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
     total += val;
     opps.push({
       t: "Partners who renew",
+      val,
       big: gain > 0 ? money(val) + "/yr" : "On track",
       p:
         gain > 0
@@ -191,6 +198,21 @@ function render(): void {
     ["Email open rate", has(v, "openRate") ? pct(n.openRate!) : b(v, "openRate"), openBench + "%", status(n.openRate, openBench), smallList ? "Higher Logic 2025–26, lists under 500" : "Higher Logic 2025–26, associations"],
   ];
 
+  const gauges = gaugeChart(
+    [
+      { label: "Member renewal", you: n.retention, bench: BENCH.retention, benchLabel: BENCH.retention + "%" },
+      { label: "First-year renewal", you: n.firstYear, bench: BENCH.firstYear, benchLabel: BENCH.firstYear + "%" },
+      { label: "Email open rate", you: n.openRate, bench: openBench, benchLabel: openBench + "%" },
+    ],
+    "You vs. the benchmark",
+  );
+  const oppBars = opps.filter((o) => (o.val ?? 0) > 0).length
+    ? `<div class="mb-4">${barChart(
+        opps.filter((o) => (o.val ?? 0) > 0).map((o) => ({ label: o.t, value: o.val!, display: money(o.val!) + "/yr" })),
+        { title: "Yearly revenue kept or added, by opportunity" },
+      )}</div>`
+    : "";
+
   const council = COUNCIL[String(v.council)];
   const budgetPath = BUDGET[String(v.budget)];
   const focusText = FOCUS[String(v.planFocus)];
@@ -227,15 +249,17 @@ function render(): void {
     section("Where you stand", "Scorecard",
       `<p class="${ui.lede}">Benchmarks come from larger chambers and associations. They're context, not a grade.</p>` +
       table(["Measure", "Montco Gateway", "Benchmark", "Read", "Source"],
-        scoreRows.map((r) => row(r[0], [r[1], ui.tdNum], [r[2], ui.tdNum], r[3], [r[4], ui.tdSrc])).join(""))) +
+        scoreRows.map((r) => row(r[0], [r[1], ui.tdNum], [r[2], ui.tdNum], r[3], [r[4], ui.tdSrc])).join("")) +
+      `<div class="mt-5">${gauges}</div>`) +
 
     section("Where the money is", "Four places to grow revenue",
       `<p class="${ui.lede}">Each figure is yearly revenue kept or added, using your numbers and conservative targets.</p>
+      ${oppBars}
       <div class="${ui.opps}">${opps.map((o) => `<div class="${ui.opp}"><h3 class="${ui.h3}">${o.t}</h3>${o.empty ? `<div class="${ui.oppEmpty}">${o.empty}</div>` : `<div class="${ui.oppBig}">${o.big}</div><p class="${ui.oppText}">${o.p}</p>`}</div>`).join("")}</div>
       <div class="${ui.total}"><span>Combined opportunity</span><span class="${ui.totalBig}">${total > 0 ? money(total) + " / yr" : "Fill in the blanks"}</span><small class="opacity-85">Before raising prices or adding new partners</small></div>`) +
 
     section("What we would do", "The first 90 days",
-      `<p class="${ui.lede}">One sequence, in priority order. Everything else waits.</p><div class="grid gap-3.5">` +
+      `<p class="${ui.lede}">One sequence, in priority order. Everything else waits.</p><div class="mb-5">${timeline(PHASES)}</div><div class="grid gap-3.5">` +
       phase("Diagnostic", "Weeks 1–2", [
         "Baseline renewal, first-year renewal and guest join rates from your member system",
         `Inventory every partner benefit you sell to ${b(v, "partners", num)} Annual Partners, and draft a rate card`,

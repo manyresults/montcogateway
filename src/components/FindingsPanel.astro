@@ -1,7 +1,8 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS } from "../data/content";
+import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS, GLANCE, RENEWAL_BARS } from "../data/content";
+import { barChart, splitBar, statTiles } from "../lib/charts";
 ---
 
 <div id="findings" role="tabpanel" aria-labelledby="t-findings" class="grid gap-[22px]">
@@ -46,6 +47,14 @@ import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS } from "../data/content";
     title="What the data says about chambers"
     lede="These benchmarks come from larger chambers and associations. They're context for the conversation, not a grade."
   >
+    <div class="mb-5" set:html={statTiles(GLANCE)} />
+    <div class="mb-5 grid gap-6 min-[901px]:grid-cols-2">
+      <div set:html={barChart(RENEWAL_BARS, { title: "Renewal rates: first-year members are the gap", max: 100 })} />
+      <div set:html={splitBar([
+        { label: "Dues and other (~38%)", value: 38, display: "~38%" },
+        { label: "Non-dues sources (~62%)", value: 62, display: "~62%", emphasis: true },
+      ], "Where chamber revenue comes from")} />
+    </div>
     <div class={ui.tableWrap}>
       <table class={ui.table}>
         <thead><tr><th class={ui.th}>Finding</th><th class={ui.th}>Figure</th><th class={ui.th}>Source</th></tr></thead>

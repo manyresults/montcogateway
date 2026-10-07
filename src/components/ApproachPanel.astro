@@ -1,7 +1,8 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { SERVICES } from "../data/content";
+import { SERVICES, PHASES } from "../data/content";
+import { timeline } from "../lib/charts";
 ---
 
 <div id="approach" role="tabpanel" aria-labelledby="t-approach" class="grid gap-[22px]" hidden>
@@ -13,6 +14,14 @@ import { SERVICES } from "../data/content";
 
   <!-- Filled in by src/scripts/plan.ts from MOVES in src/data/content.ts -->
   <div class="grid gap-4" id="moves"></div>
+
+  <Card
+    tag="Sequencing"
+    title="How the first 90 days fit together"
+    lede="Phases overlap on purpose: the diagnostic informs the foundation, and member and partner work start before the foundation is finished."
+  >
+    <div set:html={timeline(PHASES)} />
+  </Card>
 
   <Card
     tag="How MANY works"
