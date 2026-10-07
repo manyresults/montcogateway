@@ -122,3 +122,27 @@ export const PHASES = [
   { name: "Keep members", start: 5, end: 10 },
   { name: "Keep partners", start: 8, end: 12 },
 ];
+
+/** "Core objectives" on the approach tab. */
+export const OBJECTIVES = [
+  { t: "Membership growth", items: ["Bring in new members consistently, and keep the ones you have", "Build repeatable systems for awareness, interest and joining"] },
+  { t: "Events and a clear message", items: ["Turn event attendance into membership and renewals", "Say one clear thing about what members get, in every channel"] },
+  { t: "Systems and support", items: ["Make the calendar, email and tracking work together", "Work as a strategic partner beside staff, volunteers and the council, not another vendor"] },
+];
+
+/** The member journey funnel on the approach tab (shape is illustrative, not data). */
+export const JOURNEY = [
+  { name: "Discover", text: "One name and one set of handles everywhere, plus member spotlights and local-business tips that bring people to the site." },
+  { name: "Attend", text: "Guests get an invitation to join within 48 hours of an event." },
+  { name: "Join", text: "A 12-month welcome journey so new members use what they joined for." },
+  { name: "Renew", text: "A 90/60/30-day renewal sequence with a \"here's what you got\" recap." },
+  { name: "Advocate", text: "Member success stories and quarterly partner ROI reports that members and partners can share." },
+];
+
+/** The marketing loop: four horizons that repeat, steered by a monthly review. */
+export const LOOP = [
+  { when: "First days", t: "Audit and fix", items: ["Audit the website, social profiles and email for quick wins", "Fix the pages people land on: a clear next step and a consistent name"] },
+  { when: "First weeks", t: "Content and campaigns", items: ["Launch the master email template and the event content calendar", "Share member and educational content across channels"] },
+  { when: "First months", t: "Nurture and collaborate", items: ["Automate welcome, renewal and guest follow-up", "Put council firms and partners on credited lanes"] },
+  { when: "Next year", t: "Sustain and grow", items: ["Retention and loyalty initiatives members notice", "Extend into the growth corridor: Conshohocken, Horsham and Plymouth Meeting"] },
+];

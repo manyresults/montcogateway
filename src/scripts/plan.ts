@@ -4,7 +4,7 @@
  * Copy and numbers live in src/data/content.ts; classes in src/lib/ui.ts.
  */
 import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, PHASES, SAMPLE, type FieldKey } from "../data/content";
-import { barChart, gaugeChart, timeline } from "../lib/charts";
+import { barChart, gaugeChart, groupedColumns, timeline } from "../lib/charts";
 import { ui } from "../lib/ui";
 
 type Values = Partial<Record<FieldKey, string | number>>;
@@ -171,6 +171,46 @@ const row = (...cells: (string | [string, string])[]) =>
 const phase = (name: string, weeks: string, items: string[]) =>
   `<div class="${ui.phase}"><div class="${ui.phaseWhen}"><b class="${ui.phaseWhenB}">${name}</b>${weeks}</div><div><ul class="${ui.phaseUl}">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div></div>`;
 
+/**
+ * Four-year membership estimate from the worksheet. "Today's rates" keeps the
+ * current renewal rate and new-member pace. "With the plan" lifts renewal to at
+ * least the benchmark and adds the members kept or won by first-year onboarding
+ * and guest follow-up (the same targets as the opportunity math). An estimate,
+ * not a forecast.
+ */
+function projection(v: Values): string {
+  if (!has(v, "members", "retention", "newPerYear")) {
+    return section("Looking ahead", "Where membership could be in four years",
+      `<p class="${ui.lede}">Needs members, renewal rate and new members a year. ${b(v, "members")} ${b(v, "retention")} ${b(v, "newPerYear")}</p>`);
+  }
+  const n = v as Nums;
+  const keep = n.retention! / 100;
+  const planKeep = Math.max(n.retention!, BENCH.retention) / 100;
+  let extra = 0;
+  if (has(v, "firstYear")) extra += (n.newPerYear! * (Math.max(n.firstYear!, BENCH.firstYear) - n.firstYear!)) / 100;
+  if (has(v, "events", "guests", "guestConv")) extra += (n.events! * n.guests! * (Math.max(n.guestConv! + 5, 10) - n.guestConv!)) / 100;
+  const years = [0, 1, 2, 3, 4];
+  const now: number[] = [n.members!];
+  const plan: number[] = [n.members!];
+  for (let y = 1; y <= 4; y++) {
+    now.push(now[y - 1] * keep + n.newPerYear!);
+    plan.push(plan[y - 1] * planKeep + n.newPerYear! + extra);
+  }
+  const labels = years.map((y) => (y === 0 ? "Today" : `Year ${y}`));
+  const chart = groupedColumns(labels, [
+    { name: "At today's rates", values: now, emphasis: false },
+    { name: "With the plan", values: plan, emphasis: true },
+  ], "Estimated active members");
+  const tbl = table(["", ...labels],
+    row("At today's rates", ...now.map((x) => [num(x), ui.tdNum] as [string, string])) +
+    row("With the plan", ...plan.map((x) => [num(x), ui.tdNum] as [string, string])));
+  const gap = plan[4] - now[4];
+  return section("Looking ahead", "Where membership could be in four years",
+    `<p class="${ui.lede}">${gap >= 1 ? `By year four, about <b>${num(gap)}</b> more members than at today's rates. ` : "You're already at or above the benchmarks used here, so the plan doesn't change this projection. "}This is an estimate from the numbers you entered, not a promise.</p>
+    ${chart}<div class="mt-4">${tbl}</div>
+    <div class="${ui.note}"><b>How it's estimated:</b> each year, members who renew (${pct(n.retention!)} today, at least ${BENCH.retention}% with the plan) plus ${num(n.newPerYear!)} new members a year${extra >= 0.5 ? `, plus about ${num(extra)} a year from first-year onboarding and guest follow-up with the plan` : ""}.</div>`);
+}
+
 function render(): void {
   const v = read();
   const n = v as Nums;
@@ -257,6 +297,8 @@ function render(): void {
       ${oppBars}
       <div class="${ui.opps}">${opps.map((o) => `<div class="${ui.opp}"><h3 class="${ui.h3}">${o.t}</h3>${o.empty ? `<div class="${ui.oppEmpty}">${o.empty}</div>` : `<div class="${ui.oppBig}">${o.big}</div><p class="${ui.oppText}">${o.p}</p>`}</div>`).join("")}</div>
       <div class="${ui.total}"><span>Combined opportunity</span><span class="${ui.totalBig}">${total > 0 ? money(total) + " / yr" : "Fill in the blanks"}</span><small class="opacity-85">Before raising prices or adding new partners</small></div>`) +
+
+    projection(v) +
 
     section("What we would do", "The first 90 days",
       `<p class="${ui.lede}">One sequence, in priority order. Everything else waits.</p><div class="mb-5">${timeline(PHASES)}</div><div class="grid gap-3.5">` +

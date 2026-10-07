@@ -124,3 +124,56 @@ export function timeline(phases: Phase[], weeks = 12): string {
   return `<figure class="m-0"><figcaption class="mb-2.5 text-[13px] font-semibold">The first 90 days, week by week</figcaption>
     <div role="img" aria-label="Timeline: ${esc(phases.map((p) => `${p.name} weeks ${p.start} to ${p.end}`).join("; "))}"><div class="mb-1 grid" style="${cols}" aria-hidden="true">${ticks}</div><div class="grid gap-3">${rows}</div></div></figure>`;
 }
+
+export interface FunnelStage {
+  name: string;
+  text: string;
+}
+
+/** Narrowing funnel: stage name in the bar, what we'd put in place beside it. Shape is illustrative. */
+export function funnel(stages: FunnelStage[], title: string): string {
+  const n = stages.length;
+  const rows = stages
+    .map((s, i) => {
+      const w = 100 - i * (62 / Math.max(n - 1, 1));
+      return `<div class="grid items-center gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+        <div class="flex justify-center"><div class="rounded-[4px] bg-brand px-3 py-2 text-center text-[13px] font-semibold text-brand-ink" style="width:${w}%">${esc(s.name)}</div></div>
+        <div class="text-[13px] leading-snug">${esc(s.text)}</div></div>`;
+    })
+    .join("");
+  return `<figure class="m-0"><figcaption class="mb-2.5 text-[13px] font-semibold">${esc(title)}</figcaption><div class="grid gap-1.5" role="list" aria-label="${esc(title)}">${rows}</div></figure>`;
+}
+
+export interface ColumnSeries {
+  name: string;
+  values: number[];
+  /** Accent (true) or de-emphasized gray (false). */
+  emphasis: boolean;
+}
+
+/** Grouped columns over categories (e.g. years). Ends are labelled; every value is in the tooltip. */
+export function groupedColumns(categories: string[], series: ColumnSeries[], title: string): string {
+  const max = Math.max(...series.flatMap((s) => s.values), 1) * 1.12;
+  const H = 150;
+  const last = categories.length - 1;
+  const cols = categories
+    .map((c, ci) => {
+      const bars = series
+        .map((s) => {
+          const v = s.values[ci] ?? 0;
+          const h = Math.max(2, (v / max) * H);
+          const label = ci === 0 || ci === last ? `<span class="mb-0.5 font-mono text-[10px] text-ink tabular-nums">${Math.round(v).toLocaleString("en-US")}</span>` : "";
+          return `<div class="flex flex-col items-center justify-end" style="height:${H + 16}px" title="${esc(s.name)}, ${esc(c)}: ${Math.round(v).toLocaleString("en-US")}">${label}<div class="w-5 rounded-t-[4px] ${s.emphasis ? "bg-accent" : "bg-muted/45"}" style="height:${h}px"></div></div>`;
+        })
+        .join('<div class="w-0.5"></div>');
+      return `<div class="flex flex-col items-center"><div class="flex items-end">${bars}</div><div class="mt-1 border-t border-line pt-1 text-[11px] text-muted">${esc(c)}</div></div>`;
+    })
+    .join("");
+  const legend = series
+    .map((s) => `<span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm ${s.emphasis ? "bg-accent" : "bg-muted/45"}"></span>${esc(s.name)}</span>`)
+    .join("");
+  const summary = series.map((s) => `${s.name}: ${s.values.map((v, i) => `${categories[i]} ${Math.round(v)}`).join(", ")}`).join("; ");
+  return `<figure class="m-0"><figcaption class="mb-2.5 text-[13px] font-semibold">${esc(title)}</figcaption>
+    <div class="flex justify-between gap-1 overflow-x-auto" role="img" aria-label="${esc(title)}. ${esc(summary)}">${cols}</div>
+    <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">${legend}</p></figure>`;
+}
