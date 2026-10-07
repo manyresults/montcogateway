@@ -248,3 +248,14 @@ export const EVAL_SCORE: [string, number, string][] = [
   ["Price clarity", 10, "A price the committee can compare, with what is and isn't included"],
   ["References", 10, "Chambers, associations or nonprofits, with results"],
 ];
+
+/**
+ * Approach tab: membership programs that back up this approach.
+ * `result` is optional and only renders when filled in; add real numbers
+ * (members, years, retention) here once you have approval to share them.
+ */
+export const PROOF: { name: string; kind: string; text: string; result?: string }[] = [
+  { name: "Investor Schooling", kind: "High-ticket membership mastermind", text: "A paid mastermind where welcome, engagement and renewal decide whether the program survives." },
+  { name: "Legacy Builder Coaching", kind: "High-ticket membership mastermind", text: "A membership where people stay only if they can see what they're getting." },
+  { name: "MANY Hands United for Impact", kind: "MANY's own grassroots community", text: "MANY's own grassroots membership community, already proven, run on the same system described here." },
+];

@@ -1,7 +1,7 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS, TASKS_VS_RESULTS, SUCCESS, DIAGNOSTIC } from "../data/content";
+import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS, TASKS_VS_RESULTS, SUCCESS, DIAGNOSTIC, PROOF } from "../data/content";
 import { timeline, funnel } from "../lib/charts";
 ---
 
@@ -133,6 +133,26 @@ import { timeline, funnel } from "../lib/charts";
       </div>
     </div>
     <div class={ui.note}><b>If a target isn't met:</b> {SUCCESS.miss}</div>
+  </Card>
+
+  <Card
+    tag="Experience"
+    title="Membership programs behind this approach"
+    lede="Membership lives or dies on welcome, engagement and renewal. These are the communities where we practice what's described here, from high-ticket masterminds to a grassroots community."
+  >
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
+      {PROOF.map((p) => (
+        <div class="min-w-0 rounded-lg border border-line p-3.5">
+          <h3 class={`${ui.h3} text-brand`}>{p.name}</h3>
+          <div class="mt-0.5 mb-2 text-xs font-semibold tracking-[.06em] text-muted uppercase">{p.kind}</div>
+          <p class={ui.oppText}>{p.text}</p>
+          {p.result && <p class="mt-2 text-sm font-semibold">{p.result}</p>}
+        </div>
+      ))}
+    </div>
+    <div class={ui.note}>
+      <b>Different scales, same mechanics.</b> A high-ticket mastermind and a chamber both keep members the same way: a good welcome, regular proof of value and a renewal that feels earned.
+    </div>
   </Card>
 
   <Card

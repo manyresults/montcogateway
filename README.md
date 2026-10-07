@@ -59,6 +59,7 @@ The page is reachable by anyone with the link. Read it once as if you were Jude,
 - [ ] **Council firms.** All seven are named in the "Your plan" lane dropdowns with suggested lanes. Confirm each firm's specialty first, or change the defaults to "Open: recruit a member" (`LANES` in `content.ts`).
 - [ ] **Marketing collective.** The "member marketing collective" card names MANY as operator and promises founding partners. Confirm the founding partners and the commitments (one-year term, chamber owns everything) are what you intend before sharing. The churn figures are vendor data and labeled directional.
 - [ ] **/evaluate checklist.** It is intentionally unbranded so the chamber can hand it to any candidate. Share the link only if you mean to; it's noindex like the rest. The scorecard weights are suggestions.
+- [ ] **Experience card.** It names Investor Schooling, Legacy Builder Coaching and MANY Hands United for Impact. Confirm you can name the first two publicly. Add real results in `PROOF` (`content.ts`) only with approval; the `result` line renders only when filled in.
 - [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Remove the button in `PlanPanel.astro` if you'd rather not.
 - [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
 - [ ] **No prices.** MANY services appear by name and description only.
