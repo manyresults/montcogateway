@@ -1,146 +1,131 @@
-# Earl's Proper Detailing — website
+# Montco Gateway Growth Plan — Deploy Guide
 
-A fast, static marketing site for **Earl's Proper Detailing** (Langhorne, PA),
-built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com)
-and deployed to SiteGround via GitHub Actions (SFTP).
+A single-page, static web app for the October 20, 2026 meeting with Jude Martin-Cianfano (Montco Gateway Chamber of Commerce). No build step, no framework, no database.
 
-This project replaces the previous WordPress site.
+## What's in this folder
+
+| File | Purpose |
+|---|---|
+| `index.html` | The whole app: three tabs (What we found, What we would do, Your plan). All styles and scripts are inside this file. |
+| `vercel.json` | Clean URLs plus headers that tell search engines not to index the site. |
+| `robots.txt` | Second layer of "don't index this." |
+| `README.md` | This guide. |
+
+The only outside dependency is Google Fonts. If fonts fail to load, the page falls back to system fonts and still works.
 
 ---
 
-## Quick start
+## Before you publish: public-facing checklist
+
+This page will be reachable by anyone with the link. Read it once as if you were Jude, a board member, or a council firm.
+
+- [ ] **No financials.** Nothing from the 990 or payroll appears. Keep it that way.
+- [ ] **Rebrand language.** Findings say "where the rollout can go further," never "broken." Leza Raffel's firm led the rebrand.
+- [ ] **Council firms.** All seven are named in the "Your plan" lane dropdowns with suggested lanes. Confirm each firm's specialty first, or change the defaults to "Open: recruit a member" (edit the `LANES` list in `index.html`).
+- [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Fine for the meeting; remove the button if you'd rather not.
+- [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
+- [ ] **No prices.** MANY services appear by name and description only.
+- [ ] **Hide from search.** Already handled by `noindex` in three places. The link is still public, so share it only with people you mean to.
+
+---
+
+## Option A: GitHub website + Vercel (no command line)
+
+### 1. Create the repository
+1. Sign in at [github.com](https://github.com).
+2. Click **New repository** (the **+** menu, top right).
+3. Name: `montco-gateway-plan` (or match your convention).
+4. Visibility: **Private.** Vercel can deploy private repos, and the code doesn't need to be public for the site to be.
+5. Leave "Add a README" unchecked. Click **Create repository**.
+
+### 2. Upload the files
+1. On the new repo page, click **uploading an existing file**.
+2. Drag in `index.html`, `vercel.json`, `robots.txt` and `README.md`.
+3. Commit message: `Initial version for Oct 20 meeting`. Click **Commit changes**.
+
+### 3. Deploy on Vercel
+1. Sign in at [vercel.com](https://vercel.com) with your GitHub account.
+2. Click **Add New → Project**.
+3. Find `montco-gateway-plan` and click **Import**. If it isn't listed, click **Adjust GitHub App Permissions** and grant access to the repo.
+4. Settings:
+   - **Framework Preset:** Other
+   - **Root Directory:** `./`
+   - **Build Command:** leave empty (override to empty if it's prefilled)
+   - **Output Directory:** leave empty, or `.`
+5. Click **Deploy**. In about 30 seconds you'll get a URL like `montco-gateway-plan.vercel.app`.
+
+### 4. Check it
+Open the URL on your laptop and your phone. Click through all three tabs, load sample numbers, change a lane, copy the summary.
+
+---
+
+## Option B: Command line (git + Vercel CLI)
 
 ```bash
-npm install        # install dependencies
-npm run dev        # local dev server at http://localhost:4321
-npm run build      # production build → dist/
-npm run preview    # preview the production build locally
+cd montco-gateway-site
+git init
+git add .
+git commit -m "Initial version for Oct 20 meeting"
+gh repo create montco-gateway-plan --private --source=. --push   # or create on github.com and: git remote add origin … && git push -u origin main
+
+npm i -g vercel
+vercel            # first run links the project; accept defaults, no build command
+vercel --prod     # production deploy
 ```
 
-Requires Node 22.12+ (Astro's minimum).
+After linking the repo in the Vercel dashboard, every `git push` to `main` redeploys automatically.
 
 ---
 
-## Where to edit content
+## Custom domain (recommended)
 
-**Almost everything a non-developer would change lives in one file:**
+A MANY-branded link reads far better than `*.vercel.app` in front of a client.
 
-### `src/consts.ts`
-Business name, phone, email, address, hours, service areas, the full **services**
-list (with descriptions and prices), **testimonials**, **specials**, navigation,
-and SEO defaults. Edit this file and the pages, footer, and JSON-LD schema all
-update automatically.
+**Option 1: a dedicated subdomain**, e.g. `montco.manyresults.com`
+1. Vercel → project → **Settings → Domains** → add `montco.manyresults.com`.
+2. At your DNS provider for `manyresults.com`, add the record Vercel shows (usually a **CNAME** from `montco` to `cname.vercel-dns.com`).
+3. Wait for the green check in Vercel. HTTPS is automatic.
 
-> ⚠️ **Content status.** The current copy is a first-draft reconstruction
-> assembled from public listings — the live `earlsdetailing.com` site was not
-> reachable from the build environment. Items marked `VERIFY` in `consts.ts`
-> (especially **hours of operation** and the **map coordinates**) should be
-> confirmed before go-live. See "Pulling the real content" below.
-
-### Pages (`src/pages/`)
-- `index.astro` — Home
-- `services.astro` — Services
-- `specials.astro` — Specials
-- `about.astro` — About
-- `contact.astro` — Contact (details, hours, map, contact form)
-- `404.astro` — Not-found page
-
-### Components (`src/components/`)
-`SEO.astro`, `Header.astro`, `Footer.astro`, `Hero.astro`, `ServicesGrid.astro`,
-`ServiceCard.astro`, `ServiceIcon.astro`, `Testimonials.astro`, `CTA.astro`,
-`Logo.astro`.
+**Option 2: your existing proposal site**, e.g. `proposal.manyresults.com/montco-gateway`
+If `proposal.manyresults.com` already runs on Vercel from a repo, don't create a new project. Instead:
+1. In that repo, create a folder `montco-gateway/`.
+2. Put this `index.html` inside it (skip `vercel.json` and `robots.txt`; that project's own settings apply).
+3. Commit and push. The page appears at `/montco-gateway`.
+4. The file already includes `<meta name="robots" content="noindex, nofollow">`, so the page stays out of search even if the rest of the proposal site is indexed.
 
 ---
 
-## Images, logo & branding
+## Making changes later
 
-The design currently uses a **gradient hero + inline SVG icons** (no external
-photos needed), so the site is fast and looks complete without stock imagery.
+- **GitHub website:** open `index.html` in the repo → pencil icon → edit → **Commit changes**. Vercel redeploys in under a minute.
+- **Command line:** edit, then `git commit -am "…" && git push`.
+- **Preview before it goes live:** edit on a new branch. Vercel creates a separate preview URL for every branch, so you can check changes without touching the link Jude has.
 
-Swap points when real assets are available:
+Common edits, all inside `index.html`:
 
-| What | Where |
-| --- | --- |
-| **Logo** | `src/components/Logo.astro` (placeholder emblem) and `public/favicon.svg` |
-| **Social share image** | `public/og-image.png` (regenerate via `node scripts/generate-og.mjs`, or replace with a real 1200×630 graphic) |
-| **Brand colors** | `src/styles/global.css` → the `@theme` block (`--color-ink`, `--color-accent`, `--color-gold`) |
-| **Real photos** | Add to `src/assets/`, then use Astro's `<Image />` from `astro:assets` for automatic compression, sizing, and lazy loading |
-
----
-
-## SEO
-
-- **`src/components/SEO.astro`** — imported by every page via `BaseLayout`. Handles
-  unique `<title>` + meta description, Open Graph + Twitter tags, canonical URL,
-  and **JSON-LD `LocalBusiness` (`AutoWash`) schema** (name, address, phone, geo,
-  hours, area served).
-- **Sitemap** — `@astrojs/sitemap` auto-generates `sitemap-index.xml` on every
-  build.
-- **`public/robots.txt`** — allows crawling and points to the sitemap.
+| To change | Search for |
+|---|---|
+| Benchmark targets in the math (86%, 82%, etc.) | `const BENCH` |
+| The five moves on "What we would do" | `const MOVES` |
+| Council lanes and default firms | `const LANES` and `const FIRMS` |
+| Demo values | `const SAMPLE` |
+| Findings text | `<!-- ===== 1. FINDINGS ===== -->` |
+| Services overview | `How MANY works` |
 
 ---
 
-## Contact form
+## Optional: restrict access
 
-The contact form (`src/pages/contact.astro`) needs a form-handling endpoint
-because this is a static site. Set `FORM_ENDPOINT` near the top of that file to a
-free service such as [Formspree](https://formspree.io) or
-[Web3Forms](https://web3forms.com). Until then, the phone and email links work as
-a fallback.
-
----
-
-## Deployment (GitHub Actions → SiteGround)
-
-`.github/workflows/deploy.yml` runs on every push to **`main`**:
-checkout → install → `npm run build` → upload `dist/` to SiteGround over **SFTP**.
-
-### Required repository secrets
-
-Add these under **GitHub → Settings → Secrets and variables → Actions → New
-repository secret**:
-
-| Secret name | Value |
-| --- | --- |
-| `SFTP_HOST` | Your SiteGround SFTP hostname or server IP (from Site Tools → Devs → FTP/SFTP, e.g. `giga123.siteground.biz`) |
-| `SFTP_USERNAME` | The SFTP account username |
-| `SFTP_PASSWORD` | That SFTP account's password |
-| `SFTP_REMOTE_PATH` | Absolute path to the web root to publish into (e.g. `/home/customer/www/earlsdetailing.com/public_html`) |
-| `SFTP_PORT` | *(optional)* Only add this if port `22` doesn't work — some SiteGround accounts use `18765` |
-
-Nothing sensitive is committed — the workflow reads only from these secrets.
-
-### First deploy & the WordPress transition
-
-Because the current web root still contains WordPress files, note:
-
-1. WordPress's `index.php` can take priority over `index.html`. The included
-   `public/.htaccess` sets `DirectoryIndex index.html` to prefer the new static
-   homepage, but the cleanest result is to **remove the old WordPress files**
-   from the web root (back them up first) or deploy into a clean directory.
-2. To have the deploy mirror `dist/` exactly (deleting stale files on the
-   server), set `delete_remote_files: true` in the workflow — do this only after
-   you've confirmed `SFTP_REMOTE_PATH` points at the right folder, as it is
-   destructive.
+The link is public. If you want a gate:
+- **Simplest:** keep the `*.vercel.app` or subdomain URL unlisted and share it only with Jude.
+- **Vercel Password Protection** is a paid add-on. Turn it on under **Settings → Deployment Protection** if your plan includes it.
+- Avoid **Vercel Authentication** for this. It requires viewers to log into Vercel, which Jude won't have.
 
 ---
 
-## Project structure
+## Day-of checklist
 
-```
-├─ .github/workflows/deploy.yml   # CI/CD: build + SFTP deploy to SiteGround
-├─ public/                        # copied as-is to the site root
-│  ├─ robots.txt
-│  ├─ favicon.svg
-│  ├─ og-image.png
-│  └─ .htaccess
-├─ scripts/generate-og.mjs        # regenerates the social share image
-├─ src/
-│  ├─ consts.ts                   # ← all business content lives here
-│  ├─ styles/global.css           # Tailwind theme + base styles
-│  ├─ layouts/BaseLayout.astro
-│  ├─ components/
-│  └─ pages/
-├─ astro.config.mjs
-└─ package.json
-```
+- [ ] Click **Clear** on the plan tab on the device you'll present from, so you start with blanks
+- [ ] Open the link on your phone as a backup
+- [ ] Bookmark `/#findings`, `/#approach` and `/#planTab` to jump straight to a tab
+- [ ] After the meeting, use **Copy plan summary** and paste it into your follow-up email
