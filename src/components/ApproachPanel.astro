@@ -1,7 +1,7 @@
 ---
 import Card from "./Card.astro";
 import { ui } from "../lib/ui";
-import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP } from "../data/content";
+import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS } from "../data/content";
 import { timeline, funnel } from "../lib/charts";
 ---
 
@@ -25,6 +25,25 @@ import { timeline, funnel } from "../lib/charts";
 
   <!-- Filled in by src/scripts/plan.ts from MOVES in src/data/content.ts -->
   <div class="grid gap-4" id="moves"></div>
+
+  <Card
+    tag="Keeping it neutral"
+    title="A member marketing collective, not a house agency"
+    lede="A chamber can't look like it handed its marketing to one firm. That's unfair to member agencies and bad for the chamber. So the work is shared, and one firm keeps it running."
+  >
+    <div class={ui.tableWrap}>
+      <table class={ui.table}>
+        <thead><tr><th class={ui.th}>Role</th><th class={ui.th}>Who</th><th class={ui.th}>What they do</th></tr></thead>
+        <tbody>
+          {COLLECTIVE_ROLES.map(([role, who, what]) => <tr><td class={ui.td}><b>{role}</b></td><td class={ui.td}>{who}</td><td class={ui.td}>{what}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <h3 class="mt-[18px] font-display text-[17px] leading-[1.15] font-bold">Our commitments</h3>
+    <ul class={`${ui.list} mt-2`}>
+      {COMMITMENTS.map((c) => <li><b>{c.b}</b> {c.t}</li>)}
+    </ul>
+  </Card>
 
   <Card
     tag="Sequencing"

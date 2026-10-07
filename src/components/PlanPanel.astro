@@ -90,6 +90,8 @@ const row2 = "grid grid-cols-2 gap-2.5";
         <fieldset class={fieldset}>
           <legend class={legend}><span class={legendN}>6</span>Council &amp; decisions</legend>
           <Field id="council" kind="select" label="Marketing Advisory Council status" options={[["active", "Active, meets regularly"], ["advisory", "Meets, but advisory only"], ["dormant", "Dormant"]]} />
+          <Field id="pastAgency" kind="textarea" label="Past agency or freelancer experience" placeholder="e.g., Hired a freelancer in 2024; ended after 6 months; nothing left behind" hint="How long it lasted, why it ended, what's still in use" />
+          <Field id="foundingPartners" label="Founding partner agencies" placeholder="Names, once confirmed" />
           <Field id="budget" kind="select" label="How would this be funded?" options={[["cash", "Budget line in 2027"], ["board", "One-time board approval"], ["sponsor", "Sponsor-underwritten"], ["trade", "Annual Partner trade"], ["unsure", "Not sure yet"]]} />
           <div class={row2}>
             <Field id="signoff" label="Who signs off?" placeholder="e.g., Executive committee" />
