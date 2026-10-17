@@ -1,22 +1,26 @@
 ---
 import Card from "./Card.astro";
+import Icon from "./Icon.astro";
 import { ui } from "../lib/ui";
 import { SERVICES, PHASES, OBJECTIVES, JOURNEY, LOOP, COLLECTIVE_ROLES, COMMITMENTS, TASKS_VS_RESULTS, SUCCESS, DIAGNOSTIC, PROOF } from "../data/content";
 import { timeline, funnel } from "../lib/charts";
+const roleIcons = ["compass", "award", "users", "user-plus"] as const;
 ---
 
 <div id="approach" role="tabpanel" aria-labelledby="t-approach" class="grid gap-[22px]" hidden>
   <Card
+    hero
+    icon="compass"
     tag="Our recommendation"
     title="Solve the problems. Membership follows."
     lede="Five moves, in priority order. Each one names what we'd do, how we'd do it, and what you'd see. The MANY services that support each move are listed underneath; the work comes first."
   />
 
-  <Card tag="Core objectives" title="Three things this work is for">
+  <Card icon="target" tag="Core objectives" title="Three things this work is for">
     <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
       {OBJECTIVES.map((o) => (
-        <div class="min-w-0 rounded-lg border border-line p-3.5">
-          <h3 class={`${ui.h3} mb-2 text-brand`}>{o.t}</h3>
+        <div class={ui.mini}>
+          <div class="mb-2 flex items-center gap-2.5"><Icon name={o.icon} badge="md" /><h3 class={`${ui.h3} text-brand`}>{o.t}</h3></div>
           <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{o.items.map((i) => <li>{i}</li>)}</ul>
         </div>
       ))}
@@ -27,6 +31,7 @@ import { timeline, funnel } from "../lib/charts";
   <div class="grid gap-4" id="moves"></div>
 
   <Card
+    icon="bar-chart"
     tag="Activity or results"
     title="The same work, bought two ways"
     lede="A task list buys output. A system buys the outcome the output was meant for. Either way, it helps to know up front how each piece will be measured."
@@ -46,6 +51,7 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="users"
     tag="Keeping it neutral"
     title="A member marketing collective, not a house agency"
     lede="A chamber can't look like it handed its marketing to one firm. That's unfair to member agencies and bad for the chamber. So the work is shared, and one firm keeps it running."
@@ -54,34 +60,41 @@ import { timeline, funnel } from "../lib/charts";
       <table class={ui.table}>
         <thead><tr><th class={ui.th}>Role</th><th class={ui.th}>Who</th><th class={ui.th}>What they do</th></tr></thead>
         <tbody>
-          {COLLECTIVE_ROLES.map(([role, who, what]) => <tr><td class={ui.td}><b>{role}</b></td><td class={ui.td}>{who}</td><td class={ui.td}>{what}</td></tr>)}
+          {COLLECTIVE_ROLES.map(([role, who, what], i) => <tr><td class={ui.td}><span class="flex items-center gap-2"><Icon name={roleIcons[i]} badge="sm" /><b>{role}</b></span></td><td class={ui.td}>{who}</td><td class={ui.td}>{what}</td></tr>)}
         </tbody>
       </table>
     </div>
     <h3 class="mt-[18px] font-display text-[17px] leading-[1.15] font-bold">Our commitments</h3>
-    <ul class={`${ui.list} mt-2`}>
-      {COMMITMENTS.map((c) => <li><b>{c.b}</b> {c.t}</li>)}
+    <ul class="m-0 mt-2 grid list-none gap-3 p-0 min-[700px]:grid-cols-2">
+      {COMMITMENTS.map((c) => (
+        <li class={`${ui.mini} flex items-start gap-3`}>
+          <Icon name={c.icon} badge="md" />
+          <span><b>{c.b}</b> {c.t}</span>
+        </li>
+      ))}
     </ul>
   </Card>
 
   <Card
+    icon="search"
     tag="A low-risk first step"
     title="Start with a two-week diagnostic"
     lede="Before committing to a scope, the chamber gets the numbers and a clear picture of what is worth doing. Then the chamber decides what comes next."
   >
     <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3">
-      <div class="min-w-0 rounded-lg border border-line p-3.5">
-        <h3 class={`${ui.h3} mb-2 text-brand`}>What the chamber gets</h3>
+      <div class={ui.mini}>
+        <div class="mb-2 flex items-center gap-2.5"><Icon name="clipboard-check" badge="md" /><h3 class={`${ui.h3} text-brand`}>What the chamber gets</h3></div>
         <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{DIAGNOSTIC.gets.map((i) => <li>{i}</li>)}</ul>
       </div>
-      <div class="min-w-0 rounded-lg border border-line p-3.5">
-        <h3 class={`${ui.h3} mb-2 text-brand`}>What we need from the chamber</h3>
+      <div class={ui.mini}>
+        <div class="mb-2 flex items-center gap-2.5"><Icon name="list-checks" badge="md" /><h3 class={`${ui.h3} text-brand`}>What we need from the chamber</h3></div>
         <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{DIAGNOSTIC.needs.map((i) => <li>{i}</li>)}</ul>
       </div>
     </div>
   </Card>
 
   <Card
+    icon="clock"
     tag="Sequencing"
     title="How the first 90 days fit together"
     lede="Phases overlap on purpose: the diagnostic informs the foundation, and member and partner work start before the foundation is finished."
@@ -90,6 +103,7 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="map-pin"
     tag="The member journey"
     title="A system from first hello to renewal"
     lede="Most marketing promotes the next event or sends one-off emails. A journey guides a person from discovering the chamber to joining and staying."
@@ -98,15 +112,16 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="repeat"
     tag="Ongoing progress"
     title="The marketing loop"
     lede="The first 90 days start the loop. After that it repeats, and a monthly look at the numbers decides what to change."
   >
     <ol class="grid list-none grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-3 p-0">
       {LOOP.map((l, i) => (
-        <li class="min-w-0 rounded-lg border border-line p-3.5">
-          <div class="flex items-center gap-2"><span class="rounded bg-chip px-1.5 py-px font-mono text-[11px] text-brand">{i + 1}</span><span class="font-mono text-xs text-muted">{l.when}</span></div>
-          <h3 class={`${ui.h3} mt-1.5 mb-2`}>{l.t}</h3>
+        <li class={ui.mini}>
+          <div class="flex items-center gap-2.5"><Icon name={l.icon} badge="md" /><span class="font-mono text-xs text-muted"><span class="mr-1.5 rounded bg-chip px-1.5 py-px text-[11px] text-brand">{i + 1}</span>{l.when}</span></div>
+          <h3 class={`${ui.h3} mt-2.5 mb-2`}>{l.t}</h3>
           <ul class="grid list-disc gap-1.5 pl-[18px] text-[13px]">{l.items.map((x) => <li>{x}</li>)}</ul>
         </li>
       ))}
@@ -118,17 +133,18 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="gauge"
     tag="What success looks like"
     title="How you'll know it's working"
     lede="Specific, visible measures at 90 days and at 12 months, and a plain answer to what happens if they aren't met."
   >
     <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3">
-      <div class="min-w-0 rounded-lg border border-line p-3.5">
-        <h3 class={`${ui.h3} mb-2 text-brand`}>At 90 days</h3>
+      <div class={ui.mini}>
+        <div class="mb-2 flex items-center gap-2.5"><Icon name="clock" badge="md" /><h3 class={`${ui.h3} text-brand`}>At 90 days</h3></div>
         <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{SUCCESS.d90.map((i) => <li>{i}</li>)}</ul>
       </div>
-      <div class="min-w-0 rounded-lg border border-line p-3.5">
-        <h3 class={`${ui.h3} mb-2 text-brand`}>At 12 months</h3>
+      <div class={ui.mini}>
+        <div class="mb-2 flex items-center gap-2.5"><Icon name="trending-up" badge="md" /><h3 class={`${ui.h3} text-brand`}>At 12 months</h3></div>
         <ul class="grid list-disc gap-1.5 pl-[18px] text-sm">{SUCCESS.m12.map((i) => <li>{i}</li>)}</ul>
       </div>
     </div>
@@ -136,13 +152,15 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="award"
     tag="Experience"
     title="Membership programs behind this approach"
     lede="Membership lives or dies on welcome, engagement and renewal. These are the communities where we practice what's described here, from high-ticket masterminds to a grassroots community."
   >
     <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
       {PROOF.map((p) => (
-        <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <div class={ui.mini}>
+          <div class="mb-2"><Icon name={p.icon} badge="lg" /></div>
           <h3 class={`${ui.h3} text-brand`}>{p.name}</h3>
           <div class="mt-0.5 mb-2 text-xs font-semibold tracking-[.06em] text-muted uppercase">{p.kind}</div>
           <p class={ui.oppText}>{p.text}</p>
@@ -156,13 +174,15 @@ import { timeline, funnel } from "../lib/charts";
   </Card>
 
   <Card
+    icon="layers"
     tag="How MANY works"
     title="The services behind the moves"
     lede="Scope and pricing come after the diagnostic, once we know what you need. These are the building blocks."
   >
     <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3">
       {SERVICES.map((s) => (
-        <div class="min-w-0 rounded-lg border border-line p-3.5">
+        <div class={ui.mini}>
+          <div class="mb-2"><Icon name={s.icon} badge="md" /></div>
           <h3 class={`${ui.h3} mb-1`}>{s.t}</h3>
           <p class={ui.oppText}>{s.p}</p>
         </div>

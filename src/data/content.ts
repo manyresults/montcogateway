@@ -8,6 +8,8 @@
  *   FINDINGS_*, BENCHMARKS, SERVICES   static copy on the other two tabs
  */
 
+import type { IconName } from "../lib/icons";
+
 export const BENCH = { retention: 86, firstYear: 82, perStaff: 113, open: 33.5, openSmall: 48 };
 
 export type FieldKey = (typeof FIELDS)[number];
@@ -28,27 +30,27 @@ export const FIRMS = ["Three C Creative","Red Pen Resources","be Marketing","PPL
 export const LABELS: Record<FieldKey, string> = {surveyThemes:"what the survey surfaced",planFocus:"grow or solve",mustBelong:"why they'd be crazy not to belong",goal:"your 2027 goal",urgent:"what's on your desk",members:"member count",dues:"average dues",retention:"renewal rate",newPerYear:"new members / year",firstYear:"first-year renewal",events:"events / year",guests:"guests / event",guestConv:"guest join rate",partners:"partner count",partnerPrice:"partner value",partnerRenew:"partner renewal",staff:"paid staff",volunteers:"volunteers",listSize:"list size",openRate:"open rate",council:"council status",pastAgency:"past agency experience",foundingPartners:"founding partner agencies",budget:"funding path",signoff:"who signs off",boardDate:"budget date"};
 
 export const MOVES = [
-  {t:"Finish the rebrand rollout", why:"Make Montco Gateway easy to find and consistent everywhere, so the new name does its job.",
+  {icon: "flag" as const, t:"Finish the rebrand rollout", why:"Make Montco Gateway easy to find and consistent everywhere, so the new name does its job.",
    what:["One name, one set of handles, one email domain across every channel","A public partner page that describes each package","Newsletter lists that match today's programs","A short brand-and-voice guide council firms can work from"],
    how:["Audit every profile, page and signup form","Merge duplicate accounts and redirect old ones","Rebuild the sponsorship page as readable text","Announce the finished rollout to members"],
    see:["Search for \"Montco Gateway\" finds every channel","Prospective partners can self-qualify before calling"],
    svc:["Websites","Press release distribution"]},
-  {t:"Build the member engine", why:"Lack of engagement is the top reason members leave. A steady sequence of small touchpoints fixes that without adding to anyone's workload.",
+  {icon: "repeat" as const, t:"Build the member engine", why:"Lack of engagement is the top reason members leave. A steady sequence of small touchpoints fixes that without adding to anyone's workload.",
    what:["A 12-month welcome journey for new members","A 90/60/30-day renewal sequence with a \"here's what you got\" recap","A follow-up path for every non-member who attends an event"],
    how:["Map the moments that matter: join, first event, 90 days, renewal","Write the sequences once, then automate them","Use Constant Contact and CC-Assist first; add automation only where needed"],
    see:["Renewal and first-year renewal tracked monthly","Guests receive an invitation to join within 48 hours"],
    svc:["Digital Launch System automation","Fractional CMO"]},
-  {t:"Prove value to partners", why:"Partners are buying customer acquisition. They renew on evidence, not logos.",
+  {icon: "award" as const, t:"Prove value to partners", why:"Partners are buying customer acquisition. They renew on evidence, not logos.",
    what:["A quarterly ROI report for each Annual Partner","Clear, published partner tiers","Email and web placements that can be counted"],
    how:["Inventory every benefit partners receive","Add tracking to email ads, banners and spotlights","Deliver reports before renewal conversations"],
    see:["Each partner can see reach, clicks, introductions and leads","Renewal conversations start from numbers"],
    svc:["Fractional CMO","Ad Management (optional, for partner campaigns)"]},
-  {t:"Turn the council into a production team", why:"Seven firms already volunteer their expertise. A quarterback and clear lanes turn advice into output.",
+  {icon: "users" as const, t:"Turn the council into a production team", why:"Seven firms already volunteer their expertise. A quarterback and clear lanes turn advice into output.",
    what:["MANY owns the calendar, systems and reporting","Council firms each own a credited lane: creative, copy, video, PR, welcome kits","In-kind work counts toward partner status"],
    how:["Confirm each firm's specialty and interest","Set lanes, owners and deadlines in a 90-day roadmap","Credit every contribution in the newsletter and on the site"],
    see:["Recurring work leaves the executive director's desk","Council firms get visible credit for their work"],
    svc:["Fractional CMO: roadmap, SOPs, vendor alignment"]},
-  {t:"Deliver indispensable insights", why:"The mission promises insights. Education is also a benefit members can't easily get elsewhere.",
+  {icon: "lightbulb" as const, t:"Deliver indispensable insights", why:"The mission promises insights. Education is also a benefit members can't easily get elsewhere.",
    what:["Quarterly member sessions on marketing and growth","A short benchmark note in the newsletter","A free self-assessment members can take"],
    how:["Fill a call-for-speakers calendar with member experts","Package each session into newsletter and social content","Offer the 5-Minute Marketing Plan assessment as a member benefit"],
    see:["Programming that answers \"why belong?\"","Content that fills the calendar without extra writing"],
@@ -56,18 +58,18 @@ export const MOVES = [
 ];
 
 export const STATS = [
-  { t: "100+ years", p: "From the Jenkintown Businessmen's Association (1918) to Montco Gateway (2025)." },
-  { t: "New ground", p: "Conshohocken joined in 2024. The growth corridor is Conshohocken, Horsham and Plymouth Meeting." },
-  { t: "50+ events a year", p: "Networking at Noon, Coffee & Conversations, Go-Givers, WBN, Emerging Leaders, TNT." },
-  { t: "7 marketing firms", p: "Already on the Marketing Advisory Council, by invitation." },
+  { icon: "building" as const, t: "100+ years", p: "From the Jenkintown Businessmen's Association (1918) to Montco Gateway (2025)." },
+  { icon: "map-pin" as const, t: "New ground", p: "Conshohocken joined in 2024. The growth corridor is Conshohocken, Horsham and Plymouth Meeting." },
+  { icon: "calendar" as const, t: "50+ events a year", p: "Networking at Noon, Coffee & Conversations, Go-Givers, WBN, Emerging Leaders, TNT." },
+  { icon: "users" as const, t: "7 marketing firms", p: "Already on the Marketing Advisory Council, by invitation." },
 ];
 
 export const STRENGTHS = [
-  { b: "A clear identity.", t: "\"Connecting today's leaders with tomorrow's opportunities\" gives the chamber a countywide story, not a single-town one." },
-  { b: "A strategic plan in motion.", t: "The board and stakeholder survey asks the right questions, including whether the chamber is \"nice to belong to\" or \"need to belong to.\"" },
-  { b: "Real anchor partners.", t: "Banks, insurance, hospitality and the trades already invest in the chamber." },
-  { b: "Programs with personality.", t: "Go-Givers, Emerging Leaders and TNT each serve a distinct need." },
-  { b: "Talent in the room.", t: "The council covers design, copy, video, PR, promotional products and digital." },
+  { icon: "star" as const, b: "A clear identity.", t: "\"Connecting today's leaders with tomorrow's opportunities\" gives the chamber a countywide story, not a single-town one." },
+  { icon: "target" as const, b: "A strategic plan in motion.", t: "The board and stakeholder survey asks the right questions, including whether the chamber is \"nice to belong to\" or \"need to belong to.\"" },
+  { icon: "award" as const, b: "Real anchor partners.", t: "Banks, insurance, hospitality and the trades already invest in the chamber." },
+  { icon: "heart" as const, b: "Programs with personality.", t: "Go-Givers, Emerging Leaders and TNT each serve a distinct need." },
+  { icon: "lightbulb" as const, b: "Talent in the room.", t: "The council covers design, copy, video, PR, promotional products and digital." },
 ];
 
 export const FINDINGS_ROWS: [string, string][] = [
@@ -92,20 +94,20 @@ export const BENCHMARKS: [string, string, string, boolean][] = [
 ];
 
 export const SERVICES = [
-  { t: "Fractional CMO", p: "Senior marketing leadership on a set cadence: a 90-day roadmap with owners and deadlines, standard operating procedures, and vendor and team alignment. This is the quarterback role." },
-  { t: "Websites", p: "Mobile-ready WordPress sites with on-page SEO and answer-engine optimization, lead forms, analytics and Search Console, plus press release writing and distribution." },
-  { t: "Digital Launch System", p: "A website plus automated lead handling: pipelines, email and SMS follow-up, and reporting. The engine behind welcome, renewal and guest follow-up sequences." },
-  { t: "Ad Management", p: "Campaigns on up to two platforms with targeting, keyword selection, graphic design and ongoing management." },
-  { t: "The Results Engine", p: "MANY's marketing operating system: strategy, systems, tools, training and support." },
-  { t: "Custom plans", p: "Content, SEO, paid, social and web bundled around a specific goal." },
+  { icon: "compass" as const, t: "Fractional CMO", p: "Senior marketing leadership on a set cadence: a 90-day roadmap with owners and deadlines, standard operating procedures, and vendor and team alignment. This is the quarterback role." },
+  { icon: "globe" as const, t: "Websites", p: "Mobile-ready WordPress sites with on-page SEO and answer-engine optimization, lead forms, analytics and Search Console, plus press release writing and distribution." },
+  { icon: "zap" as const, t: "Digital Launch System", p: "A website plus automated lead handling: pipelines, email and SMS follow-up, and reporting. The engine behind welcome, renewal and guest follow-up sequences." },
+  { icon: "megaphone" as const, t: "Ad Management", p: "Campaigns on up to two platforms with targeting, keyword selection, graphic design and ongoing management." },
+  { icon: "gauge" as const, t: "The Results Engine", p: "MANY's marketing operating system: strategy, systems, tools, training and support." },
+  { icon: "list-checks" as const, t: "Custom plans", p: "Content, SEO, paid, social and web bundled around a specific goal." },
 ];
 
 /** Headline numbers on the findings tab (all from the sources cited in BENCHMARKS). */
 export const GLANCE = [
-  { value: "86%", label: "Median chamber member renewal", source: "ACCE FY2024" },
-  { value: "72%", label: "First-year renewal at associations", source: "MGI 2026" },
-  { value: "~62%", label: "Chamber revenue from non-dues sources", source: "ACCE 2025" },
-  { value: "64%", label: "Know their chamber and favor buying from a known member", source: "ACCE / Harris 2024" },
+  { icon: "repeat" as const, value: "86%", label: "Median chamber member renewal", source: "ACCE FY2024" },
+  { icon: "user-plus" as const, value: "72%", label: "First-year renewal at associations", source: "MGI 2026" },
+  { icon: "trending-up" as const, value: "~62%", label: "Chamber revenue from non-dues sources", source: "ACCE 2025" },
+  { icon: "heart" as const, value: "64%", label: "Know their chamber and favor buying from a known member", source: "ACCE / Harris 2024" },
 ];
 
 /** Renewal comparison chart. `emphasis` marks the one bar the story is about. */
@@ -125,26 +127,26 @@ export const PHASES = [
 
 /** "Core objectives" on the approach tab. */
 export const OBJECTIVES = [
-  { t: "Membership growth", items: ["Bring in new members consistently, and keep the ones you have", "Build repeatable systems for awareness, interest and joining"] },
-  { t: "Events and a clear message", items: ["Turn event attendance into membership and renewals", "Say one clear thing about what members get, in every channel"] },
-  { t: "Systems and support", items: ["Make the calendar, email and tracking work together", "Work as a strategic partner beside staff, volunteers and the council, not another vendor"] },
+  { icon: "trending-up" as const, t: "Membership growth", items: ["Bring in new members consistently, and keep the ones you have", "Build repeatable systems for awareness, interest and joining"] },
+  { icon: "calendar" as const, t: "Events and a clear message", items: ["Turn event attendance into membership and renewals", "Say one clear thing about what members get, in every channel"] },
+  { icon: "layers" as const, t: "Systems and support", items: ["Make the calendar, email and tracking work together", "Work as a strategic partner beside staff, volunteers and the council, not another vendor"] },
 ];
 
 /** The member journey funnel on the approach tab (shape is illustrative, not data). */
 export const JOURNEY = [
-  { name: "Discover", text: "One name and one set of handles everywhere, plus member spotlights and local-business tips that bring people to the site." },
-  { name: "Attend", text: "Guests get an invitation to join within 48 hours of an event." },
-  { name: "Join", text: "A 12-month welcome journey so new members use what they joined for." },
-  { name: "Renew", text: "A 90/60/30-day renewal sequence with a \"here's what you got\" recap." },
-  { name: "Advocate", text: "Member success stories and quarterly partner ROI reports that members and partners can share." },
+  { icon: "search" as const, name: "Discover", text: "One name and one set of handles everywhere, plus member spotlights and local-business tips that bring people to the site." },
+  { icon: "calendar" as const, name: "Attend", text: "Guests get an invitation to join within 48 hours of an event." },
+  { icon: "user-plus" as const, name: "Join", text: "A 12-month welcome journey so new members use what they joined for." },
+  { icon: "repeat" as const, name: "Renew", text: "A 90/60/30-day renewal sequence with a \"here's what you got\" recap." },
+  { icon: "heart" as const, name: "Advocate", text: "Member success stories and quarterly partner ROI reports that members and partners can share." },
 ];
 
 /** The marketing loop: four horizons that repeat, steered by a monthly review. */
 export const LOOP = [
-  { when: "First days", t: "Audit and fix", items: ["Audit the website, social profiles and email for quick wins", "Fix the pages people land on: a clear next step and a consistent name"] },
-  { when: "First weeks", t: "Content and campaigns", items: ["Launch the master email template and the event content calendar", "Share member and educational content across channels"] },
-  { when: "First months", t: "Nurture and collaborate", items: ["Automate welcome, renewal and guest follow-up", "Put council firms and partners on credited lanes"] },
-  { when: "Next year", t: "Sustain and grow", items: ["Retention and loyalty initiatives members notice", "Extend into the growth corridor: Conshohocken, Horsham and Plymouth Meeting"] },
+  { icon: "search" as const, when: "First days", t: "Audit and fix", items: ["Audit the website, social profiles and email for quick wins", "Fix the pages people land on: a clear next step and a consistent name"] },
+  { icon: "megaphone" as const, when: "First weeks", t: "Content and campaigns", items: ["Launch the master email template and the event content calendar", "Share member and educational content across channels"] },
+  { icon: "mail" as const, when: "First months", t: "Nurture and collaborate", items: ["Automate welcome, renewal and guest follow-up", "Put council firms and partners on credited lanes"] },
+  { icon: "trending-up" as const, when: "Next year", t: "Sustain and grow", items: ["Retention and loyalty initiatives members notice", "Extend into the growth corridor: Conshohocken, Horsham and Plymouth Meeting"] },
 ];
 
 /** Findings tab: why marketing engagements end. Vendor data, labelled directional. */
@@ -156,9 +158,9 @@ export const CHURN_ROWS: [string, string, string][] = [
 ];
 
 export const CHURN_STATS = [
-  { t: "48%", p: "of clients who leave an agency cite dissatisfaction with delivery, the top reason. Agencies rank it seventh. (Setup 2025 survey)" },
-  { t: "88%", p: "of marketing leaders expect data-driven results, not just creative ideas. (Setup 2025 survey)" },
-  { t: "First 90 days", p: "is when client relationships are most likely to end." },
+  { icon: "alert-circle" as const, t: "48%", p: "of clients who leave an agency cite dissatisfaction with delivery, the top reason. Agencies rank it seventh. (Setup 2025 survey)" },
+  { icon: "bar-chart" as const, t: "88%", p: "of marketing leaders expect data-driven results, not just creative ideas. (Setup 2025 survey)" },
+  { icon: "clock" as const, t: "First 90 days", p: "is when client relationships are most likely to end." },
 ];
 
 /** Approach tab: the member marketing collective. */
@@ -170,12 +172,12 @@ export const COLLECTIVE_ROLES: [string, string, string][] = [
 ];
 
 export const COMMITMENTS = [
-  { b: "The chamber owns everything.", t: "Templates, lists, accounts, sequences and reports belong to the chamber. If MANY stepped away tomorrow, nothing would break." },
-  { b: "No selling through the role.", t: "MANY gets no promotion beyond what any Annual Partner receives, and never prospects from the member list." },
-  { b: "Credit goes to whoever did the work.", t: "Every piece carries a \"Creative Partner\" credit, and lanes rotate on a published schedule." },
-  { b: "A term with a review.", t: "One year, then the chamber decides. The operator role could pass to another firm." },
-  { b: "Paid work runs through the chamber.", t: "No side deals among collective members." },
-  { b: "A fair process.", t: "Lanes are assigned on published criteria, open to any member agency, and no firm reviews work in its own lane." },
+  { icon: "shield-check" as const, b: "The chamber owns everything.", t: "Templates, lists, accounts, sequences and reports belong to the chamber. If MANY stepped away tomorrow, nothing would break." },
+  { icon: "ban" as const, b: "No selling through the role.", t: "MANY gets no promotion beyond what any Annual Partner receives, and never prospects from the member list." },
+  { icon: "award" as const, b: "Credit goes to whoever did the work.", t: "Every piece carries a \"Creative Partner\" credit, and lanes rotate on a published schedule." },
+  { icon: "clock" as const, b: "A term with a review.", t: "One year, then the chamber decides. The operator role could pass to another firm." },
+  { icon: "file-text" as const, b: "Paid work runs through the chamber.", t: "No side deals among collective members." },
+  { icon: "scale" as const, b: "A fair process.", t: "Lanes are assigned on published criteria, open to any member agency, and no firm reviews work in its own lane." },
 ];
 
 /** Approach tab: the same work bought two ways. [task list, system, how it's measured] */
@@ -254,8 +256,8 @@ export const EVAL_SCORE: [string, number, string][] = [
  * `result` is optional and only renders when filled in; add real numbers
  * (members, years, retention) here once you have approval to share them.
  */
-export const PROOF: { name: string; kind: string; text: string; result?: string }[] = [
-  { name: "Investor Schooling", kind: "High-ticket membership mastermind", text: "A paid mastermind where welcome, engagement and renewal decide whether the program survives." },
-  { name: "Legacy Builder Coaching", kind: "High-ticket membership mastermind", text: "A membership where people stay only if they can see what they're getting." },
-  { name: "MANY Hands United for Impact", kind: "MANY's own grassroots community", text: "MANY's own grassroots membership community, already proven, run on the same system described here." },
+export const PROOF: { icon: IconName; name: string; kind: string; text: string; result?: string }[] = [
+  { icon: "graduation-cap" as const, name: "Investor Schooling", kind: "High-ticket membership mastermind", text: "A paid mastermind where welcome, engagement and renewal decide whether the program survives." },
+  { icon: "star" as const, name: "Legacy Builder Coaching", kind: "High-ticket membership mastermind", text: "A membership where people stay only if they can see what they're getting." },
+  { icon: "heart" as const, name: "MANY Hands United for Impact", kind: "MANY's own grassroots community", text: "MANY's own grassroots membership community, already proven, run on the same system described here." },
 ];

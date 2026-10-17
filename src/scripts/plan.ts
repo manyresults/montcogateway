@@ -5,6 +5,7 @@
  */
 import { BENCH, FIELDS, FIRMS, LABELS, LANES, MOVES, PHASES, SAMPLE, type FieldKey } from "../data/content";
 import { barChart, gaugeChart, groupedColumns, timeline } from "../lib/charts";
+import { badge, icon, type IconName } from "../lib/icons";
 import { ui } from "../lib/ui";
 
 type Values = Partial<Record<FieldKey, string | number>>;
@@ -140,6 +141,8 @@ function opportunities(v: Values): { opps: Opp[]; total: number } {
   return { opps, total };
 }
 
+const OPP_ICON: Record<string, IconName> = { Renewals: "repeat", "First-year members": "user-plus", "Guests who join": "ticket", "Partners who renew": "award" };
+
 const COUNCIL: Record<string, string> = {
   active: "The council already meets. We'd turn it into a production rotation with clear lanes and credit.",
   advisory:
@@ -162,14 +165,25 @@ const FOCUS: Record<string, string> = {
   both: "Solve first, then grow. Members who get results renew and refer, so retention becomes the growth engine.",
 };
 
-const section = (tag: string, title: string, body: string) =>
-  `<section class="${ui.card}"><span class="${ui.tag}">${tag}</span><h2 class="${ui.h2}">${title}</h2>${body}</section>`;
+const SECTION_ICON: Record<string, IconName> = {
+  "What we heard": "target",
+  "Built on your strategic plan": "file-text",
+  "Where you stand": "gauge",
+  "Where the money is": "trending-up",
+  "Looking ahead": "calendar",
+  "What we would do": "clock",
+  "Who does the work": "users",
+  "How we'd start": "flag",
+};
+const section = (tag: string, title: string, body: string, ic: IconName | undefined = SECTION_ICON[tag]) =>
+  `<section class="${ui.card}"><div class="mb-1 flex items-start gap-3">${ic ? badge(ic, "md") : ""}<div class="min-w-0"><span class="${ui.tag}">${tag}</span><h2 class="${ui.h2}">${title}</h2></div></div>${body}</section>`;
 const table = (head: string[], rows: string, cls = ui.table) =>
   `<div class="${ui.tableWrap}"><table class="${cls}"><thead><tr>${head.map((h) => `<th class="${ui.th}">${h}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
 const row = (...cells: (string | [string, string])[]) =>
   `<tr>${cells.map((c) => (Array.isArray(c) ? `<td class="${c[1]}">${c[0]}</td>` : `<td class="${ui.td}">${c}</td>`)).join("")}</tr>`;
+const PHASE_ICON: Record<string, IconName> = { Diagnostic: "search", Foundation: "layers", "Keep members": "heart", "Keep partners": "award" };
 const phase = (name: string, weeks: string, items: string[]) =>
-  `<div class="${ui.phase}"><div class="${ui.phaseWhen}"><b class="${ui.phaseWhenB}">${name}</b>${weeks}</div><div><ul class="${ui.phaseUl}">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div></div>`;
+  `<div class="${ui.phase}"><div class="${ui.phaseWhen}"><span class="mb-1 block text-brand">${icon(PHASE_ICON[name] ?? "check-circle", "size-5")}</span><b class="${ui.phaseWhenB}">${name}</b>${weeks}</div><div><ul class="${ui.phaseUl}">${items.map((i) => `<li>${i}</li>`).join("")}</ul></div></div>`;
 
 /**
  * Four-year membership estimate from the worksheet. "Today's rates" keeps the
@@ -295,7 +309,7 @@ function render(): void {
     section("Where the money is", "Four places to grow revenue",
       `<p class="${ui.lede}">Each figure is yearly revenue kept or added, using your numbers and conservative targets.</p>
       ${oppBars}
-      <div class="${ui.opps}">${opps.map((o) => `<div class="${ui.opp}"><h3 class="${ui.h3}">${o.t}</h3>${o.empty ? `<div class="${ui.oppEmpty}">${o.empty}</div>` : `<div class="${ui.oppBig}">${o.big}</div><p class="${ui.oppText}">${o.p}</p>`}</div>`).join("")}</div>
+      <div class="${ui.opps}">${opps.map((o) => `<div class="${ui.opp}">${badge(OPP_ICON[o.t] ?? "trending-up", "md")}<h3 class="${ui.h3}">${o.t}</h3>${o.empty ? `<div class="${ui.oppEmpty}">${o.empty}</div>` : `<div class="${ui.oppBig}">${o.big}</div><p class="${ui.oppText}">${o.p}</p>`}</div>`).join("")}</div>
       <div class="${ui.total}"><span>Combined opportunity</span><span class="${ui.totalBig}">${total > 0 ? money(total) + " / yr" : "Fill in the blanks"}</span><small class="opacity-85">Before raising prices or adding new partners</small></div>`) +
 
     projection(v) +
@@ -427,7 +441,7 @@ $("moves").innerHTML = MOVES.map((m, i) => {
   const col = (title: string, items: string[]) =>
     `<div><h4 class="mb-1.5 text-xs font-semibold tracking-[.08em] text-brand uppercase">${title}</h4><ul class="grid list-disc gap-1 pl-[18px] text-sm">${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
   return `<article class="${ui.card} grid gap-x-[18px] gap-y-1 min-[561px]:grid-cols-[56px_minmax(0,1fr)]">
-    <div class="font-display text-[34px] leading-none font-bold text-brass">${i + 1}</div>
+    <div class="relative size-11">${badge(m.icon, "lg")}<span class="absolute -top-1.5 -right-1.5 grid size-5 place-items-center rounded-full bg-brand font-mono text-[11px] font-bold text-brand-ink">${i + 1}</span></div>
     <div>
       <h3 class="mb-1 font-display text-xl leading-[1.15] font-bold text-balance">${m.t}</h3>
       <p class="mb-3 text-muted">${m.why}</p>

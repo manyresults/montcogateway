@@ -1,0 +1,14 @@
+---
+import { icon, badge, type IconName } from "../lib/icons";
+
+interface Props {
+  name: IconName;
+  /** Plain glyph (default) or a rounded-square badge. */
+  badge?: "sm" | "md" | "lg";
+  class?: string;
+}
+const { name, badge: size, class: cls } = Astro.props;
+const html = size ? badge(name, size) : icon(name, cls);
+---
+
+<Fragment set:html={html} />

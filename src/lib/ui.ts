@@ -4,7 +4,9 @@
  * (Tailwind scans this file, so every class here is generated.)
  */
 export const ui = {
-  card: "min-w-0 rounded-[10px] border border-line bg-panel p-[22px]",
+  card: "min-w-0 rounded-xl border border-line bg-panel p-[22px] shadow-[0_1px_2px_rgb(0_0_0/.04)]",
+  // Smaller cards inside a card: soft lift on hover (not for reduced-motion users).
+  mini: "min-w-0 rounded-lg border border-line bg-bg/40 p-3.5 motion-safe:transition motion-safe:duration-150 hover:border-accent/60 hover:shadow-md motion-safe:hover:-translate-y-px",
   tag: "mb-1.5 inline-block text-[11px] font-semibold uppercase tracking-[.1em] text-brass",
   h2: "mb-1 font-display text-[22px] leading-[1.15] font-bold text-balance",
   h3: "font-display text-[15px] leading-[1.15] font-bold text-balance",
@@ -38,7 +40,7 @@ export const ui = {
   fill: "border-b-2 border-brand/40 font-semibold text-brand",
 
   opps: "grid grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-3",
-  opp: "grid min-w-0 content-start gap-1.5 rounded-lg border border-line p-3.5",
+  opp: "grid min-w-0 content-start gap-1.5 rounded-lg border border-line bg-bg/40 p-3.5 motion-safe:transition motion-safe:duration-150 hover:border-accent/60 hover:shadow-md motion-safe:hover:-translate-y-px",
   oppBig: "font-mono text-2xl font-medium tabular-nums text-brand",
   oppEmpty: "font-mono text-base text-muted",
   oppText: "m-0 text-[13px] text-muted",

@@ -1,6 +1,7 @@
 ---
 import Card from "./Card.astro";
 import Field from "./Field.astro";
+import Icon from "./Icon.astro";
 import { ui } from "../lib/ui";
 
 const legend = "mb-2 flex items-center gap-2 p-0 font-display text-sm font-bold text-brand";
@@ -32,20 +33,20 @@ const row2 = "grid grid-cols-2 gap-2.5";
 
       <form id="sheet" autocomplete="off">
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>0</span>Strategic plan</legend>
+          <legend class={legend}><span class={legendN}>0</span><Icon name="target" class="size-4" />Strategic plan</legend>
           <Field id="surveyThemes" kind="textarea" label="What did the strategic planning survey surface?" placeholder="e.g., Members value the people, but don't see the chamber as essential" hint="The board and stakeholder survey closed October 10" />
           <Field id="planFocus" kind="select" label="Grow membership, or solve business problems?" options={[["grow", "Grow membership"], ["solve", "Solve business problems"], ["both", "Both, in that order: solve, then grow"]]} />
           <Field id="mustBelong" label={'"I\'d be crazy not to belong because…"'} placeholder="e.g., It's where my next three clients come from" />
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>1</span>Goals</legend>
+          <legend class={legend}><span class={legendN}>1</span><Icon name="flag" class="size-4" />Goals</legend>
           <Field id="goal" kind="textarea" label="What does a great 2027 look like?" placeholder="e.g., Grow to 450 members and add 3 Annual Partners" />
           <Field id="urgent" label="What's on your desk right now?" placeholder="e.g., Holiday luncheon invites" />
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>2</span>Members</legend>
+          <legend class={legend}><span class={legendN}>2</span><Icon name="users" class="size-4" />Members</legend>
           <div class={row2}>
             <Field id="members" type="number" min={0} label="Members today" />
             <Field id="dues" type="number" min={0} label="Average dues ($)" />
@@ -58,7 +59,7 @@ const row2 = "grid grid-cols-2 gap-2.5";
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>3</span>Events</legend>
+          <legend class={legend}><span class={legendN}>3</span><Icon name="calendar" class="size-4" />Events</legend>
           <div class={row2}>
             <Field id="events" type="number" min={0} label="Events / year" />
             <Field id="guests" type="number" min={0} step={0.5} label="Non-member guests / event" />
@@ -67,7 +68,7 @@ const row2 = "grid grid-cols-2 gap-2.5";
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>4</span>Sponsors</legend>
+          <legend class={legend}><span class={legendN}>4</span><Icon name="award" class="size-4" />Sponsors</legend>
           <div class={row2}>
             <Field id="partners" type="number" min={0} label="Annual Partners" />
             <Field id="partnerPrice" type="number" min={0} label="Avg. partner value ($)" />
@@ -76,7 +77,7 @@ const row2 = "grid grid-cols-2 gap-2.5";
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>5</span>Team &amp; email</legend>
+          <legend class={legend}><span class={legendN}>5</span><Icon name="mail" class="size-4" />Team &amp; email</legend>
           <div class={row2}>
             <Field id="staff" type="number" min={0} step={0.5} label="Paid staff" />
             <Field id="volunteers" type="number" min={0} label="Active volunteers" />
@@ -88,7 +89,7 @@ const row2 = "grid grid-cols-2 gap-2.5";
         </fieldset>
 
         <fieldset class={fieldset}>
-          <legend class={legend}><span class={legendN}>6</span>Council &amp; decisions</legend>
+          <legend class={legend}><span class={legendN}>6</span><Icon name="scale" class="size-4" />Council &amp; decisions</legend>
           <Field id="council" kind="select" label="Marketing Advisory Council status" options={[["active", "Active, meets regularly"], ["advisory", "Meets, but advisory only"], ["dormant", "Dormant"]]} />
           <Field id="pastAgency" kind="textarea" label="Past agency or freelancer experience" placeholder="e.g., Hired a freelancer in 2024; ended after 6 months; nothing left behind" hint="How long it lasted, why it ended, what's still in use" />
           <Field id="foundingPartners" label="Founding partner agencies" placeholder="Names, once confirmed" />

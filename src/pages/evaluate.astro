@@ -5,6 +5,7 @@
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { ui } from "../lib/ui";
+import Icon from "../components/Icon.astro";
 import { EVAL_QUESTIONS, EVAL_PROCESS, EVAL_SCORE } from "../data/content";
 ---
 
@@ -16,17 +17,17 @@ import { EVAL_QUESTIONS, EVAL_PROCESS, EVAL_SCORE } from "../data/content";
     <p class="mb-4 text-[13px] print:hidden"><a class="text-brand underline underline-offset-2" href="/">← Back to the plan</a></p>
 
     <header class="mb-6 border-b-[3px] border-accent pb-4 print:mb-3 print:pb-2">
-      <h1 class="font-display text-[clamp(26px,4vw,36px)] leading-[1.15] font-bold text-balance">How to evaluate a marketing partner</h1>
+      <h1 class="flex items-center gap-3 font-display text-[clamp(26px,4vw,36px)] leading-[1.15] font-bold text-balance"><Icon name="clipboard-check" badge="lg" />How to evaluate a marketing partner</h1>
       <p class="mt-2 max-w-[62ch] text-muted">
         Questions that reward a plan for results, not a list of tasks. Use the same questions, the same deadline and the same
         scoring with every candidate, including members.
       </p>
       <p class="mt-1.5 text-xs text-muted">Prepared as a courtesy for the Montco Gateway Chamber of Commerce. Edit freely.</p>
-      <button type="button" id="printBtn" class={`${ui.btn} mt-3 print:hidden`}>Print or save as PDF</button>
+      <button type="button" id="printBtn" class={`${ui.btn} mt-3 inline-flex items-center gap-1.5 print:hidden`}><Icon name="printer" class="size-4" />Print or save as PDF</button>
     </header>
 
     <section class="mb-7 break-inside-avoid print:mb-3">
-      <h2 class={ui.h2}>1. Ask what will change, not just what will be made</h2>
+      <h2 class={`${ui.h2} flex items-center gap-2.5`}><Icon name="search" badge="md" />1. Ask what will change, not just what will be made</h2>
       <div class={ui.tableWrap}>
         <table class={ui.table}>
           <thead><tr><th class={ui.th}>A common question</th><th class={ui.th}>A question that shows more</th></tr></thead>
@@ -42,14 +43,14 @@ import { EVAL_QUESTIONS, EVAL_PROCESS, EVAL_SCORE } from "../data/content";
     </section>
 
     <section class="mb-7 break-inside-avoid print:mb-3">
-      <h2 class={ui.h2}>2. Keep the process fair</h2>
+      <h2 class={`${ui.h2} flex items-center gap-2.5`}><Icon name="scale" badge="md" />2. Keep the process fair</h2>
       <ul class={`${ui.list} mt-2`}>
         {EVAL_PROCESS.map((q) => <li>{q}</li>)}
       </ul>
     </section>
 
     <section class="mb-7 print:mb-2">
-      <h2 class={ui.h2}>3. Score every candidate the same way</h2>
+      <h2 class={`${ui.h2} flex items-center gap-2.5`}><Icon name="list-checks" badge="md" />3. Score every candidate the same way</h2>
       <p class={ui.lede}>Suggested weights. Adjust them to the board's priorities before looking at any submission.</p>
       <div class={ui.tableWrap}>
         <table class={ui.table}>

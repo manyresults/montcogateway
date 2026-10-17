@@ -1,5 +1,6 @@
 ---
 import Card from "./Card.astro";
+import Icon from "./Icon.astro";
 import { ui } from "../lib/ui";
 import { STATS, STRENGTHS, FINDINGS_ROWS, BENCHMARKS, GLANCE, RENEWAL_BARS, CHURN_ROWS, CHURN_STATS } from "../data/content";
 import { barChart, splitBar, statTiles } from "../lib/charts";
@@ -7,6 +8,8 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
 
 <div id="findings" role="tabpanel" aria-labelledby="t-findings" class="grid gap-[22px]">
   <Card
+    hero
+    icon="target"
     tag="The short version"
     title="Strong foundation. The next step is a system."
     lede="Montco Gateway has momentum most chambers would envy: a fresh identity, a new market, a full calendar and a bench of marketing talent. What's missing is the machinery that turns that activity into members and partners who renew every year."
@@ -14,6 +17,7 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
     <div class={ui.opps}>
       {STATS.map((s) => (
         <div class={ui.opp}>
+          <Icon name={s.icon} badge="md" />
           <h3 class={ui.h3}>{s.t}</h3>
           <p class={ui.oppText}>{s.p}</p>
         </div>
@@ -21,13 +25,19 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
     </div>
   </Card>
 
-  <Card tag="What's working" title="Strengths to build on">
-    <ul class={ui.list}>
-      {STRENGTHS.map((s) => <li><b>{s.b}</b> {s.t}</li>)}
+  <Card icon="star" tag="What's working" title="Strengths to build on">
+    <ul class="m-0 grid list-none gap-3 p-0 min-[700px]:grid-cols-2">
+      {STRENGTHS.map((s) => (
+        <li class={`${ui.mini} flex items-start gap-3`}>
+          <Icon name={s.icon} badge="md" />
+          <span><b>{s.b}</b> {s.t}</span>
+        </li>
+      ))}
     </ul>
   </Card>
 
   <Card
+    icon="flag"
     tag="Where the rollout can go further"
     title="Finishing what the rebrand started"
     lede="These are visible from the outside. Some may be intentional; we'd confirm before changing anything."
@@ -43,6 +53,7 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
   </Card>
 
   <Card
+    icon="bar-chart"
     tag="Industry context"
     title="What the data says about chambers"
     lede="These benchmarks come from larger chambers and associations. They're context for the conversation, not a grade."
@@ -71,6 +82,7 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
   </Card>
 
   <Card
+    icon="repeat"
     tag="Activity vs. systems"
     title="Why marketing engagements end"
     lede="Agencies rarely lose clients over price. They lose them when the client can't see what they got."
@@ -87,6 +99,7 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
     <div class={`${ui.opps} mt-3.5`}>
       {CHURN_STATS.map((s) => (
         <div class={ui.opp}>
+          <Icon name={s.icon} badge="md" />
           <h3 class={ui.h3}>{s.t}</h3>
           <p class={ui.oppText}>{s.p}</p>
         </div>
@@ -97,7 +110,7 @@ import { barChart, splitBar, statTiles } from "../lib/charts";
     </div>
   </Card>
 
-  <Card tag="The question underneath" title="Is the challenge marketing, or capacity?">
+  <Card icon="lightbulb" tag="The question underneath" title="Is the challenge marketing, or capacity?">
     <p class={ui.p}>The median chamber runs on six and a half people. Montco Gateway runs 50+ events, a partner program, a Conshohocken chapter, committees, a newsletter and social channels. Every new idea competes for the same hours.</p>
     <p class={ui.p}>A designer adds output. A system gives time back. That's the difference between what we found and what we'd recommend.</p>
     <div class={`${ui.btns} mt-2`}><button class={ui.btnPrimary} type="button" data-go="approach">See what we would do</button></div>

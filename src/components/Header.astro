@@ -2,8 +2,14 @@
 /** Logo, title and the "blanks filled" progress bar (shown on the plan tab only). */
 ---
 
-<header class="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b-[3px] border-accent pt-7 pb-5">
-  <div>
+<header
+  class="relative mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/15 via-panel to-panel px-6 pt-6 pb-5 shadow-[0_1px_2px_rgb(0_0_0/.04)]"
+>
+  <!-- decorative arch, echoing the logo mark -->
+  <svg class="pointer-events-none absolute -top-6 -right-6 h-44 w-44 text-accent opacity-[.08]" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M0 0h100v100H72V62a22 22 0 0 0-44 0v38H0z" />
+  </svg>
+  <div class="relative">
     <picture class="mb-3.5 block">
       <source srcset="/assets/logo-light-text.webp" media="(prefers-color-scheme: dark)" />
       <img
@@ -14,17 +20,17 @@
         class="block h-[clamp(44px,7vw,64px)] w-auto"
       />
     </picture>
-    <div class="text-xs font-semibold tracking-[.12em] text-brand uppercase">
+    <div class="inline-flex items-center gap-2 rounded-full bg-chip px-3 py-1 text-xs font-semibold tracking-[.12em] text-brand uppercase">
       Montco Gateway Chamber × MANY · October 20, 2026
     </div>
-    <h1 class="mt-1 font-display text-[clamp(26px,4vw,38px)] leading-[1.15] font-bold text-balance">
+    <h1 class="mt-2 font-display text-[clamp(28px,4.4vw,42px)] leading-[1.1] font-bold text-balance">
       Growing the Gateway
     </h1>
     <p class="mt-1.5 max-w-[60ch] text-muted">
       What we found, what we would do about it, and a plan that fills in as we learn your numbers.
     </p>
   </div>
-  <div class="min-w-[200px] flex-[0_1_260px]" aria-live="polite" id="progWrap" hidden>
+  <div class="relative min-w-[200px] flex-[0_1_260px]" aria-live="polite" id="progWrap" hidden>
     <small class="text-xs text-muted" id="progLabel">0 of 0 blanks filled</small>
     <div class="mt-1.5 h-2 overflow-hidden rounded bg-line">
       <span class="block h-full w-0 bg-accent transition-[width] duration-300" id="progBar"></span>

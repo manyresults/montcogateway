@@ -31,6 +31,7 @@ Requires Node 22.12+.
 | Plan math and the live plan's wording | `src/scripts/plan.ts` |
 | Brand colors, fonts, dark mode | `src/styles/global.css` (`:root` variables and `@theme`) |
 | Shared Tailwind class strings | `src/lib/ui.ts` |
+| Icons (inline SVG set; each card/tile takes an `icon` name from `src/data/content.ts`) | `src/lib/icons.ts` |
 | Logos / favicon | `public/assets/`, `public/favicon.png` |
 
 Brand orange is `#F24F02` (`--accent`). Text and buttons use a slightly darker orange (`--brand`) so they stay readable on white. The header swaps between the black-text and white-text logo automatically in dark mode.

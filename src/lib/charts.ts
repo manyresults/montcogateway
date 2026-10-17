@@ -8,6 +8,8 @@
  * (the tables), so nothing is color-only.
  */
 
+import { icon as svg, badge, type IconName } from "./icons";
+
 const esc = (s: unknown) =>
   String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string);
 
@@ -90,6 +92,7 @@ export function splitBar(segs: Segment[], title: string): string {
 }
 
 export interface StatTile {
+  icon?: IconName;
   value: string;
   label: string;
   source: string;
@@ -99,7 +102,7 @@ export interface StatTile {
 export function statTiles(tiles: StatTile[]): string {
   return `<div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-3">${tiles
     .map(
-      (t) => `<div class="rounded-lg border border-line p-3.5"><div class="font-display text-[34px] leading-none font-bold text-brand">${esc(t.value)}</div><div class="mt-1.5 text-[13px] leading-snug">${esc(t.label)}</div><div class="mt-1 text-[11px] text-muted">${esc(t.source)}</div></div>`,
+      (t) => `<div class="rounded-lg border border-line bg-bg/40 p-3.5 motion-safe:transition motion-safe:duration-150 hover:border-accent/60 hover:shadow-md motion-safe:hover:-translate-y-px">${t.icon ? `<div class="mb-2">${badge(t.icon, "sm")}</div>` : ""}<div class="font-display text-[34px] leading-none font-bold text-brand">${esc(t.value)}</div><div class="mt-1.5 text-[13px] leading-snug">${esc(t.label)}</div><div class="mt-1 text-[11px] text-muted">${esc(t.source)}</div></div>`,
     )
     .join("")}</div>`;
 }
@@ -126,6 +129,7 @@ export function timeline(phases: Phase[], weeks = 12): string {
 }
 
 export interface FunnelStage {
+  icon?: IconName;
   name: string;
   text: string;
 }
@@ -137,7 +141,7 @@ export function funnel(stages: FunnelStage[], title: string): string {
     .map((s, i) => {
       const w = 100 - i * (62 / Math.max(n - 1, 1));
       return `<div class="grid items-center gap-x-4 gap-y-1 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
-        <div class="flex justify-center"><div class="rounded-[4px] bg-brand px-3 py-2 text-center text-[13px] font-semibold text-brand-ink" style="width:${w}%">${esc(s.name)}</div></div>
+        <div class="flex justify-center"><div class="flex items-center justify-center gap-2 rounded-[4px] bg-brand px-3 py-2 text-center text-[13px] font-semibold text-brand-ink" style="width:${w}%">${s.icon ? svg(s.icon, "size-4") : ""}${esc(s.name)}</div></div>
         <div class="text-[13px] leading-snug">${esc(s.text)}</div></div>`;
     })
     .join("");
