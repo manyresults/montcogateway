@@ -62,7 +62,7 @@ export const DELIVERABLES: {
     allowance: "Up to 20",
     per: "per month",
     items: [
-      "Opus-assisted clips, up to 60 seconds each",
+      "Clips cut from your long-form recordings, up to 60 seconds each",
       "From up to 4 chamber-supplied videos totaling no more than 4 hours of source footage per month",
       "Basic trimming, vertical framing, branded captions and quality review",
       "Delivered in two scheduled batches",
@@ -230,7 +230,7 @@ export const SOP: { icon: IconName; title: string; text: string[]; list?: string
     title: "Assign and produce",
     text: [
       "Provision the agreed resource access at kickoff. Assign an owner for the chamber-branded GPT setup, use approved brand/source information, and test representative drafts before handoff. Confirm with Jude what information may be used; do not load confidential member data without authorization. Provide the relevant toolkit training and SOP references for the chamber team's self-service use.",
-      "Assign a production owner and reviewer internally. Use established newsletter and event templates. Process supplied videos through Opus, then select and refine suitable clips. Do not deliver raw automated output without review.",
+      "Assign a production owner and reviewer internally. Use established newsletter and event templates. Process supplied videos, then select and refine suitable clips. Do not deliver raw automated output without review.",
     ],
   },
   {
