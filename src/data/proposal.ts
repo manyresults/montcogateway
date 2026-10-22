@@ -23,7 +23,7 @@ export const TILES: { icon: IconName; value: string; label: string; source: stri
 ];
 
 export const TERMS_NOTE =
-  "Term: January 1, 2027 through December 31, 2027. Renewal is not assumed. This agreement can be altered upon agreement of both parties for scope changes. Cancellation terms, and end-of-term access to the included tools and resources, remain to be finalized before submission.";
+  "Term: January 1, 2027 through December 31, 2027, then a rolling monthly basis unless otherwise specified; either party may terminate with 30 days written notice (see Confidentiality, ownership and termination below). This agreement can be altered upon agreement of both parties for scope changes. End-of-term access to the included tools and resources remains to be finalized before submission.";
 
 export const DELIVERABLES: {
   icon: IconName;
@@ -267,3 +267,66 @@ export const SOP: { icon: IconName; title: string; text: string[]; list?: string
     ],
   },
 ];
+
+/** Link back to MANY's tool, shown in the page header nav and the footer. */
+export const FREE_PLAN = {
+  href: "https://yourfreeplan.com",
+  text: "YourFreePlan.com | Custom tool from Marketing Agency Near You",
+};
+
+/** "Chamber responsibilities" card: expectations of the client team. */
+export const CLIENT_RESP = {
+  intro: "To ensure a smooth and efficient partnership, the following responsibilities are expected from your team.",
+  blocks: [
+    {
+      icon: "folder" as const,
+      title: "Asset Delivery",
+      text: [
+        "Provide access to logos, photos, and any branding or past marketing materials needed for campaigns, content, or web rebuilds.",
+        "Commit to sending regular updates. This includes:",
+      ],
+      list: ["Basic project summary", "Photos or videos of finished work", "Notable client feedback"],
+    },
+    {
+      icon: "user-check" as const,
+      title: "Approval Feedback Loop",
+      text: [
+        "Respond promptly to content drafts, ad copy, or web updates requiring approval, ideally within 2 to 3 business days to keep timelines on track.",
+      ],
+      list: [] as string[],
+    },
+  ],
+};
+
+/** "Confidentiality, ownership and termination" card. */
+export const TERMS = {
+  lede: "Clear guidelines to protect both parties and ensure a transparent partnership.",
+  sections: [
+    {
+      icon: "lock" as const,
+      title: "Confidentiality",
+      text: [
+        "As part of this partnership, we recognize that sensitive information will be shared throughout the engagement. This may include passwords, system credentials, internal processes, business strategies, client data, and other proprietary materials.",
+        "All such information will be treated as strictly confidential. It will not be disclosed to any third party or used outside the scope of this engagement, both during the term of the agreement and after its conclusion.",
+      ],
+    },
+    {
+      icon: "file-text" as const,
+      title: "Ownership Rights",
+      text: [
+        "All proprietary materials provided by the client remain the sole property of the client. This includes branding assets, business data, customer information, internal documentation, and strategic inputs.",
+        "Upon completion, the client retains full ownership of all final deliverables created specifically for their business, including marketing assets, content, strategies, campaigns, and any custom-built systems.",
+        "We retain ownership of any pre-existing frameworks, templates, methodologies, or tools developed prior to this engagement. The client is granted full rights to use any custom materials created for their business.",
+      ],
+    },
+    {
+      icon: "calendar-check" as const,
+      title: "Renewal & Termination",
+      text: [
+        "Unless otherwise specified, the agreement operates on a rolling monthly basis following the initial term.",
+        "Either party may terminate the agreement with 30 days written notice.",
+        "Upon termination, the client retains ownership of all completed and paid deliverables up to the termination date. We will support a smooth transition by providing reasonable access to all assets, materials, and systems created during the engagement.",
+      ],
+    },
+  ],
+};

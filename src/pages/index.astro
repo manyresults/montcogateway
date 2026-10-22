@@ -6,6 +6,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
 import EmailDevices from "../components/EmailDevices.astro";
@@ -16,7 +17,7 @@ import { statTiles } from "../lib/charts";
 import {
   INTRO, NOT_THIS, TILES, TERMS_NOTE, DELIVERABLES, DELIVERABLE_NOTES, VALUE_INTRO, RESOURCES, VALUE_NOTES,
   SCHEDULER, SETUP, REVISIONS, LEAD_INTRO, LEAD_INTRO_2, LEAD_TABLE, LEAD_RULES, RESPONSIBILITIES, OWNERSHIP,
-  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS, STAYS_WITH_MANY, SUBMIT,
+  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS, STAYS_WITH_MANY, SUBMIT, CLIENT_RESP, TERMS,
 } from "../data/proposal";
 
 const sections = [
@@ -30,6 +31,7 @@ const sections = [
   ["lead-times", "Lead times"],
   ["submissions", "Submissions"],
   ["responsibilities", "Chamber responsibilities"],
+  ["terms", "Terms"],
   ["exclusions", "Exclusions"],
   ["process", "Delivery process"],
 ];
@@ -64,23 +66,27 @@ const sections = [
       </Card>
 
       <Card id="deliverables" icon="layers" tag="Monthly deliverables" title="What you receive each month" lede="Allowances are monthly maximums, scheduled across the calendar.">
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-3">
-          {DELIVERABLES.map((d) => (
-            <div class={`${ui.mini} flex flex-col border-t-4 border-t-accent`}>
-              <div class="flex items-center gap-2.5"><Icon name={d.icon} badge="md" /><h3 class={`${ui.h3} text-brand`}>{d.name}</h3></div>
-              <div class="mt-3 flex items-baseline gap-2"><span class="font-display text-[40px] leading-none font-extrabold text-brand">{d.allowance}</span><span class="text-sm text-muted">{d.per}</span></div>
-              <ul class="mt-3 grid list-disc gap-1.5 pl-[18px] text-[13px]">{d.items.map((i) => <li>{i}</li>)}</ul>
+        <div class="grid gap-4">
+          {DELIVERABLES.map((d, i) => (
+            <div class={`${ui.mini} grid items-center gap-6 border-t-4 border-t-accent min-[900px]:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]`}>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2.5"><Icon name={d.icon} badge="md" /><h3 class={`${ui.h3} text-brand`}>{d.name}</h3></div>
+                <div class="mt-3 flex items-baseline gap-2"><span class="font-display text-[40px] leading-none font-extrabold text-brand">{d.allowance}</span><span class="text-sm text-muted">{d.per}</span></div>
+                <ul class="mt-3 grid list-disc gap-1.5 pl-[18px] text-[13px]">{d.items.map((it) => <li>{it}</li>)}</ul>
+              </div>
+              <div class="min-w-0">
+                {i === 0 && <EmailDevices />}
+                {i === 1 && (
+                  <>
+                    <EventGraphics compact />
+                    <p class="mt-2 mb-0 text-center text-xs text-muted">Each event package includes the graphic in three sizes.</p>
+                  </>
+                )}
+                {i === 2 && <ClipsVisual />}
+              </div>
             </div>
           ))}
         </div>
-        <div class="mt-7 grid grid-cols-[minmax(0,1fr)] items-center gap-8 min-[900px]:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
-          <div class="min-w-0"><EmailDevices /></div>
-          <div class="min-w-0">
-            <EventGraphics compact />
-            <p class="mt-2 mb-0 text-center text-xs text-muted">Each event package includes the graphic in three sizes.</p>
-          </div>
-        </div>
-        <div class="mt-8"><ClipsVisual /></div>
         {DELIVERABLE_NOTES.map((n) => <p class={`${ui.foot} max-w-none`}>{n}</p>)}
       </Card>
 
@@ -171,11 +177,32 @@ const sections = [
         </div>
       </Card>
 
-      <Card id="responsibilities" icon="user-check" tag="Working together" title="Chamber responsibilities" lede="The chamber will provide:">
+      <Card id="responsibilities" icon="user-check" tag="Working together" title="Chamber responsibilities" lede={CLIENT_RESP.intro}>
+        <div class="grid gap-3 min-[800px]:grid-cols-2">
+          {CLIENT_RESP.blocks.map((b) => (
+            <div class={`${ui.mini} border-t-4 border-t-accent`}>
+              <div class="flex items-center gap-2.5"><Icon name={b.icon} badge="md" /><h3 class={`${ui.h3} text-brand`}>{b.title}</h3></div>
+              {b.text.map((t) => <p class="mt-2.5 mb-0 text-sm">{t}</p>)}
+              {b.list.length > 0 && <ul class="mt-2 grid list-disc gap-1 pl-[18px] text-sm">{b.list.map((l) => <li>{l}</li>)}</ul>}
+            </div>
+          ))}
+        </div>
+        <p class={`${ui.p} mt-5 mb-2 font-semibold`}>The chamber will provide:</p>
         <ul class="m-0 grid list-none gap-2.5 p-0">
           {RESPONSIBILITIES.map((r) => <li class="flex items-start gap-2.5 text-sm"><Icon name="check-circle" class="mt-0.5 size-[18px] text-brand" />{r}</li>)}
         </ul>
         <div class={ui.note}>{OWNERSHIP}</div>
+      </Card>
+
+      <Card id="terms" icon="lock" tag="Confidentiality, ownership and termination" title="Protecting both parties" lede={TERMS.lede}>
+        <div class="grid gap-3">
+          {TERMS.sections.map((t) => (
+            <div class={`${ui.mini} border-t-4 border-t-accent`}>
+              <div class="flex items-center gap-2.5"><Icon name={t.icon} badge="md" /><h3 class={`${ui.h3} text-brand`}>{t.title}</h3></div>
+              {t.text.map((p) => <p class="mt-2.5 mb-0 text-sm">{p}</p>)}
+            </div>
+          ))}
+        </div>
       </Card>
 
       <Card id="exclusions" icon="x-circle" tag="Exclusions and allowance rules" title="What the monthly fee does not include">
@@ -232,5 +259,6 @@ const sections = [
       Looking for the research behind this?
       <a class="font-semibold text-brand underline underline-offset-2" href="/audit">See the audit and growth plan</a>.
     </p>
+    <SiteFooter />
   </div>
 </BaseLayout>

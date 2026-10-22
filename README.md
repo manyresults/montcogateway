@@ -41,6 +41,7 @@ Requires Node 22.12+.
 | Icons (inline SVG set; each card/tile takes an `icon` name from `src/data/content.ts`) | `src/lib/icons.ts` |
 | Email phone mockups on the proposal (`EmailDevices.astro`; screens are `public/assets/email-*.webp`, combined from the chamber's email screenshots) | `src/components/EmailDevices.astro` |
 | Event graphics sample (one design in three sizes): template `design/event-graphics/coffee-conversations.html` (render with `?size=sq`, `pt` or `st`), shown by `src/components/EventGraphics.astro` from `public/assets/event-cc-*.webp` | `design/event-graphics/` |
+| The YourFreePlan.com link (header nav and footer) | `FREE_PLAN` in `src/data/proposal.ts` |
 | Logos / favicon | `public/assets/`, `public/favicon.png` |
 
 **Themes.** The audit and checklist use the Montco theme (orange). The proposal at `/` uses the MANY theme (navy `#0a255c` and emerald `#29a37a`, Plus Jakarta Sans and Inter with EB Garamond italic accents), switched by `theme="many"` on the page's layout. Both are sets of color variables in `src/styles/global.css`; the MANY set is the `[data-theme="many"]` block.
@@ -77,7 +78,7 @@ The page is reachable by anyone with the link. Read it once as if you were Jude,
 - [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Remove the button in `PlanPanel.astro` if you'd rather not.
 - [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
 - [ ] **Pricing.** The proposal on `/` shows only the monthly fee ($697 per month, no setup fee). No totals or combined values are shown; each included resource carries a small, muted "valued at" line ($197 and $147). The audit on `/audit` still describes services by name and description only. Confirm both are what you want Jude to see.
-- [ ] **Proposal open items.** The text itself says cancellation and end-of-term handoff terms, tool and GPT access, and responsibility for third-party subscriptions are still to be finalized. Resolve or keep those notes before sharing. The last card is titled "Proposed internal delivery SOP"; confirm you want that visible to the client.
+- [ ] **Proposal open items.** Termination is now stated (rolling monthly after the initial term, 30 days written notice). Still marked as to-be-finalized on the page: end-of-term access to MANY's included tools, and responsibility for third-party subscriptions. Review the three places where the new client-responsibility and termination wording overlaps earlier text: (1) rolling monthly renewal vs the fixed January 1 – December 31, 2027 term, (2) "2 to 3 business days" feedback vs "within 2 business days" per round, (3) the new responsibilities mention ad copy and web rebuilds, which are listed as exclusions. The last card is titled "Proposed internal delivery SOP"; confirm you want that visible to the client.
 - [ ] **Hide from search.** `noindex` is set in three places (meta tag, `X-Robots-Tag` header, `robots.txt`). The link is still public, so share it only with people you mean to.
 
 ---

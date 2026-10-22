@@ -1,0 +1,16 @@
+---
+import Icon from "./Icon.astro";
+import { FREE_PLAN } from "../data/proposal";
+---
+
+<footer class="mt-8 border-t border-line pt-5 pb-2 text-center">
+  <a
+    href={FREE_PLAN.href}
+    target="_blank"
+    rel="noopener"
+    class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand hover:underline"
+  >
+    <Icon name="zap" class="size-4" />
+    {FREE_PLAN.text}
+  </a>
+</footer>
