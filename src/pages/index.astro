@@ -21,8 +21,6 @@ import {
 const sections = [
   ["overview", "Overview"],
   ["deliverables", "Deliverables"],
-  ["examples", "Email examples"],
-  ["event-graphics-sample", "Event graphics"],
   ["resources", "Included resources"],
   ["scheduling", "Scheduling tool"],
   ["setup", "Setup"],
@@ -74,16 +72,14 @@ const sections = [
             </div>
           ))}
         </div>
+        <div class="mt-7 grid grid-cols-[minmax(0,1fr)] items-center gap-8 min-[900px]:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+          <div class="min-w-0"><EmailDevices /></div>
+          <div class="min-w-0">
+            <EventGraphics compact />
+            <p class="mt-2 mb-0 text-center text-xs text-muted">Each event package includes the graphic in three sizes.</p>
+          </div>
+        </div>
         {DELIVERABLE_NOTES.map((n) => <p class={`${ui.foot} max-w-none`}>{n}</p>)}
-      </Card>
-
-      <Card id="examples" icon="mail" tag="In the chamber's own templates" title="What the email work looks like" lede="The chamber's current newsletter and event emails, shown on a phone. The newsletter work is designed in these established templates.">
-        <EmailDevices />
-      </Card>
-
-      <Card id="event-graphics-sample" icon="image" tag="Event and design packages" title="One concept, three sizes" lede="A sample built from the chamber's Coffee & Conversations details. Each package is one template-based design concept in up to three digital sizes, with a matching single-page flyer using the same content.">
-        <EventGraphics />
-        <p class={`${ui.foot} max-w-none text-center`}>Sample design for illustration, using details from the chamber's October Coffee &amp; Conversations email. Select an image to open it full size.</p>
       </Card>
 
       <Card id="resources" icon="gift" tag="Included value-adds" title="Resources for the chamber team" lede={VALUE_INTRO}>
