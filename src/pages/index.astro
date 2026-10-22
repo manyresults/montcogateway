@@ -13,7 +13,7 @@ import { statTiles } from "../lib/charts";
 import {
   INTRO, NOT_THIS, TILES, TERMS_NOTE, DELIVERABLES, DELIVERABLE_NOTES, VALUE_INTRO, RESOURCES, VALUE_NOTES,
   SCHEDULER, SETUP, REVISIONS, LEAD_INTRO, LEAD_INTRO_2, LEAD_TABLE, LEAD_RULES, RESPONSIBILITIES, OWNERSHIP,
-  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS,
+  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS, SUBMIT,
 } from "../data/proposal";
 
 const sections = [
@@ -25,6 +25,7 @@ const sections = [
   ["ownership", "Ownership and handoff"],
   ["revisions", "Revisions"],
   ["lead-times", "Lead times"],
+  ["submissions", "Submissions"],
   ["responsibilities", "Chamber responsibilities"],
   ["exclusions", "Exclusions"],
   ["process", "Delivery process"],
@@ -136,6 +137,26 @@ const sections = [
           </table>
         </div>
         <ul class={`${ui.list} mt-4 max-w-none`}>{LEAD_RULES.map((r) => <li>{r}</li>)}</ul>
+      </Card>
+
+      <Card id="submissions" icon="send" tag="Submissions and file sharing" title="Where requests and files go" lede={SUBMIT.intro}>
+        <div class="grid gap-3 min-[800px]:grid-cols-3">
+          <a href={SUBMIT.supportUrl} target="_blank" rel="noopener" class={`${ui.mini} block border-t-4 border-t-accent no-underline`}>
+            <Icon name="globe" badge="md" />
+            <h3 class={`${ui.h3} mt-2.5 mb-1 text-brand`}>Support page</h3>
+            <p class="m-0 text-sm font-semibold break-words underline underline-offset-2">{SUBMIT.supportLabel}</p>
+          </a>
+          <a href={`mailto:${SUBMIT.email}`} class={`${ui.mini} block border-t-4 border-t-accent no-underline`}>
+            <Icon name="mail" badge="md" />
+            <h3 class={`${ui.h3} mt-2.5 mb-1 text-brand`}>Email</h3>
+            <p class="m-0 text-sm font-semibold break-words underline underline-offset-2">{SUBMIT.email}</p>
+          </a>
+          <div class={`${ui.mini} border-t-4 border-t-accent`}>
+            <Icon name="folder" badge="md" />
+            <h3 class={`${ui.h3} mt-2.5 mb-1 text-brand`}>Chamber-controlled Google Drive</h3>
+            <p class="m-0 text-sm">{SUBMIT.drive}</p>
+          </div>
+        </div>
       </Card>
 
       <Card id="responsibilities" icon="user-check" tag="Working together" title="Chamber responsibilities" lede="The chamber will provide:">

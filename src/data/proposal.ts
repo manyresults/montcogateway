@@ -163,11 +163,22 @@ export const LEAD_RULES = [
   "Rush requests are subject to availability and a separately approved quote.",
 ];
 
+/** "Submissions and file sharing" card. */
+export const SUBMIT = {
+  supportUrl: "https://manyresults.com/support",
+  supportLabel: "manyresults.com/support",
+  email: "info@manyresults.com",
+  intro: "All submissions can be sent through either channel below.",
+  drive:
+    "Source materials, assets and delivered work are exchanged through a Google Drive share controlled by the chamber. The chamber decides who has access.",
+};
+
 export const RESPONSIBILITIES = [
   "Jude as the designated approver, providing consolidated feedback and final approval.",
   "Accurate event dates, locations, prices, registration links, sponsor details and source information.",
   "Approved logos, brand assets, photos and video files, with permission for their intended use.",
   "Authorized access to Constant Contact and required shared assets.",
+  "A Google Drive share, controlled by the chamber, for exchanging source materials and delivered work.",
   "Approval of factual accuracy and permission to send each newsletter.",
 ];
 
@@ -207,7 +218,7 @@ export const SOP: { icon: IconName; title: string; text: string[]; list?: string
     title: "Plan and intake",
     text: [
       "Maintain one shared production calendar and request queue. At kickoff, map the year's known major events and their first promotional dates. Keep a rolling 90-day event view, reflecting Jude's typical 30–90-day notice for regular events and months of lead time for major events. Each month, confirm the two newsletter send dates, allocation of the six design packages, major-event slide requirements, and two reel batch windows.",
-      "Each request must include the objective, source content, required formats, assets and intended publication date. Define each major-event slide set's count, dimensions and allowance usage before assigning work. Do not treat major-event campaigns as unlimited work or assume that an event date is the creative deadline.",
+      "Requests arrive through manyresults.com/support or info@manyresults.com. Each request must include the objective, source content, required formats, assets and intended publication date. Define each major-event slide set's count, dimensions and allowance usage before assigning work. Do not treat major-event campaigns as unlimited work or assume that an event date is the creative deadline.",
     ],
   },
   {
@@ -241,7 +252,7 @@ export const SOP: { icon: IconName; title: string; text: string[]; list?: string
     icon: "send",
     title: "Approve and deliver",
     text: [
-      "Obtain Jude's written newsletter approval before any agreed newsletter scheduling. Deliver approved graphics, flyers, promotional slides and reels in clearly named folders, organized by event or publication date, for Jude to post. Record final approvals and delivery dates. MANY does not schedule event or social posts on Jude's behalf.",
+      "Obtain Jude's written newsletter approval before any agreed newsletter scheduling. Deliver approved graphics, flyers, promotional slides and reels in clearly named folders in the chamber-controlled Google Drive share, organized by event or publication date, for Jude to post. Record final approvals and delivery dates. MANY does not schedule event or social posts on Jude's behalf.",
     ],
   },
   {
