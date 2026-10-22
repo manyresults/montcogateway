@@ -1,11 +1,12 @@
 /**
  * Content for the proposal on the front page (src/pages/index.astro).
- * Edit wording, numbers and allowances here. Pricing figures:
- *   $697 x 12 months = $8,364;  $197 + $147 = $344 stated resource value.
+ * Edit wording, numbers and allowances here. Only the monthly fee ($697) is
+ * shown prominently; the two resource values ($197, $147) appear as small
+ * muted text on their cards. No totals or combined values are displayed.
  */
 import type { IconName } from "../lib/icons";
 
-export const FEE = { monthly: 697, months: 12, total: 8364, resourceValue: 344, toolkit: 197, ops: 147 };
+export const FEE = { monthly: 697, months: 12, toolkit: 197, ops: 147 };
 
 export const INTRO = [
   "MANY will support the Montco Gateway Chamber of Commerce with newsletter production, event graphics and flyers, major-event promotional slides, and short-form video clips. The service is designed to take recurring creative production off Jude's plate while she retains control of posting and final approvals. Work will follow a shared production calendar using established brand assets and reusable templates.",
@@ -18,8 +19,7 @@ export const NOT_THIS =
 export const TILES: { icon: IconName; value: string; label: string; source: string }[] = [
   { icon: "circle-dollar", value: "$697", label: "Per month. No setup fee.", source: "Includes the production services, the scheduling tool and two resources" },
   { icon: "calendar", value: "12 months", label: "Proposed term", source: "January 1, 2027 through December 31, 2027" },
-  { icon: "file-text", value: "$8,364", label: "Total scheduled service fees", source: "Invoiced monthly in advance" },
-  { icon: "gift", value: "$344/mo", label: "Stated value of two included resources", source: "At no additional charge" },
+  { icon: "file-text", value: "Monthly", label: "Invoiced in advance", source: "Billed each month of the term" },
 ];
 
 export const TERMS_NOTE =
@@ -35,20 +35,20 @@ export const DELIVERABLES: {
   {
     icon: "mail",
     name: "Newsletters",
-    allowance: "2",
+    allowance: "Up to 4",
     per: "per month",
     items: [
-      "One At a Glance newsletter and one additional issue",
+      "One At a Glance newsletter and up to three additional issues",
       "Draft from chamber-supplied facts and source material",
       "Design in established Constant Contact templates",
       "Test and schedule following written approval",
-      "Proposed size limits: up to 10 sections for At a Glance and 5 for the additional issue",
+      "Proposed size limits: up to 10 sections for At a Glance and 5 for each additional issue",
     ],
   },
   {
     icon: "image",
     name: "Event and design packages",
-    allowance: "6",
+    allowance: "Up to 8",
     per: "per month",
     items: [
       "Each package: one template-based design concept, up to 3 digital sizes, and one matching single-page flyer using the same content",
@@ -99,7 +99,7 @@ export const RESOURCES: { icon: IconName; name: string; value: string; text: str
 ];
 
 export const VALUE_NOTES = [
-  "Combined stated resource value: $344/month, included at no additional charge. These values describe the two resource offerings; they are not a promise of financial savings or campaign results.",
+  "Included at no additional charge. Stated values describe the two resource offerings; they are not a promise of financial savings or campaign results.",
   "Access to both resources is included during the active service term. Available resources, user access, custom GPT setup, any required third-party account or subscription, and end-of-term access arrangements will be confirmed before the agreement is finalized. Resource and training access does not add unlimited custom production, live training, consulting or campaign management to the monthly scope.",
 ];
 
@@ -221,7 +221,7 @@ export const SOP: { icon: IconName; title: string; text: string[]; list?: string
     icon: "calendar-check",
     title: "Plan and intake",
     text: [
-      "Maintain one shared production calendar and request queue. At kickoff, map the year's known major events and their first promotional dates. Keep a rolling 90-day event view, reflecting Jude's typical 30–90-day notice for regular events and months of lead time for major events. Each month, confirm the two newsletter send dates, allocation of the six design packages, major-event slide requirements, and two reel batch windows.",
+      "Maintain one shared production calendar and request queue. At kickoff, map the year's known major events and their first promotional dates. Keep a rolling 90-day event view, reflecting Jude's typical 30–90-day notice for regular events and months of lead time for major events. Each month, confirm the newsletter send dates (up to four), allocation of the design packages (up to eight), major-event slide requirements, and two reel batch windows.",
       "Requests arrive through manyresults.com/support or info@manyresults.com. Each request must include the objective, source content, required formats, assets and intended publication date. Define each major-event slide set's count, dimensions and allowance usage before assigning work. Do not treat major-event campaigns as unlimited work or assume that an event date is the creative deadline.",
     ],
   },
