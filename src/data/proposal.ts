@@ -189,6 +189,10 @@ export const EXCLUDED = [
   "Account recovery",
 ];
 
+/** Shown right under the exclusions list. */
+export const ADDABLE =
+  "These services can be scoped and added. Any of the services above can be scoped and added to this agreement. MANY will provide a written estimate, and additional work begins only once both parties have agreed in writing.";
+
 export const EXCLUSION_NOTES = [
   "Applying existing chamber branding to the included custom GPT is included; broader brand development is not.",
   "The Content Hub + Agency Toolkit and MANY Ops Console provide self-service resources, not a separate managed campaign service. Their inclusion does not expand the monthly production allowances or add bespoke software development, custom integrations, unlimited GPT changes, or ongoing one-to-one consulting.",

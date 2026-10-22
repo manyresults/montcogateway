@@ -13,7 +13,7 @@ import { statTiles } from "../lib/charts";
 import {
   INTRO, NOT_THIS, TILES, TERMS_NOTE, DELIVERABLES, DELIVERABLE_NOTES, VALUE_INTRO, RESOURCES, VALUE_NOTES,
   SCHEDULER, SETUP, REVISIONS, LEAD_INTRO, LEAD_INTRO_2, LEAD_TABLE, LEAD_RULES, RESPONSIBILITIES, OWNERSHIP,
-  EXCLUDED, EXCLUSION_NOTES, SOP, OWNERSHIP_ITEMS,
+  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS,
 } from "../data/proposal";
 
 const sections = [
@@ -150,6 +150,10 @@ const sections = [
         <ul class="m-0 mb-4 flex list-none flex-wrap gap-2 p-0">
           {EXCLUDED.map((e) => <li class="rounded-full border border-line bg-chip px-3 py-1 text-[13px]">{e}</li>)}
         </ul>
+        <div class="mb-4 flex items-start gap-3 rounded-xl border border-accent/40 bg-brass-soft px-4 py-3 text-sm">
+          <Icon name="plus-circle" class="mt-0.5 size-5 text-brass" />
+          <span><b>{ADDABLE.split(". ")[0]}.</b> {ADDABLE.split(". ").slice(1).join(". ")}</span>
+        </div>
         {EXCLUSION_NOTES.map((n) => <p class={`${ui.p} max-w-none text-sm`}>{n}</p>)}
       </Card>
 
