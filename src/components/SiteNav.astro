@@ -1,0 +1,31 @@
+---
+import Icon from "./Icon.astro";
+import type { IconName } from "../lib/icons";
+
+interface Props {
+  current: "proposal" | "audit";
+}
+const { current } = Astro.props;
+const links: { id: string; href: string; label: string; icon: IconName }[] = [
+  { id: "proposal", href: "/", label: "Proposal", icon: "file-text" },
+  { id: "audit", href: "/audit", label: "Audit and growth plan", icon: "bar-chart" },
+  { id: "evaluate", href: "/evaluate", label: "Partner checklist", icon: "clipboard-check" },
+];
+---
+
+<nav class="mb-3 flex flex-wrap items-center gap-x-1 gap-y-1 pt-3 text-[13px]" aria-label="Pages">
+  {
+    links.map((l) => (
+      <a
+        href={l.href}
+        target={l.id === "evaluate" ? "_blank" : undefined}
+        rel={l.id === "evaluate" ? "noopener" : undefined}
+        aria-current={l.id === current ? "page" : undefined}
+        class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 font-medium text-muted hover:text-ink aria-[current=page]:bg-chip aria-[current=page]:text-brand"
+      >
+        <Icon name={l.icon} class="size-4" />
+        {l.label}
+      </a>
+    ))
+  }
+</nav>

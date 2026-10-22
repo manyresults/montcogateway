@@ -10,14 +10,18 @@ interface Props {
   icon?: IconName;
   /** Larger, tinted card for the first card on a page. */
   hero?: boolean;
+  /** Anchor id for in-page links. */
+  id?: string;
   class?: string;
 }
-const { tag, title, lede, icon, hero, class: extra } = Astro.props;
+const { tag, title, lede, icon, hero, id, class: extra } = Astro.props;
 ---
 
 <section
+  id={id}
   class:list={[
     ui.card,
+    id && "scroll-mt-4",
     hero && "border-accent/30 bg-gradient-to-br from-accent/10 via-panel to-panel",
     extra,
   ]}

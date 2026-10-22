@@ -1,8 +1,14 @@
-# Montco Gateway Growth Plan
+# Montco Gateway: Proposal and Growth Plan
 
 A single-page app for the October 20, 2026 meeting with Jude Martin-Cianfano (Montco Gateway Chamber of Commerce). Built with [Astro](https://astro.build) + [Tailwind CSS](https://tailwindcss.com) v4 and deployed to Vercel as a static site. No database, no server.
 
-Three tabs: **What we found**, **What we would do**, **Your plan** (a fill-in worksheet that drives a live plan).
+Pages:
+
+| URL | What it is |
+|---|---|
+| `/` | **The proposal**: Chamber Content & Design Support (pricing, deliverables, revisions, lead times, exclusions, delivery process). Content in `src/data/proposal.ts`. |
+| `/audit` | **The audit and growth plan**: three tabs, *What we found*, *What we would do*, *Your plan* (a fill-in worksheet that drives a live plan). |
+| `/evaluate` | A neutral, printable checklist for comparing any marketing partner. |
 
 ```bash
 npm install
@@ -23,6 +29,7 @@ Requires Node 22.12+.
 | The five moves on "What we would do" | `src/data/content.ts` → `MOVES` |
 | Council lanes and default firms | `src/data/content.ts` → `LANES`, `FIRMS` |
 | Demo values for "Try sample numbers" | `src/data/content.ts` → `SAMPLE` |
+| The proposal's wording, numbers and allowances | `src/data/proposal.ts` |
 | Findings, benchmarks table, services copy | `src/data/content.ts` → `STATS`, `STRENGTHS`, `FINDINGS_ROWS`, `BENCHMARKS`, `SERVICES` |
 | Tasks-vs-results table, success markers, diagnostic card | `src/data/content.ts` → `TASKS_VS_RESULTS`, `SUCCESS`, `DIAGNOSTIC` |
 | The printable `/evaluate` checklist (questions, process, scorecard weights) | `src/data/content.ts` → `EVAL_QUESTIONS`, `EVAL_PROCESS`, `EVAL_SCORE`; page in `src/pages/evaluate.astro` |
@@ -63,7 +70,8 @@ The page is reachable by anyone with the link. Read it once as if you were Jude,
 - [x] **Experience card.** Naming Investor Schooling, Legacy Builder Coaching and MANY Hands United for Impact is cleared. Specifics are limited, so the card carries names and general descriptions only. If you later share a result, add it under `PROOF` in `content.ts` (the `result` line renders only when filled in).
 - [ ] **Sample numbers.** "Try sample numbers" loads clearly labeled demo values. Remove the button in `PlanPanel.astro` if you'd rather not.
 - [ ] **Data privacy.** Anything typed into the worksheet stays in that person's browser only (localStorage). Nothing is sent anywhere, and you won't see what Jude types on her device.
-- [ ] **No prices.** MANY services appear by name and description only.
+- [ ] **Pricing.** The proposal on `/` states the monthly fee, term and total ($697, 12 months, $8,364) and the stated value of the two included resources ($197 + $147). The audit on `/audit` still describes services by name and description only. Confirm both are what you want Jude to see.
+- [ ] **Proposal open items.** The text itself says cancellation and end-of-term handoff terms, tool and GPT access, and responsibility for third-party subscriptions are still to be finalized. Resolve or keep those notes before sharing. The last card is titled "Proposed internal delivery SOP"; confirm you want that visible to the client.
 - [ ] **Hide from search.** `noindex` is set in three places (meta tag, `X-Robots-Tag` header, `robots.txt`). The link is still public, so share it only with people you mean to.
 
 ---
@@ -92,5 +100,5 @@ A MANY-branded link reads better than `*.vercel.app`. Vercel → project → **S
 
 - [ ] Click **Clear** on the plan tab on the device you'll present from, so you start with blanks
 - [ ] Open the link on your phone as a backup
-- [ ] Bookmark `/#findings`, `/#approach` and `/#planTab` to jump straight to a tab
+- [ ] Bookmark `/audit#findings`, `/audit#approach` and `/audit#planTab` to jump straight to a tab
 - [ ] After the meeting, use **Copy plan summary** and paste it into your follow-up email

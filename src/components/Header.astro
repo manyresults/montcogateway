@@ -1,5 +1,17 @@
 ---
-/** Logo, title and the "blanks filled" progress bar (shown on the plan tab only). */
+/** Logo, title and (on the audit) the "blanks filled" progress bar, shown on the plan tab only. */
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  progress?: boolean;
+}
+const {
+  eyebrow = "Montco Gateway Chamber × MANY · October 20, 2026",
+  title = "Growing the Gateway",
+  subtitle = "What we found, what we would do about it, and a plan that fills in as we learn your numbers.",
+  progress = false,
+} = Astro.props;
 ---
 
 <header
@@ -21,19 +33,23 @@
       />
     </picture>
     <div class="inline-flex items-center gap-2 rounded-full bg-chip px-3 py-1 text-xs font-semibold tracking-[.12em] text-brand uppercase">
-      Montco Gateway Chamber × MANY · October 20, 2026
+      {eyebrow}
     </div>
     <h1 class="mt-2 font-display text-[clamp(28px,4.4vw,42px)] leading-[1.1] font-bold text-balance">
-      Growing the Gateway
+      {title}
     </h1>
     <p class="mt-1.5 max-w-[60ch] text-muted">
-      What we found, what we would do about it, and a plan that fills in as we learn your numbers.
+      {subtitle}
     </p>
   </div>
-  <div class="relative min-w-[200px] flex-[0_1_260px]" aria-live="polite" id="progWrap" hidden>
-    <small class="text-xs text-muted" id="progLabel">0 of 0 blanks filled</small>
-    <div class="mt-1.5 h-2 overflow-hidden rounded bg-line">
-      <span class="block h-full w-0 bg-accent transition-[width] duration-300" id="progBar"></span>
-    </div>
-  </div>
+  {
+    progress && (
+      <div class="relative min-w-[200px] flex-[0_1_260px]" aria-live="polite" id="progWrap" hidden>
+        <small class="text-xs text-muted" id="progLabel">0 of 0 blanks filled</small>
+        <div class="mt-1.5 h-2 overflow-hidden rounded bg-line">
+          <span class="block h-full w-0 bg-accent transition-[width] duration-300" id="progBar" />
+        </div>
+      </div>
+    )
+  }
 </header>
