@@ -23,7 +23,7 @@ export const TILES: { icon: IconName; value: string; label: string; source: stri
 ];
 
 export const TERMS_NOTE =
-  "Term: January 1, 2027 through December 31, 2027, then a rolling monthly basis unless otherwise specified; either party may terminate with 30 days written notice (see Confidentiality, ownership and termination below). This agreement can be altered upon agreement of both parties for scope changes. End-of-term access to the included tools and resources remains to be finalized before submission.";
+  "Term: January 1, 2027 through December 31, 2027. Renewal is not assumed. This agreement can be altered upon agreement of both parties for scope changes. Cancellation terms, and end-of-term access to the included tools and resources, remain to be finalized before submission.";
 
 export const DELIVERABLES: {
   icon: IconName;
@@ -158,8 +158,8 @@ export const LEAD_TABLE: [string, string, string][] = [
 ];
 
 export const LEAD_RULES = [
-  "In-scope revisions: within 2 business days per consolidated round.",
-  "Jude is the single designated approver. Consolidated feedback is requested within 2 business days; the calendar must allow time for any second revision round. Any additional chamber input should be consolidated by Jude before it reaches MANY.",
+  "In-scope revisions: within 3 business days per consolidated round.",
+  "Jude is the single designated approver. Consolidated feedback is requested within 3 business days; the calendar must allow time for any second revision round. Any additional chamber input should be consolidated by Jude before it reaches MANY.",
   "Newsletter approval: written approval at least 1 business day before sending. Silence is not approval.",
   "Timelines begin only when the brief, required access and all assets are complete.",
   "Late materials, delayed approvals or brief changes may shift delivery dates.",
@@ -282,7 +282,7 @@ export const CLIENT_RESP = {
       icon: "folder" as const,
       title: "Asset Delivery",
       text: [
-        "Provide access to logos, photos, and any branding or past marketing materials needed for campaigns, content, or web rebuilds.",
+        "Provide access to logos, photos, and any branding or past marketing materials needed for the newsletters, event graphics and video clips.",
         "Commit to sending regular updates. This includes:",
       ],
       list: ["Basic project summary", "Photos or videos of finished work", "Notable client feedback"],
@@ -291,7 +291,7 @@ export const CLIENT_RESP = {
       icon: "user-check" as const,
       title: "Approval Feedback Loop",
       text: [
-        "Respond promptly to content drafts, ad copy, or web updates requiring approval, ideally within 2 to 3 business days to keep timelines on track.",
+        "Respond promptly to drafts requiring approval, ideally within 3 business days to keep timelines on track.",
       ],
       list: [] as string[],
     },
@@ -315,17 +315,8 @@ export const TERMS = {
       title: "Ownership Rights",
       text: [
         "All proprietary materials provided by the client remain the sole property of the client. This includes branding assets, business data, customer information, internal documentation, and strategic inputs.",
-        "Upon completion, the client retains full ownership of all final deliverables created specifically for their business, including marketing assets, content, strategies, campaigns, and any custom-built systems.",
+        "Upon completion, the client retains full ownership of all final deliverables created specifically for their business, including newsletters, graphics, flyers, video clips, and other content.",
         "We retain ownership of any pre-existing frameworks, templates, methodologies, or tools developed prior to this engagement. The client is granted full rights to use any custom materials created for their business.",
-      ],
-    },
-    {
-      icon: "calendar-check" as const,
-      title: "Renewal & Termination",
-      text: [
-        "Unless otherwise specified, the agreement operates on a rolling monthly basis following the initial term.",
-        "Either party may terminate the agreement with 30 days written notice.",
-        "Upon termination, the client retains ownership of all completed and paid deliverables up to the termination date. We will support a smooth transition by providing reasonable access to all assets, materials, and systems created during the engagement.",
       ],
     },
   ],
