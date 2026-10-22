@@ -41,6 +41,10 @@ Requires Node 22.12+.
 | Icons (inline SVG set; each card/tile takes an `icon` name from `src/data/content.ts`) | `src/lib/icons.ts` |
 | Logos / favicon | `public/assets/`, `public/favicon.png` |
 
+**Themes.** The audit and checklist use the Montco theme (orange). The proposal at `/` uses the MANY theme (navy `#0a255c` and emerald `#29a37a`, Plus Jakarta Sans and Inter with EB Garamond italic accents), switched by `theme="many"` on the page's layout. Both are sets of color variables in `src/styles/global.css`; the MANY set is the `[data-theme="many"]` block.
+
+**MANY logo.** The proposal header shows the Montco and MANY logos together. Add a dark-on-light MANY logo at `public/assets/many-logo.svg` (or `.png` / `.webp`) and it appears automatically; until then a plain text "MANY" is shown.
+
 Brand orange is `#F24F02` (`--accent`). Text and buttons use a slightly darker orange (`--brand`) so they stay readable on white. The header swaps between the black-text and white-text logo automatically in dark mode.
 
 ```

@@ -4,10 +4,10 @@
  * (Tailwind scans this file, so every class here is generated.)
  */
 export const ui = {
-  card: "min-w-0 rounded-xl border border-line bg-panel p-[22px] shadow-[0_1px_2px_rgb(0_0_0/.04)]",
+  card: "min-w-0 rounded-xl border border-line bg-panel p-[22px] shadow-[0_1px_2px_rgb(0_0_0/.04)] in-data-[theme=many]:rounded-2xl in-data-[theme=many]:shadow-md",
   // Smaller cards inside a card: soft lift on hover (not for reduced-motion users).
   mini: "min-w-0 rounded-lg border border-line bg-bg/40 p-3.5 motion-safe:transition motion-safe:duration-150 hover:border-accent/60 hover:shadow-md motion-safe:hover:-translate-y-px",
-  tag: "mb-1.5 inline-block text-[11px] font-semibold uppercase tracking-[.1em] text-brass",
+  tag: "mb-1.5 inline-block text-[11px] font-semibold uppercase tracking-[.1em] text-brass in-data-[theme=many]:tracking-[.2em]",
   h2: "mb-1 font-display text-[22px] leading-[1.15] font-bold text-balance",
   h3: "font-display text-[15px] leading-[1.15] font-bold text-balance",
   lede: "mb-3.5 max-w-[70ch] text-muted",

@@ -23,6 +23,10 @@
   --warn: #a35b0a;
   --bad: #a3322b;
   --chip: #fbece3;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-sans: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-serif: "EB Garamond", Georgia, serif;
   color-scheme: light;
 }
 
@@ -45,6 +49,43 @@
   }
 }
 
+/*
+  MANY theme (data-theme="many" on <html>), used by the proposal at "/".
+  Navy + emerald from MANY's proposal template; Plus Jakarta Sans / Inter,
+  with EB Garamond italic as an accent. --brand is navy so text and buttons
+  keep strong contrast; --accent (emerald) is for rules, bars and highlights.
+*/
+:root[data-theme="many"] {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --ink: #020817;
+  --muted: #55657a;
+  --line: #e2e8f0;
+  --brand: #0a255c;
+  --brand-ink: #ffffff;
+  --accent: #29a37a;
+  --brass: #1b7a5a;
+  --brass-soft: #e6f6f0;
+  --chip: #e8eef7;
+  --f-display: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --f-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="many"] {
+    --bg: #020817;
+    --panel: #0b1426;
+    --ink: #f8fafc;
+    --muted: #94a3b8;
+    --line: #1e293b;
+    --brand: #5ee0c0;
+    --brand-ink: #02130e;
+    --accent: #29a37a;
+    --brass: #5ee0c0;
+    --brass-soft: #0c2a24;
+    --chip: #12233c;
+  }
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-panel: var(--panel);
@@ -61,16 +102,17 @@
   --color-bad: var(--bad);
   --color-chip: var(--chip);
 
-  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --font-sans: "Public Sans", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-display: var(--f-display);
+  --font-sans: var(--f-sans);
+  --font-mono: var(--f-mono);
+  --font-serif: var(--f-serif);
 }
 
 @layer base {
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: var(--f-sans);
     font-size: 15px;
     line-height: 1.55;
   }
@@ -102,7 +144,8 @@
 
 /* Printed pages are always the light theme, whatever the viewer's setting. */
 @media print {
-  :root {
+  :root,
+  :root[data-theme="many"] {
     --bg: #ffffff;
     --panel: #ffffff;
     --ink: #1c1917;
