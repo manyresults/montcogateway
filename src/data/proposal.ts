@@ -121,6 +121,10 @@ export const OWNERSHIP_ITEMS: { icon: IconName; title: string; text: string }[] 
   },
 ];
 
+/** Shown under the ownership cards: what does not transfer. */
+export const STAYS_WITH_MANY =
+  "The Content Hub + Agency Toolkit and the MANY Ops Console are MANY's own tools and stay with MANY. The chamber has access to them during the active service term; end-of-term access arrangements will be confirmed before the agreement is finalized.";
+
 export const SCHEDULER = [
   "MANY will provide access to a social media scheduling tool as part of the $697 monthly service, allowing chamber staff to schedule and publish content across the chamber's connected social accounts. Account connections and available publishing features are subject to the selected tool's supported platforms and each network's permissions.",
   "Jude will handle all event and social media posting, including selecting dates, scheduling and publishing the delivered creative. The included tool is available for her use; it does not transfer posting responsibilities to MANY or require her to change her current workflow. Managed social posting and community management are not included. The chamber retains ownership of its social accounts. Tool access is included during the active service term; offboarding arrangements will be defined in the final agreement.",

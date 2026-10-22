@@ -13,7 +13,7 @@ import { statTiles } from "../lib/charts";
 import {
   INTRO, NOT_THIS, TILES, TERMS_NOTE, DELIVERABLES, DELIVERABLE_NOTES, VALUE_INTRO, RESOURCES, VALUE_NOTES,
   SCHEDULER, SETUP, REVISIONS, LEAD_INTRO, LEAD_INTRO_2, LEAD_TABLE, LEAD_RULES, RESPONSIBILITIES, OWNERSHIP,
-  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS, SUBMIT,
+  EXCLUDED, EXCLUSION_NOTES, ADDABLE, SOP, OWNERSHIP_ITEMS, STAYS_WITH_MANY, SUBMIT,
 } from "../data/proposal";
 
 const sections = [
@@ -104,6 +104,7 @@ const sections = [
             </li>
           ))}
         </ul>
+        <div class={ui.note}><b>What stays with MANY.</b> {STAYS_WITH_MANY}</div>
       </Card>
 
       <Card id="revisions" icon="repeat" tag="Revisions" title="Two consolidated rounds">
