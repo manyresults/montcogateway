@@ -17,13 +17,13 @@ export const NOT_THIS =
 /** Summary tiles under the intro. */
 export const TILES: { icon: IconName; value: string; label: string; source: string }[] = [
   { icon: "circle-dollar", value: "$697", label: "Per month. No setup fee.", source: "Includes the production services, the scheduling tool and two resources" },
-  { icon: "calendar", value: "12 months", label: "Proposed term", source: "Anticipated to begin January 2027; exact dates to be agreed" },
+  { icon: "calendar", value: "12 months", label: "Proposed term", source: "January 1, 2027 through December 31, 2027" },
   { icon: "file-text", value: "$8,364", label: "Total scheduled service fees", source: "Invoiced monthly in advance" },
   { icon: "gift", value: "$344/mo", label: "Stated value of two included resources", source: "At no additional charge" },
 ];
 
 export const TERMS_NOTE =
-  "Renewal is not assumed. Cancellation and end-of-term handoff terms remain to be finalized before submission.";
+  "Term: January 1, 2027 through December 31, 2027. Renewal is not assumed. This agreement can be altered upon agreement of both parties for scope changes. Cancellation terms, and end-of-term access to the included tools and resources, remain to be finalized before submission.";
 
 export const DELIVERABLES: {
   icon: IconName;
@@ -101,6 +101,24 @@ export const RESOURCES: { icon: IconName; name: string; value: string; text: str
 export const VALUE_NOTES = [
   "Combined stated resource value: $344/month, included at no additional charge. These values describe the two resource offerings; they are not a promise of financial savings or campaign results.",
   "Access to both resources is included during the active service term. Available resources, user access, custom GPT setup, any required third-party account or subscription, and end-of-term access arrangements will be confirmed before the agreement is finalized. Resource and training access does not add unlimited custom production, live training, consulting or campaign management to the monthly scope.",
+];
+
+export const OWNERSHIP_ITEMS: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: "shield-check",
+    title: "Everything is turned over to the chamber",
+    text: "All work product, documentation, templates and related materials will be turned over to the chamber or kept accessible to it, during the engagement and after it ends.",
+  },
+  {
+    icon: "file-text",
+    title: "Documentation, SOPs and governance",
+    text: "MANY will assist in creating documentation, SOPs and governance for the chamber to use for future engagements.",
+  },
+  {
+    icon: "pencil",
+    title: "Changes by agreement",
+    text: "This agreement can be altered upon agreement of both parties for scope changes.",
+  },
 ];
 
 export const SCHEDULER = [

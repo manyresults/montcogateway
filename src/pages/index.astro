@@ -13,7 +13,7 @@ import { statTiles } from "../lib/charts";
 import {
   INTRO, NOT_THIS, TILES, TERMS_NOTE, DELIVERABLES, DELIVERABLE_NOTES, VALUE_INTRO, RESOURCES, VALUE_NOTES,
   SCHEDULER, SETUP, REVISIONS, LEAD_INTRO, LEAD_INTRO_2, LEAD_TABLE, LEAD_RULES, RESPONSIBILITIES, OWNERSHIP,
-  EXCLUDED, EXCLUSION_NOTES, SOP,
+  EXCLUDED, EXCLUSION_NOTES, SOP, OWNERSHIP_ITEMS,
 } from "../data/proposal";
 
 const sections = [
@@ -22,6 +22,7 @@ const sections = [
   ["resources", "Included resources"],
   ["scheduling", "Scheduling tool"],
   ["setup", "Setup"],
+  ["ownership", "Ownership and handoff"],
   ["revisions", "Revisions"],
   ["lead-times", "Lead times"],
   ["responsibilities", "Chamber responsibilities"],
@@ -55,7 +56,7 @@ const sections = [
         {INTRO.map((p) => <p class={ui.p}>{p}</p>)}
         <div class={ui.note}><b>What this is, and isn't.</b> {NOT_THIS}</div>
         <div class="mt-4" set:html={statTiles(TILES)} />
-        <div class={ui.note}><b>Term and terms.</b> {TERMS_NOTE}</div>
+        <div class={ui.note}><b>Terms.</b> {TERMS_NOTE}</div>
       </Card>
 
       <Card id="deliverables" icon="layers" tag="Monthly deliverables" title="What you receive each month" lede="Allowances are monthly maximums, scheduled across the calendar.">
@@ -90,6 +91,18 @@ const sections = [
 
       <Card id="setup" icon="rocket" tag="Getting started" title="Setup within the monthly service">
         {SETUP.map((p) => <p class={ui.p}>{p}</p>)}
+      </Card>
+
+      <Card id="ownership" icon="shield-check" tag="Ownership and handoff" title="What the chamber keeps" lede="The work is built so the chamber can run it, now and in future engagements.">
+        <ul class="m-0 grid list-none gap-3 p-0 min-[800px]:grid-cols-3">
+          {OWNERSHIP_ITEMS.map((o) => (
+            <li class={`${ui.mini} border-t-4 border-t-accent`}>
+              <Icon name={o.icon} badge="md" />
+              <h3 class={`${ui.h3} mt-2.5 mb-1.5 text-brand`}>{o.title}</h3>
+              <p class="m-0 text-sm">{o.text}</p>
+            </li>
+          ))}
+        </ul>
       </Card>
 
       <Card id="revisions" icon="repeat" tag="Revisions" title="Two consolidated rounds">
