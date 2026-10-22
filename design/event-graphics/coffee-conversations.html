@@ -1,0 +1,124 @@
+<!doctype html>
+<!--
+  Sample event graphic: Coffee & Conversations. One template-based concept,
+  rendered at three social sizes via the query string:
+    ?size=sq  1080x1080  (1:1 feed square)
+    ?size=pt  1080x1350  (4:5 feed portrait)
+    ?size=st  1080x1920  (9:16 story / reel; text kept inside the safe area)
+  Edit the content block below, then re-render each size to PNG.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coffee &amp; Conversations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+  :root{--orange:#f24f02;--orange-deep:#c93f00;--cream:#fff4ea;--ink:#12141a;--sky:#99d6f0;--blue:#4f9bea}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#fff}
+  body{font-family:"Poppins",system-ui,sans-serif;color:var(--ink)}
+  .canvas{position:relative;overflow:hidden;background:var(--cream)}
+  .sq{width:1080px;height:1080px}.pt{width:1080px;height:1350px}.st{width:1080px;height:1920px}
+
+  /* decorative arch (echoes the Montco mark) and sky-blue block */
+  .arch{position:absolute;right:-70px;background:var(--sky);border-radius:999px 999px 0 0;opacity:.9}
+  .dots{position:absolute;right:56px;width:150px;height:150px;opacity:.55;
+        background-image:radial-gradient(var(--orange) 3px,transparent 3.5px);background-size:25px 25px}
+
+  .top{position:absolute;left:72px;right:72px;display:flex;align-items:center;justify-content:space-between}
+  .top img{display:block;height:68px;width:auto}
+  .pill{font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep);
+        border:3px solid var(--orange);border-radius:999px;padding:10px 22px;background:#fff}
+
+  .logo{position:absolute;left:72px;display:block;width:auto}
+  h1{position:absolute;left:72px;right:72px;font-weight:800;letter-spacing:-.02em;line-height:1.03}
+  h1 em{font-style:normal;color:var(--orange)}
+
+  .panel{position:absolute;left:0;right:0;bottom:0;background:var(--orange);color:#fff;border-radius:64px 64px 0 0}
+  .row{position:absolute;left:72px;right:72px;display:flex;gap:40px;align-items:center}
+  .date{flex:none;background:#fff;color:var(--ink);border-radius:30px;text-align:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.35)}
+  .date b{display:block;font-weight:700;letter-spacing:.18em;color:var(--orange-deep)}
+  .date strong{display:block;font-weight:800;line-height:.9}
+  .time{font-weight:800;line-height:1}
+  .where b{display:block;font-weight:700;line-height:1.15}
+  .where span{display:block;font-weight:500;line-height:1.35;opacity:.95}
+  .foot{position:absolute;left:72px;right:72px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .chip{font-weight:600;border:2.5px solid rgba(255,255,255,.85);border-radius:999px;padding:9px 20px;font-size:23px}
+  .cta{margin-left:auto;background:#fff;color:var(--orange-deep);font-weight:800;border-radius:999px;padding:15px 34px;font-size:27px}
+  .host{position:absolute;left:72px;font-weight:500;opacity:.92}
+
+  /* ---------- 1:1  1080x1080 ---------- */
+  .sq .arch{top:-40px;width:330px;height:420px}.sq .dots{top:470px}
+  .sq .top{top:52px}
+  .sq .logo{top:150px;height:205px}
+  .sq h1{top:385px;font-size:70px}
+  .sq .panel{height:420px}
+  .sq .row{top:668px}
+  .sq .date{width:178px;padding:16px 0 18px}.sq .date b{font-size:24px}.sq .date strong{font-size:96px}
+  .sq .time{font-size:50px;margin-bottom:10px}
+  .sq .where b{font-size:34px}.sq .where span{font-size:23px}
+  .sq .foot{top:925px;gap:12px}.sq .chip{font-size:20px;padding:8px 16px}.sq .cta{font-size:24px;padding:13px 28px}.sq .host{display:none}
+
+  /* ---------- 4:5  1080x1350 ---------- */
+  .pt .arch{top:-40px;width:360px;height:520px}.pt .dots{top:560px}
+  .pt .top{top:60px}
+  .pt .logo{top:176px;height:250px}
+  .pt h1{top:470px;font-size:82px}
+  .pt .panel{height:540px}
+  .pt .row{top:842px}
+  .pt .date{width:206px;padding:20px 0 22px}.pt .date b{font-size:27px}.pt .date strong{font-size:112px}
+  .pt .time{font-size:62px;margin-bottom:12px}
+  .pt .where b{font-size:44px}.pt .where span{font-size:29px}
+  .pt .foot{top:1130px}.pt .host{top:1262px;font-size:23px}
+
+  /* ---------- 9:16  1080x1920  (keep key content between y=250 and y=1580) ---------- */
+  .st .arch{top:90px;width:380px;height:590px}.st .dots{top:84px;left:72px;right:auto;height:130px}
+  .st .top{top:262px}
+  .st .logo{top:392px;height:290px}
+  .st h1{top:730px;font-size:90px}
+  .st .panel{top:1050px;bottom:auto;height:870px;overflow:hidden}
+  .st .panel::after{content:"";position:absolute;right:-70px;bottom:0;width:430px;height:430px;background:var(--orange-deep);opacity:.35;border-radius:999px 999px 0 0}
+  .st .row{top:1120px}
+  .st .date{width:226px;padding:22px 0 26px}.st .date b{font-size:30px}.st .date strong{font-size:124px}
+  .st .time{font-size:70px;margin-bottom:14px}
+  .st .where b{font-size:43px}.st .where span{font-size:29px}
+  .st .foot{top:1420px}.st .host{top:1545px;font-size:26px}
+</style>
+</head>
+<body>
+<div class="canvas" id="c">
+  <div class="arch"></div><div class="dots"></div>
+
+  <div class="top">
+    <img src="montco-logo.webp" alt="Montco Gateway Chamber of Commerce">
+    <span class="pill">Monthly networking</span>
+  </div>
+
+  <img class="logo" src="cc-logo.png" alt="Coffee &amp; Conversations">
+  <h1>Come for the <em>coffee</em>, stay for the <em>connections!</em></h1>
+
+  <div class="panel"></div>
+  <div class="row">
+    <div class="date"><b>OCT</b><strong>7</strong></div>
+    <div class="where">
+      <div class="time">9:00 AM</div>
+      <b>Hotel West &amp; Main</b>
+      <span>2nd Floor Hook &amp; Ladder Sky Bar</span>
+      <span>46 Fayette Street, Conshohocken, PA 19428</span>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="chip">Free member benefit</span>
+    <span class="chip">First-time guests welcome</span>
+    <span class="cta">Register today</span>
+  </div>
+  <div class="host">Our host: Hook &amp; Ladder</div>
+</div>
+<script>
+  const size=new URLSearchParams(location.search).get('size')||'pt';
+  document.getElementById('c').classList.add(size);
+</script>
+</body>
+</html>

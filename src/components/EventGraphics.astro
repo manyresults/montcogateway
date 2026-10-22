@@ -1,0 +1,41 @@
+---
+/**
+ * One event design shown at three social sizes, aligned to the same height.
+ * Images: public/assets/event-cc-{sq,pt,st}.webp (rendered from
+ * design/event-graphics/coffee-conversations.html).
+ */
+const sizes = [
+  { src: "/assets/event-cc-sq.webp", ratio: "1:1", name: "Feed square", px: "1080 × 1080", w: 1080, h: 1080, alt: "Coffee & Conversations event graphic, square format" },
+  { src: "/assets/event-cc-pt.webp", ratio: "4:5", name: "Feed portrait", px: "1080 × 1350", w: 1080, h: 1350, alt: "Coffee & Conversations event graphic, portrait format" },
+  { src: "/assets/event-cc-st.webp", ratio: "9:16", name: "Story or reel", px: "1080 × 1920", w: 1080, h: 1920, alt: "Coffee & Conversations event graphic, story format" },
+];
+// Same visual height for all three: each width is proportional to its aspect ratio.
+const total = sizes.reduce((sum, s) => sum + s.w / s.h, 0);
+---
+
+<figure class="m-0" id="event-graphics">
+  <div class="-mx-1 overflow-x-auto px-1 pb-2">
+  <div class="mx-auto flex min-w-[620px] max-w-[920px] items-end justify-center gap-5">
+    {
+      sizes.map((s) => (
+        <div style={`flex:0 0 calc((100% - 2.5rem) * ${(s.w / s.h / total).toFixed(4)})`} class="min-w-0">
+          <a href={s.src} target="_blank" rel="noopener" class="block">
+            <img
+              src={s.src}
+              alt={s.alt}
+              width={s.w}
+              height={s.h}
+              loading="lazy"
+              class="block h-auto w-full rounded-xl shadow-[0_24px_40px_-22px_rgb(2_8_23/.55)] ring-1 ring-black/5 motion-safe:transition motion-safe:duration-200 hover:-translate-y-1 hover:shadow-[0_30px_46px_-22px_rgb(2_8_23/.6)]"
+            />
+          </a>
+          <figcaption class="mt-3 text-center text-xs leading-snug text-muted">
+            <b class="block text-[13px] text-ink">{s.ratio} · {s.name}</b>
+            <span class="font-mono">{s.px}</span>
+          </figcaption>
+        </div>
+      ))
+    }
+  </div>
+  </div>
+</figure>
