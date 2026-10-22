@@ -8,6 +8,7 @@ import Header from "../components/Header.astro";
 import SiteNav from "../components/SiteNav.astro";
 import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
+import EmailDevices from "../components/EmailDevices.astro";
 import { ui } from "../lib/ui";
 import { statTiles } from "../lib/charts";
 import {
@@ -19,6 +20,7 @@ import {
 const sections = [
   ["overview", "Overview"],
   ["deliverables", "Deliverables"],
+  ["examples", "Email examples"],
   ["resources", "Included resources"],
   ["scheduling", "Scheduling tool"],
   ["setup", "Setup"],
@@ -71,6 +73,10 @@ const sections = [
           ))}
         </div>
         {DELIVERABLE_NOTES.map((n) => <p class={`${ui.foot} max-w-none`}>{n}</p>)}
+      </Card>
+
+      <Card id="examples" icon="mail" tag="In the chamber's own templates" title="What the email work looks like" lede="The chamber's current newsletter and event emails, shown on a phone. The newsletter work is designed in these established templates.">
+        <EmailDevices />
       </Card>
 
       <Card id="resources" icon="gift" tag="Included value-adds" title="Resources for the chamber team" lede={VALUE_INTRO}>

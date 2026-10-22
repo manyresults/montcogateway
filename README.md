@@ -39,6 +39,7 @@ Requires Node 22.12+.
 | Brand colors, fonts, dark mode | `src/styles/global.css` (`:root` variables and `@theme`) |
 | Shared Tailwind class strings | `src/lib/ui.ts` |
 | Icons (inline SVG set; each card/tile takes an `icon` name from `src/data/content.ts`) | `src/lib/icons.ts` |
+| Email phone mockups on the proposal (`EmailDevices.astro`; screens are `public/assets/email-*.webp`, combined from the chamber's email screenshots) | `src/components/EmailDevices.astro` |
 | Logos / favicon | `public/assets/`, `public/favicon.png` |
 
 **Themes.** The audit and checklist use the Montco theme (orange). The proposal at `/` uses the MANY theme (navy `#0a255c` and emerald `#29a37a`, Plus Jakarta Sans and Inter with EB Garamond italic accents), switched by `theme="many"` on the page's layout. Both are sets of color variables in `src/styles/global.css`; the MANY set is the `[data-theme="many"]` block.
