@@ -10,6 +10,7 @@ import Card from "../components/Card.astro";
 import Icon from "../components/Icon.astro";
 import EmailDevices from "../components/EmailDevices.astro";
 import EventGraphics from "../components/EventGraphics.astro";
+import ClipsVisual from "../components/ClipsVisual.astro";
 import { ui } from "../lib/ui";
 import { statTiles } from "../lib/charts";
 import {
@@ -79,6 +80,7 @@ const sections = [
             <p class="mt-2 mb-0 text-center text-xs text-muted">Each event package includes the graphic in three sizes.</p>
           </div>
         </div>
+        <div class="mt-8"><ClipsVisual /></div>
         {DELIVERABLE_NOTES.map((n) => <p class={`${ui.foot} max-w-none`}>{n}</p>)}
       </Card>
 

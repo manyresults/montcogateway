@@ -1,0 +1,76 @@
+---
+/**
+ * Long-form to short-form: one long recording, highlighted moments on its
+ * timeline, and a row of short vertical clips with captions. Pure HTML/SVG,
+ * no tool names. Numbers mirror the proposal's scope (up to 60 seconds each,
+ * up to 20 clips a month, up to 4 hours of source a month).
+ */
+// Highlight centers on the timeline (% across) and the clip each one feeds.
+const moments = [12, 31, 50, 69, 88];
+const clipCenters = [10, 30, 50, 70, 90];
+const clips = [
+  { len: "0:42", tone: "from-[#0a255c] to-[#1b4fa3]" },
+  { len: "0:58", tone: "from-[#0b3b36] to-[#1f8a6a]" },
+  { len: "0:31", tone: "from-[#2b1a5e] to-[#5a3fc0]" },
+  { len: "0:47", tone: "from-[#0a255c] to-[#29a37a]" },
+  { len: "0:36", tone: "from-[#14315f] to-[#3b6fd0]" },
+];
+---
+
+<figure class="m-0" id="clips-visual">
+  <div
+    class="mx-auto max-w-[900px]"
+    role="img"
+    aria-label="One long recording is cut into up to 20 short vertical clips a month, each up to 60 seconds, with captions."
+  >
+    <!-- the long-form recording -->
+    <div class="relative aspect-[16/4.6] overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a255c] via-[#0c2d6e] to-[#12408f] shadow-lg ring-1 ring-black/10">
+      <div class="absolute top-3 left-3 rounded-full bg-white/12 px-3 py-1 text-[10px] font-semibold tracking-[.18em] text-[#bdeedd] uppercase ring-1 ring-white/20 sm:text-xs">Long-form recording</div>
+      <div class="absolute top-1/2 left-1/2 grid size-[clamp(34px,7vw,64px)] -translate-x-1/2 -translate-y-[62%] place-items-center rounded-full bg-white/90 text-[#0a255c] shadow-lg">
+        <svg viewBox="0 0 24 24" class="size-[45%] translate-x-[8%]" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" /></svg>
+      </div>
+      <!-- timeline with the moments that become clips -->
+      <div class="absolute right-[3%] bottom-[11%] left-[3%] h-[10%] min-h-[6px] rounded-full bg-white/20">
+        {moments.map((c) => (
+          <span class="absolute top-0 h-full w-[6%] -translate-x-1/2 rounded-full bg-[#29a37a] shadow-[0_0_14px_rgb(41_163_122/.7)]" style={`left:${c}%`} />
+        ))}
+      </div>
+    </div>
+
+    <!-- connectors from the highlighted moments down to each clip -->
+    <svg class="block h-[44px] w-full sm:h-[64px]" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      {moments.map((m, i) => (
+        <path
+          d={`M ${m * 10} 0 C ${m * 10} 55, ${clipCenters[i] * 10} 45, ${clipCenters[i] * 10} 100`}
+          fill="none"
+          stroke="#29a37a"
+          stroke-width="2"
+          stroke-dasharray="3 6"
+          stroke-linecap="round"
+          vector-effect="non-scaling-stroke"
+        />
+      ))}
+    </svg>
+
+    <!-- the short vertical clips -->
+    <div class="grid grid-cols-5">
+      {clips.map((c) => (
+        <div class="flex justify-center">
+          <div class={`relative aspect-[9/16] w-[82%] max-w-[112px] overflow-hidden rounded-xl bg-gradient-to-b ${c.tone} shadow-md ring-1 ring-black/10`}>
+            <span class="absolute top-[5%] left-[8%] rounded bg-black/45 px-1.5 py-px font-mono text-[9px] text-white sm:text-[11px]">{c.len}</span>
+            <!-- speaker silhouette -->
+            <span class="absolute top-[25%] left-1/2 aspect-square w-[30%] -translate-x-1/2 rounded-full bg-white/30" />
+            <span class="absolute top-[44%] left-1/2 h-[22%] w-[62%] -translate-x-1/2 rounded-t-full bg-white/25" />
+            <!-- branded caption bars: the highlighted one is the emphasised word -->
+            <span class="absolute bottom-[19%] left-[12%] h-[4.5%] w-[52%] rounded-full bg-white/85" />
+            <span class="absolute bottom-[12%] left-[12%] h-[4.5%] w-[30%] rounded-full bg-[#5ee0c0]" />
+            <span class="absolute bottom-[12%] left-[46%] h-[4.5%] w-[24%] rounded-full bg-white/60" />
+            <!-- progress -->
+            <span class="absolute right-[8%] bottom-[5%] left-[8%] h-[1.6%] rounded-full bg-white/25"><span class="block h-full w-[55%] rounded-full bg-white/85" /></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <figcaption class="mt-3 text-center text-xs text-muted">Hours of source footage in, up to 20 short clips a month out, each up to 60 seconds.</figcaption>
+</figure>
